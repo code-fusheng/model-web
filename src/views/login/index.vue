@@ -1,0 +1,104 @@
+<template>
+  <a-spin :spinning="spinning">
+    <a-form
+      v-if="smsLogin"
+      id="components-form-demo-normal-login"
+      :form="form"
+      class="login-form"
+      @submit="handleSubmit"
+    >
+      <a-form-item>
+        <a-input
+          v-decorator="[
+            'username',
+            { rules: [{ required: true, message: '请输入用户名/手机号!' }] },
+          ]"
+          size="large"
+          placeholder="用户名/手机号"
+        >
+          <a-icon slot="prefix" type="user" style="color: rgba(0,0,0,.25)" />
+        </a-input>
+      </a-form-item>
+      <a-form-item>
+        <a-input
+          v-decorator="[
+            'password',
+            { rules: [{ required: true, message: '请输入密码!' }] },
+          ]"
+          size="large"
+          type="password"
+          placeholder="密码"
+        >
+          <a-icon slot="prefix" type="lock" style="color: rgba(0,0,0,.25)" />
+        </a-input>
+      </a-form-item>
+      <a-form-item>
+        <a-checkbox
+          v-decorator="[
+            'remember',
+            {
+              valuePropName: 'checked',
+              initialValue: true
+            },
+          ]"
+        >
+          记住我
+        </a-checkbox>
+        <a class="login-form-forgot" target="_blank" href="/passwordReset">
+          忘记密码？
+        </a>
+        <a-button type="primary" html-type="submit" class="login-form-button">
+          登录
+        </a-button>
+      </a-form-item>
+    </a-form>
+    <sms-login v-else />
+    <a-divider>快速登录</a-divider>
+    <a-icon :style="{ fontSize: '40px', marginLeft:'46%' }" type="github" />
+  </a-spin>
+</template>
+
+<script>
+export default {
+  components: {
+  },
+  data() {
+    return {
+      smsLogin: true,
+      spinning: false
+    }
+  },
+  beforeCreate() {
+    this.form = this.$form.createForm(this, { name: 'normal_login' })
+  },
+  methods: {
+    handleFormLayoutChange(e) {
+      this.smsLogin = !this.smsLogin
+    },
+    handleSubmit(e) {
+      e.preventDefault()
+      this.form.validateFields((err, values) => {
+        if (!err) {
+          this.spinning = true
+          this.$store.dispatch('user/login', values).then(() => {
+            this.$router.go(0)
+          }).catch(() => {
+            this.spinning = false
+          })
+        }
+      })
+    }
+  }
+}
+</script>
+<style>
+  #components-form-demo-normal-login .login-form {
+    max-width: 500px;
+  }
+  #components-form-demo-normal-login .login-form-forgot {
+    float: right;
+  }
+  #components-form-demo-normal-login .login-form-button {
+    width: 100%;
+  }
+</style>
