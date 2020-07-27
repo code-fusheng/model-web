@@ -1,5 +1,5 @@
 <template>
   <div>
-    关于
+    注册
   </div>
 </template>

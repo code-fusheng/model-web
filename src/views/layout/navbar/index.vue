@@ -42,9 +42,8 @@
         <a-divider type="vertical" />
         <login-box />
       </span>
-      <a-modal v-model="visible" title="登录" :footer="null">
-        <login />Or
-        <a href="/register">去注册</a>
+      <a-modal v-model="visible" :footer="null">
+        <login />
       </a-modal>
       <!-- 用户头像信息 -->
       <a-dropdown placement="bottomCenter" class="user-dropdown">
@@ -73,7 +72,7 @@
   </div>
 </template>
 <script>
-import Login from '@/views/login/index'
+import Login from '@/views/user/login/index'
 export default {
   components: {
     Login

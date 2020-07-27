@@ -23,21 +23,21 @@ export default {
     Navbar,
     Bottom
   },
-  data () {
+  data() {
     return {
       current: ['mail'],
       locale: zhCN,
       show: true
     }
   },
-  created () {
+  created() {
     this.mouseScroll()
   },
-  mounted () {
+  mounted() {
     this.initLive2d()
   },
   methods: {
-    mouseScroll () {
+    mouseScroll() {
       // 给页面绑定滑轮滚动事件
       if (document.addEventListener) { // firefox
         document.addEventListener('DOMMouseScroll', this.watchScroll, false)
@@ -45,7 +45,7 @@ export default {
       // 滚动滑轮触发scrollFunc方法  //ie 谷歌
       window.onmousewheel = document.onmousewheel = this.watchScroll
     },
-    initLive2d () {
+    initLive2d() {
       setTimeout(() => {
         window.L2Dwidget.init({
           pluginRootPath: 'live2dw/',
@@ -60,7 +60,7 @@ export default {
         })
       }, 1000)
     },
-    watchScroll (e) {
+    watchScroll(e) {
       e = e || window.event
       if (e.wheelDelta) {
         if (e.wheelDelta > 0 && this.show === false) {
