@@ -8,23 +8,25 @@
       <a-menu v-model="current" mode="horizontal">
         <a-menu-item key="index">
           <router-link to="/">
-            <a-icon type="mail" />首页
+            <a-icon type="home" />首页
           </router-link>
         </a-menu-item>
         <a-menu-item key="article">
           <router-link to="/article">
-            <a-icon type="mail" />文章
+            <a-icon type="book" />文章
           </router-link>
         </a-menu-item>
         <a-menu-item key="about">
           <router-link to="/about">
-            <a-icon type="mail" />关于
+            <a-icon type="question-circle" />关于
           </router-link>
         </a-menu-item>
       </a-menu>
       <a-input-search placeholder="在这里能搜到奇怪的东西" style="width: 200px" />
       <a-divider type="vertical" />
-      <a v-if="!isLogin" id="loginR" @click="showModal">登录</a>
+      <!-- 登录注册框 -->
+      <a-divider v-if="!isLogin" type="vertical" />
+      <a v-if="!isLogin" @click="showModal">登录</a>
       <a-divider v-if="!isLogin" type="vertical" />
       <a v-if="!isLogin" href="/register">注册</a>
       <span v-else>
@@ -46,24 +48,27 @@
         <login />
       </a-modal>
       <!-- 用户头像信息 -->
-      <a-dropdown placement="bottomCenter" class="user-dropdown">
-        <a-avatar
-          shape="square"
-          :src="userIcon"
-          style="margin-bottom:5px;color: #f56a00; backgroundColor: #fde3cf"
-        />
-        <a-menu slot="overlay" :style="{marginTop:'5px'}">
-          <a-menu-item>
-            <a href="/userInfo">个人主页</a>
-          </a-menu-item>
-          <a-menu-item>
-            <a href="/profile">账号管理</a>
-          </a-menu-item>
-          <a-menu-item>
-            <a @click="logout">退出登录</a>
-          </a-menu-item>
-        </a-menu>
-      </a-dropdown>
+      <div v-if="isLogin">
+        <a-dropdown placement="bottomCenter" class="user-dropdown">
+          <a-avatar
+            shape="square"
+            :src="this.$store.getters.header"
+            style="margin-bottom:5px;color: #f56a00; backgroundColor: #fde3cf"
+          />
+          <a-menu slot="overlay" :style="{marginTop:'5px'}">
+            <a-menu-item>
+              <a href="/userInfo">个人主页</a>
+            </a-menu-item>
+            <a-menu-item>
+              <a href="/profile">账号管理</a>
+            </a-menu-item>
+            <a-menu-item>
+              <a @click="logout">退出登录</a>
+            </a-menu-item>
+          </a-menu>
+        </a-dropdown>
+      </div>
+
     </div>
     <!-- 登录注册组件 -->
     <!-- <a-model :v-model="visible" title="登录" :footer="null">
@@ -81,15 +86,21 @@ export default {
     return {
       current: ['index'],
       visible: false,
-      isLogin: false,
+      isLogin: this.$store.getters.token !== undefined,
       userName: '',
-      userIcon: '',
+      userIcon: this.$store.getters.header,
       messageCount: 0 // 消息计数
     }
   },
   methods: {
     showModal() {
       this.visible = true
+    },
+    logout(e) {
+      e.preventDefault()
+      this.$store.dispatch('user/logout').then(() => {
+        location.assign('/')
+      })
     }
   }
 }

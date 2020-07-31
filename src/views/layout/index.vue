@@ -25,7 +25,6 @@ export default {
   },
   data() {
     return {
-      current: ['mail'],
       locale: zhCN,
       show: true
     }
@@ -109,7 +108,7 @@ export default {
   top: 0;
   z-index: 999;
   width: 100%;
-  height: 70px;
+  height: 60px;
 }
 
 /* 可以设置不同的进入和离开动画 */

@@ -2,9 +2,10 @@ import axios from 'axios'
 import { getToken } from '@/utils/auth'
 import { message } from 'ant-design-vue'
 import store from '@/store'
+
 const service = axios.create({
   baseURL: process.env.VUE_APP_BASE_API,
-  timeout: 5000 // request timeout
+  timeout: 10000 // request timeout
 })
 
 // request interceptor

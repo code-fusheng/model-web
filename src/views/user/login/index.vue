@@ -95,12 +95,12 @@
 <script>
 import userApi from '@/api/user/user'
 // import md5 from 'js-md5'
-import { setToken } from '@/utils/auth'
 export default {
   data() {
     return {
       current: ['login'],
       login: true,
+      spinning: false,
       loginForm: this.$form.createForm(this),
       registerForm: this.$form.createForm(this),
       register: false
@@ -122,12 +122,14 @@ export default {
       e.preventDefault()
       // eslint-disable-next-line handle-callback-err
       this.loginForm.validateFields((err, values) => {
-        userApi.login(values).then(res => {
-          this.$message.info(res.msg)
-          this.$store.commit('SET_USER', res.data.user)
-          setToken(res.data.token)
-          this.$router.push('/')
-        })
+        if (!err) {
+          this.spinning = true
+          this.$store.dispatch('user/login', values).then(() => {
+            this.$router.go(0)
+          }).catch(() => {
+            this.spinning = false
+          })
+        }
       })
     },
     registerSubmit(e) {
