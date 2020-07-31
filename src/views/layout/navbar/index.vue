@@ -16,6 +16,11 @@
             <a-icon type="book" />文章
           </router-link>
         </a-menu-item>
+        <a-menu-item key="tools">
+          <router-link to="/tools">
+            <a-icon type="tool" />工具
+          </router-link>
+        </a-menu-item>
         <a-menu-item key="about">
           <router-link to="/about">
             <a-icon type="question-circle" />关于
@@ -42,7 +47,6 @@
           </a>
         </a-badge>
         <a-divider type="vertical" />
-        <login-box />
       </span>
       <a-modal v-model="visible" :footer="null">
         <login />
@@ -68,12 +72,7 @@
           </a-menu>
         </a-dropdown>
       </div>
-
     </div>
-    <!-- 登录注册组件 -->
-    <!-- <a-model :v-model="visible" title="登录" :footer="null">
-      <login />
-    </a-model> -->
   </div>
 </template>
 <script>

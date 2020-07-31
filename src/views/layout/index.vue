@@ -5,9 +5,9 @@
     </transition>
     <div class="main-container">
       <div class="center-container">
-        <a-locale-provider :locale="locale">
+        <a-config-provider :locale="locale">
           <router-view />
-        </a-locale-provider>
+        </a-config-provider>
       </div>
     </div>
     <bottom />
@@ -84,9 +84,12 @@ export default {
   }
 }
 </script>
-<style>
+<style scoped>
 .main {
   background-color: #f5f5f5;
+  width: 100%;
+  height: 100%;
+  margin: 0 auto;
 }
 .main-container {
   min-width: 1280px;
@@ -97,10 +100,10 @@ export default {
 
 .center-container {
   margin: auto;
-  width: 80%;
+  width: 95%;
   min-height: 1200px;
   padding: 0 10px;
-  border: solid 1px blue;
+  /* border: solid 1px blue; */
 }
 
 .menu-container {

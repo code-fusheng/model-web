@@ -1,94 +1,100 @@
 <template>
   <div class="login-background">
-    <div class="login-container">
-      <div class="login-title">欢迎进入</div>
-      <a-menu v-model="current" mode="horizontal" @select="changeTab">
-        <a-menu-item key="login">登录</a-menu-item>
-        <a-menu-item key="register">注册</a-menu-item>
-      </a-menu>
-      <div class="content">
-        <div v-show="login" class="login">
-          <a-form :form="loginForm" @submit="loginSubmit">
-            <a-form-item>
-              <a-input
-                v-decorator="[
-                  'username',
-                  { rules: [{ required: true, message: '请输入账号!' }] }
-                ]"
-                placeholder="请输入账号"
-              />
-            </a-form-item>
-            <a-form-item>
-              <a-input
-                v-decorator="[
-                  'password',
-                  { rules: [{ required: true, message: '请输入密码!' }] }
-                ]"
-                placeholder="请输入密码"
-                type="password"
-              />
-            </a-form-item>
-            <a-form-item>
-              <a-button type="primary" html-type="submit" block>登录</a-button>
-            </a-form-item>
-          </a-form>
-        </div>
-        <div v-show="register" class="register">
-          <a-form :form="registerForm" @submit="registerSubmit">
-            <a-form-item>
-              <a-input
-                v-decorator="[
-                  'username',
-                  { rules: [{ required: true, message: '请输入账号!' }] }
-                ]"
-                placeholder="请输入账号"
-              />
-            </a-form-item>
-            <a-form-item>
-              <a-input
-                v-decorator="[
-                  'password',
-                  { rules: [{ required: true, message: '请输入密码!' }] }
-                ]"
-                placeholder="请输入密码"
-                type="password"
-              />
-            </a-form-item>
-            <a-form-item>
-              <a-input
-                v-decorator="[
-                  'nickname',
-                  { rules: [{ required: true, message: '请输入昵称!' }] }
-                ]"
-                placeholder="请输入昵称"
-              />
-            </a-form-item>
-            <a-form-item>
-              <a-input
-                v-decorator="[
-                  'userEmail',
-                  { rules: [{ required: true, message: '请输入邮箱!' }] }
-                ]"
-                placeholder="请输入邮箱"
-              />
-            </a-form-item>
-            <a-form-item>
-              <a-radio-group v-decorator="['sex']">
-                <a-radio value="1">
-                  男
-                </a-radio>
-                <a-radio value="2">
-                  女
-                </a-radio>
-              </a-radio-group>
-            </a-form-item>
-            <a-form-item>
-              <a-button type="primary" html-type="submit" block>注册</a-button>
-            </a-form-item>
-          </a-form>
+    <a-spin :spinning="spinning">
+      <div class="login-container">
+        <div class="login-title">欢迎进入</div>
+        <a-menu v-model="current" mode="horizontal" @select="changeTab">
+          <a-menu-item key="login">登录</a-menu-item>
+          <a-menu-item key="register">注册</a-menu-item>
+        </a-menu>
+        <div class="content">
+          <div v-show="login" class="login">
+            <a-form :form="loginForm" @submit="loginSubmit">
+              <a-form-item>
+                <a-input
+                  v-decorator="[
+                    'username',
+                    { rules: [{ required: true, message: '请输入账号!' }] }
+                  ]"
+                  placeholder="请输入账号"
+                >
+                  <a-icon slot="prefix" type="user" style="color: rgba(0,0,0,.25)" />
+                </a-input>
+              </a-form-item>
+              <a-form-item>
+                <a-input
+                  v-decorator="[
+                    'password',
+                    { rules: [{ required: true, message: '请输入密码!' }] }
+                  ]"
+                  placeholder="请输入密码"
+                  type="password"
+                >
+                  <a-icon slot="prefix" type="lock" style="color: rgba(0,0,0,.25)" />
+                </a-input>
+              </a-form-item>
+              <a-form-item>
+                <a-button type="primary" html-type="submit" block>登录</a-button>
+              </a-form-item>
+            </a-form>
+          </div>
+          <div v-show="register" class="register">
+            <a-form :form="registerForm" @submit="registerSubmit">
+              <a-form-item>
+                <a-input
+                  v-decorator="[
+                    'username',
+                    { rules: [{ required: true, message: '请输入账号!' }] }
+                  ]"
+                  placeholder="请输入账号"
+                />
+              </a-form-item>
+              <a-form-item>
+                <a-input
+                  v-decorator="[
+                    'password',
+                    { rules: [{ required: true, message: '请输入密码!' }] }
+                  ]"
+                  placeholder="请输入密码"
+                  type="password"
+                />
+              </a-form-item>
+              <a-form-item>
+                <a-input
+                  v-decorator="[
+                    'nickname',
+                    { rules: [{ required: true, message: '请输入昵称!' }] }
+                  ]"
+                  placeholder="请输入昵称"
+                />
+              </a-form-item>
+              <a-form-item>
+                <a-input
+                  v-decorator="[
+                    'userEmail',
+                    { rules: [{ required: true, message: '请输入邮箱!' }] }
+                  ]"
+                  placeholder="请输入邮箱"
+                />
+              </a-form-item>
+              <a-form-item>
+                <a-radio-group v-decorator="['sex']">
+                  <a-radio value="1">
+                    男
+                  </a-radio>
+                  <a-radio value="2">
+                    女
+                  </a-radio>
+                </a-radio-group>
+              </a-form-item>
+              <a-form-item>
+                <a-button type="primary" html-type="submit" block>注册</a-button>
+              </a-form-item>
+            </a-form>
+          </div>
         </div>
       </div>
-    </div>
+    </a-spin>
   </div>
 </template>
 
