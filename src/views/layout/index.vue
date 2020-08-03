@@ -15,6 +15,7 @@
   </div>
 </template>
 <script>
+import categoryApi from '@/api/article/category'
 import zhCN from 'ant-design-vue/lib/locale-provider/zh_CN'
 import Navbar from '@/views/layout/navbar/index'
 import Bottom from '@/views/layout/bottom/index'
@@ -31,6 +32,9 @@ export default {
   },
   created() {
     this.mouseScroll()
+    categoryApi.getList().then(res => {
+      this.$store.commit('global/SET_CATEGORY', res.data)
+    })
   },
   mounted() {
     this.initLive2d()
@@ -38,11 +42,11 @@ export default {
   methods: {
     mouseScroll() {
       // 给页面绑定滑轮滚动事件
-      if (document.addEventListener) { // firefox
-        document.addEventListener('DOMMouseScroll', this.watchScroll, false)
-      }
+      // if (document.addEventListener) { // firefox
+      //   document.addEventListener('DOMMouseScroll', this.watchScroll, false)
+      // }
       // 滚动滑轮触发scrollFunc方法  //ie 谷歌
-      window.onmousewheel = document.onmousewheel = this.watchScroll
+      // window.onmousewheel = document.onmousewheel = this.watchScroll
     },
     initLive2d() {
       setTimeout(() => {

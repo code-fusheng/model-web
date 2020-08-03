@@ -1,3 +1,4 @@
+// 全局变量设置
 const state = {
   categoryList: [] // 分类列表
 }
@@ -8,9 +9,14 @@ const mutations = {
   }
 }
 
+const actions = {
+
+}
+
 export default {
   namespaced: true,
   state,
-  mutations
+  mutations,
+  actions
 }
 

@@ -5,8 +5,8 @@
       <span class="logo-text">个人论坛 | code-fusheng</span>
     </div>
     <div class="nav-menu-search">
-      <a-menu v-model="current" mode="horizontal">
-        <a-menu-item key="index">
+      <a-menu v-model="current" :selected-keys="[$route.path]" mode="horizontal">
+        <a-menu-item key="home">
           <router-link to="/">
             <a-icon type="home" />首页
           </router-link>
@@ -83,7 +83,7 @@ export default {
   },
   data() {
     return {
-      current: ['index'],
+      current: [this.$route.path],
       visible: false,
       isLogin: this.$store.getters.token !== undefined,
       userName: '',

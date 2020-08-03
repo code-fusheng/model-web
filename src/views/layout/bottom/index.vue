@@ -12,7 +12,8 @@
   flex-direction: row;
   justify-content: space-around;
   color: #2db7f5;
+  background-color: black;
   font-size: 12px;
-  line-height: 150px;
+  line-height: 60px;
 }
 </style>

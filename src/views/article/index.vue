@@ -10,6 +10,10 @@
     </div>
     <!-- 右侧容器 - 放推荐与广告 -->
     <div class="right-container">
+      <router-link to="/create">
+        <a-button type="primary" class="write-article" style="width: 100%"><a-icon type="edit" />创作中心</a-button>
+      </router-link>
+
       <recomList />
     </div>
   </div>
@@ -24,6 +28,13 @@ export default {
     CategoryList,
     ArticleList,
     RecomList
+  },
+  methods: {
+    toCreate() {
+      this.$router.push({
+        path: '/create/index'
+      })
+    }
   }
 }
 </script>
@@ -38,9 +49,9 @@ export default {
     max-width: 1312px;
     /* 左右自适应 */
     margin: auto;
-    margin-top: 10px;
-    margin-bottom: 20px;
-    border: 1px solid red;
+    /* margin-top: 10px; */
+    /* margin-bottom: 20px; */
+    /* border: 1px solid red; */
     /* background-color: white; */
   }
   .left-container {

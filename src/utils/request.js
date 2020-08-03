@@ -5,7 +5,7 @@ import store from '@/store'
 
 const service = axios.create({
   baseURL: process.env.VUE_APP_BASE_API,
-  timeout: 10000 // request timeout
+  timeout: 15000 // request timeout
 })
 
 // request interceptor
