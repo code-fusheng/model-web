@@ -1,24 +1,13 @@
-# model-web
+# model-web 个人论坛 | code-fusheng
 
-## Project setup
-```
-npm install
-```
+> @Author : code-fusheng</br>
+> @Time : 2020/7/26 ~ Now
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+## 开发记录
 
-### Compiles and minifies for production
-```
-npm run build
-```
+* @Data: 2020/07/27 前台开发基础框架构建-添加了部分文件，修改了部分登录相关内容
+* @Data: 2020/07/31 前台开发首页登录交互逻辑，文章分类设计+完善登录
+* @Data: 2020/08/03 文章模块初步实现了文章的发表功能，提供了创作中心，存在个别错误（文章发表异常，路由激活异常，滚动条样式异常）
+* @Data: 2020/08/07 8:00 --- 10:19 code-fusheng 文章模块 解决了在发表文章时，选择分类不会自动配置对应文章类型封面的问题
 
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+## 项目模块

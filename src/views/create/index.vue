@@ -25,7 +25,7 @@
     <el-dialog width="50%" title="创作文章" :visible.sync="addDialog">
       <el-form ref="addForm" :model="article" label-width="40px" size="mini">
         <el-form-item label="分类">
-          <el-select v-model="article.articleCategory" clearable filterable placeholder="请选择" style="width: 40%" @change="autoSetImage">
+          <el-select v-model="article.articleCategory" clearable filterable placeholder="请选择" style="width: 40%" @change="autoSetImage(article.articleCategory)">
             <el-option
               v-for="category in categoryList"
               :key="category.categoryId"
@@ -62,6 +62,7 @@
 <script>
 import '@/config/mavon-editor.js'
 import articleApi from '@/api/article/article'
+import categoryApi from '@/api/article/category'
 import Tinymce from '@/views/common/Tinymce/index'
 import { getToken } from '@/utils/auth'
 export default {
@@ -109,10 +110,12 @@ export default {
         this.editorModeName = 'MarkDown'
       }
     },
+    // 文章创作时，选择分类会自动填充对应分类的文章封面
     autoSetImage(val) {
       console.log(val)
-
-      this.headers = val.categoryImage
+      categoryApi.getById(val).then(res => {
+        this.imageUrl = res.data.categoryImage
+      })
     },
     openAddDialog() {
       if (this.article.articleTitle === '') {
