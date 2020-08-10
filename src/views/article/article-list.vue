@@ -12,7 +12,7 @@
       <div class="scree-menu">
         <a-menu v-model="current" mode="horizontal" @click="changeSort">
           <a-menu-item key="createdTime">最新</a-menu-item>
-          <a-menu-item key="gooCount">点赞最多</a-menu-item>
+          <a-menu-item key="goodCount">点赞最多</a-menu-item>
           <a-menu-item key="commentCount">评论最多</a-menu-item>
           <a-menu-item key="readCount">阅读最多</a-menu-item>
           <a-menu-item key="collectionCount">收藏最多</a-menu-item>
@@ -159,6 +159,17 @@ export default {
 
 <style scoped>
 
+/* 滚动条的宽度 */
+::-webkit-scrollbar {
+    width: 0px;
+    height: 5px;
+}
+/* 滚动条滑块样式 */
+::-webkit-scrollbar-thumb {
+    border-radius: 5px;
+    background-color: rgb(154, 158, 155);
+}
+
   .scree-container {
     width: 850px;
     display: flex;
@@ -290,7 +301,6 @@ export default {
     color: red;
   }
   .meta-active:hover {
-    /* 标识当前是否已点赞，是否已收藏 */
     color: red !important;
   }
 

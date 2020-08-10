@@ -1,6 +1,6 @@
 <template>
   <div class="category-container">
-    <a-spin :spinning="loading">
+    <a-spin :spinning="loading" :style="{height: '800px'}">
       <!-- 分类列表 -->
       <ul class="category-list">
         <li><div href="#" class="category-tag top-category-tag" @click="revocer">分类</div></li>

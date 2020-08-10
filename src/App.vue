@@ -3,6 +3,22 @@
     <router-view />
   </div>
 </template>
+
+<script>
+export default {
+  data() {
+    return {
+      key: ''
+    }
+  }
+  // watch: {
+  //   'this.$route.path': function() {
+  //     this.key = this.$route.path + Math.random()
+  //   }
+  // }
+}
+</script>
+
 <style>
 img {
     margin: auto;

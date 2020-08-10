@@ -21,6 +21,16 @@ const routes = [
         component: () => import('@/views/article/index')
       },
       {
+        path: '/articleRead/:id',
+        name: 'ArticleRead',
+        component: () => import('@/views/article/article-read')
+      },
+      {
+        path: '/articleEdit/:id',
+        name: 'ArticleEdit',
+        component: () => import('@/views/article/article-edit')
+      },
+      {
         path: '/tools',
         name: 'Tools',
         component: () => import('@/views/tools/index')

@@ -100,6 +100,7 @@ export default {
   margin: auto;
   display: flex;
   flex-direction: row;
+  border: 1px green solid;
 }
 
 .center-container {
@@ -107,7 +108,7 @@ export default {
   width: 95%;
   min-height: 1200px;
   padding: 0 10px;
-  /* border: solid 1px blue; */
+  border: solid 1px blue;
 }
 
 .menu-container {

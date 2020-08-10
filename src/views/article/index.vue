@@ -13,7 +13,6 @@
       <router-link to="/create">
         <a-button type="primary" class="write-article" style="width: 100%"><a-icon type="edit" />创作中心</a-button>
       </router-link>
-
       <recomList />
     </div>
   </div>
@@ -51,7 +50,7 @@ export default {
     margin: auto;
     /* margin-top: 10px; */
     /* margin-bottom: 20px; */
-    /* border: 1px solid red; */
+    border: 1px solid red;
     /* background-color: white; */
   }
   .left-container {
@@ -72,7 +71,7 @@ export default {
     background-color: white;
   }
   .right-container  {
-    width: 350px;
+    width: 348px;
     height: 1333px;
     /* border: 1px solid #9c9ea8; */
     background-color: white;

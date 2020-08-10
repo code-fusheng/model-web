@@ -5,23 +5,23 @@
       <span class="logo-text">个人论坛 | code-fusheng</span>
     </div>
     <div class="nav-menu-search">
-      <a-menu v-model="current" mode="horizontal">
-        <a-menu-item key="index">
+      <a-menu :default-selected-keys="[$route.path]" mode="horizontal">
+        <a-menu-item key="/index">
           <router-link to="/">
             <a-icon type="home" />首页
           </router-link>
         </a-menu-item>
-        <a-menu-item key="article">
+        <a-menu-item key="/article">
           <router-link to="/article">
             <a-icon type="book" />文章
           </router-link>
         </a-menu-item>
-        <a-menu-item key="tools">
+        <a-menu-item key="/tools">
           <router-link to="/tools">
             <a-icon type="tool" />工具
           </router-link>
         </a-menu-item>
-        <a-menu-item key="about">
+        <a-menu-item key="/about">
           <router-link to="/about">
             <a-icon type="question-circle" />关于
           </router-link>
@@ -83,13 +83,20 @@ export default {
   },
   data() {
     return {
-      current: ['index'],
       visible: false,
       isLogin: this.$store.getters.token !== undefined,
       userName: '',
       userIcon: this.$store.getters.header,
       messageCount: 0 // 消息计数
     }
+  },
+  watch: {
+    'this.$route.path': function() {
+      console.log(this.$route.path)
+    }
+  },
+  created() {
+    console.log(this.$route.path)
   },
   methods: {
     showModal() {
@@ -114,6 +121,7 @@ export default {
     line-height: 60px;
     background-color: rgb(255, 255, 255);
     margin-bottom: 10px;
+    border: 1px red solid;
 }
 
 .nav-logo {
@@ -129,6 +137,26 @@ export default {
 }
 
 .logo-text {
+    line-height: 40px;
+    font-size: 24px;
+    color: white;
+    font-family: 'Courier New', Courier, monospace;
+    background-image: -webkit-linear-gradient(left,blue,#66ffff 10%,#cc00ff 20%,#CC00CC 30%, #CCCCFF 40%, #00FFFF 50%,#CCCCFF 60%,#CC00CC 70%,#CC00FF 80%,#66FFFF 90%,blue 100%);
+    -webkit-text-fill-color: transparent;/* 将字体设置成透明色 */
+    -webkit-background-clip: text;/* 裁剪背景图，使文字作为裁剪区域向外裁剪 */
+    -webkit-background-size: 200% 100%;
+    -webkit-animation: masked-animation 4s linear infinite;
+  }
+  @keyframes masked-animation {
+    0% {
+        background-position: 0  0;
+    }
+    100% {
+        background-position: -100%  0;
+    }
+  }
+
+.logo-text {
     font-size: 24px;
 }
 
@@ -136,7 +164,7 @@ export default {
     display: flex;
     flex-direction: row;
     align-items: center;
-    margin-right: 40px;
+    margin-right: 10px;
 }
 
 .ant-menu {

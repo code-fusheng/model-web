@@ -82,6 +82,7 @@ export default {
         articleTitle: '',
         articleContent: '',
         articleCategory: '',
+        articleImage: '',
         editModel: ''
       },
       markdownContent: '',
@@ -115,6 +116,7 @@ export default {
       console.log(val)
       categoryApi.getById(val).then(res => {
         this.imageUrl = res.data.categoryImage
+        this.article.articleImage = this.imageUrl
       })
     },
     openAddDialog() {
