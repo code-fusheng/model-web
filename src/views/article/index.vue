@@ -45,7 +45,7 @@ export default {
     flex-direction: row;
     max-height: 1600px;
     /* width: 90%; */
-    max-width: 1312px;
+    max-width: 1334px;
     /* 左右自适应 */
     margin: auto;
     /* margin-top: 10px; */
@@ -54,7 +54,7 @@ export default {
     /* background-color: white; */
   }
   .left-container {
-    width: 100px;
+    width: 8%;
     height: 1333px;
     margin-right: 3px;
     background-color: white;
@@ -62,7 +62,7 @@ export default {
     flex-direction: column;
   }
   .center-container {
-    width: 850px;
+    width: 65%;
     /* border: 1px solid #9c9ea8; */
     /* background-color: blue; */
     /* 上 右 下 左 */
@@ -71,7 +71,7 @@ export default {
     background-color: white;
   }
   .right-container  {
-    width: 348px;
+    width: 26%;
     height: 1333px;
     /* border: 1px solid #9c9ea8; */
     background-color: white;
