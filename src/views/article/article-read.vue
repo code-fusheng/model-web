@@ -37,13 +37,21 @@
           </div>
         </a-spin>
       </div>
+      <!-- 底部区域，放置评论 -->
+      <div class="buttom-container">
+        <commentList :article="article" />
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 import articleApi from '@/api/article/article'
+import CommentList from '@/views/article/comment-list'
 export default {
+  components: {
+    CommentList
+  },
   data() {
     return {
       article: {
@@ -165,88 +173,6 @@ export default {
     margin: auto;
     justify-content: space-evenly;
     font-size: 24px;
-  }
-  .do-comment-container {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    min-height: 200px;
-    /* border: 1px solid blueviolet; */
-    margin-top: 5px;
-  }
-  .user-comment {
-    background-color: #fff;
-  }
-  .comment-top {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    justify-content: space-between;
-  }
-  .comment-button {
-    margin: 15px;
-    display: flex;
-    flex-direction: row-reverse;
-    align-items: center;
-  }
-  .content-count {
-    margin-right: 15px;
-  }
-  .ant-divider-horizontal {
-    margin: 2px 0 5px 0 !important;
-  }
-  .scree-container {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    line-height: 50px;
-    background-color:white;
-    border: 1px solid #e8e8e8;
-  }
-  .comment-list-container {
-    display: flex;
-    flex-direction: column;
-    padding: 10px 10px;
-    background-color: #fff;
-  }
-  .comment-show {
-    background-color: #fff !important;
-  }
-  .comment-main {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-  }
-  .comment-container {
-    width: 530px;
-    display: flex;
-    flex-direction: column;
-    margin-left: 10px;
-  }
-  .comment-user {
-    font-weight: bold;
-  }
-  .comment-time {
-    font-size: 12px;
-    color: #9c9ea8;
-  }
-  .comment-good {
-    width: 60px;
-  }
-  .comment-comment {
-    width: 120px;
-  }
-  .author-img {
-    width: 60px;
-    height: 60px;
-    border: 5px solid #e5e5e5;
-    border-radius: 50%;
-    margin-top: 5px;
-  }
-  .comment-pagination {
-    margin-top: 5px;
-    margin-bottom: 5px;
   }
   .meta-active {
     /* 标识当前是否已点赞，是否已收藏 */

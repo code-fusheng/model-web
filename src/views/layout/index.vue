@@ -19,6 +19,7 @@ import categoryApi from '@/api/article/category'
 import zhCN from 'ant-design-vue/lib/locale-provider/zh_CN'
 import Navbar from '@/views/layout/navbar/index'
 import Bottom from '@/views/layout/bottom/index'
+import { getToken } from '@/utils/auth'
 export default {
   components: {
     Navbar,
@@ -27,7 +28,8 @@ export default {
   data() {
     return {
       locale: zhCN,
-      show: true
+      show: true,
+      Authorization: getToken()
     }
   },
   created() {
@@ -49,19 +51,21 @@ export default {
       // window.onmousewheel = document.onmousewheel = this.watchScroll
     },
     initLive2d() {
-      setTimeout(() => {
-        window.L2Dwidget.init({
-          pluginRootPath: 'live2dw/',
-          pluginJsPath: 'lib/',
-          pluginModelPath: 'live2d-widget-model-shizuku/assets/',
-          tagMode: false,
-          debug: false,
-          model: { jsonPath: '../live2dw/live2d-widget-model-shizuku/assets/shizuku.model.json' },
-          display: { position: 'left', width: 240, height: 480 },
-          mobile: { show: true },
-          log: false
-        })
-      }, 1000)
+      if (this.Authorization != null) {
+        setTimeout(() => {
+          window.L2Dwidget.init({
+            pluginRootPath: 'live2dw/',
+            pluginJsPath: 'lib/',
+            pluginModelPath: 'live2d-widget-model-shizuku/assets/',
+            tagMode: false,
+            debug: false,
+            model: { jsonPath: '../live2dw/live2d-widget-model-shizuku/assets/shizuku.model.json' },
+            display: { position: 'left', width: 240, height: 480 },
+            mobile: { show: true },
+            log: false
+          })
+        }, 1000)
+      }
     },
     watchScroll(e) {
       e = e || window.event
@@ -90,45 +94,44 @@ export default {
 </script>
 <style scoped>
 .main {
-  background-color: #f5f5f5;
-  width: 100%;
-  height: 100%;
-  margin: 0 auto;
+    background-color: #f5f5f5;
+    width: 100%;
+    height: 100%;
+    margin: 0 auto;
 }
 .main-container {
-  min-width: 1280px;
-  margin: auto;
-  display: flex;
-  flex-direction: row;
-  border: 1px green solid;
+    min-width: 1280px;
+    margin: auto;
+    display: flex;
+    flex-direction: row;
+    border: 1px green solid;
 }
 
 .center-container {
-  margin: auto;
-  width: 95%;
-  min-height: 1200px;
-  padding: 0 10px;
-  border: solid 1px blue;
+    margin: auto;
+    width: 95%;
+    min-height: 1200px;
+    padding: 0 10px;
+    border: solid 1px blue;
 }
 
 .menu-container {
-  position: sticky;
-  top: 0;
-  z-index: 999;
-  width: 100%;
-  height: 60px;
+    position: sticky;
+    top: 0;
+    z-index: 999;
+    width: 100%;
+    height: 60px;
 }
 
 /* 可以设置不同的进入和离开动画 */
 /* 设置持续时间和动画函数 */
 .menu-enter-active,
 .menu-leave-active {
-  transition: all .8s ease;
+    transition: all 0.8s ease;
 }
 .menu-enter, .menu-leave-to
 /* .menu-leave-active for below version 2.1.8 */ {
-  transform: translateY(-70px);
-  opacity: 0;
+    transform: translateY(-70px);
+    opacity: 0;
 }
-
 </style>
