@@ -57,11 +57,11 @@
         </div>
       </a-spin>
     </div>
-    <a-button v-if="page.list.length < page.totalCount && page.list.length !== 0 && noMore !== true" style="width: 100%" :loading="loadingMore" @click="loadMore()">
-      加载更多
-    </a-button>
-    <a-button v-else-if="page.list.length != 0" style="width: 100%" :loading="loadingMore">
+    <a-button v-if="page.list.length != 0 && page.list.length === page.totalCount" style="width: 100%" :loading="loadingMore">
       到底了
+    </a-button>
+    <a-button v-else-if="page.list.length < page.totalCount && page.list.length != 0 && noMore != true" style="width: 100%" :loading="loadingMore" @click="loadMore()">
+      加载更多
     </a-button>
   </div>
 </template>
@@ -96,6 +96,7 @@ export default {
   },
   watch: {
     category: function() {
+      this.noMore = false
       this.page.currentPage = 1
       this.page.params.articleCategory = this.category.categoryId
       this.getByPage(this.page)
@@ -114,6 +115,7 @@ export default {
         this.page = res.data
         this.loading = false
       })
+      console.log(this.noMore)
     },
     scrollLoadMore(e) {
       // !this.moreLoading 没有在加载状态，触发加载更多时，把this.moreLoading置未true
@@ -138,8 +140,6 @@ export default {
           })
           this.loadingMore = false
         })
-      } else {
-        this.$message.warning('当前是最后一页了!')
       }
     },
     // 条件排序 e 和 val 都行

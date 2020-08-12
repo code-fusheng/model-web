@@ -187,10 +187,10 @@ export default {
         this.comment.commentParentUser = null
         commentApi.save(this.comment).then(res => {
           this.commentCommentPage = false
+          this.articleCommentContent = ''
+          this.commentLoading = false
           this.getArticleCommentList()
           this.$message.success(res.msg)
-          this.saveArticleComment = ''
-          this.commentLoading = false
         })
       }
     },

@@ -195,6 +195,7 @@ export default {
         width: 100%;
         height: 59px;
         background-color: #ffffff;
+        margin-bottom: 5px;
     }
     .editor-input-title {
         height: 100%;

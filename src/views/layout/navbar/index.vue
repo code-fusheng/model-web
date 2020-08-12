@@ -27,13 +27,14 @@
           </router-link>
         </a-menu-item>
       </a-menu>
-      <a-input-search placeholder="在这里能搜到奇怪的东西" style="width: 200px" />
+      <a-input-search v-model="content" placeholder="搜索中心" style="width: 200px" @search="toSearch(content)" />
+      <!-- <a-input-search v-model="content" placeholder="在这里能搜到奇怪的东西" style="width: 200px" @click="toSearch()" /> -->
       <a-divider type="vertical" />
       <!-- 登录注册框 -->
       <a-divider v-if="!isLogin" type="vertical" />
-      <a v-if="!isLogin" @click="showModal">登录</a>
+      <a v-if="!isLogin" id="loginButton" @click="showLoginModal()">登录</a>
       <a-divider v-if="!isLogin" type="vertical" />
-      <a v-if="!isLogin" href="/register">注册</a>
+      <a v-if="!isLogin" @click="showRegisterModal()">注册</a>
       <span v-else>
         <a-badge count="10">
           <a href="/remind">
@@ -49,7 +50,7 @@
         <a-divider type="vertical" />
       </span>
       <a-modal v-model="visible" :footer="null">
-        <login />
+        <login current="current" />
       </a-modal>
       <!-- 用户头像信息 -->
       <div v-if="isLogin">
@@ -83,6 +84,7 @@ export default {
   },
   data() {
     return {
+      content: '',
       visible: false,
       isLogin: this.$store.getters.token !== undefined,
       userName: '',
@@ -99,13 +101,25 @@ export default {
     console.log(this.$route.path)
   },
   methods: {
-    showModal() {
+    showLoginModal() {
+      this.visible = true
+      // document.getElementById('loginItem').click()
+    },
+    showRegisterModal() {
       this.visible = true
     },
     logout(e) {
       e.preventDefault()
       this.$store.dispatch('user/logout').then(() => {
         location.assign('/')
+      })
+    },
+    toSearch(val) {
+      this.$router.push({
+        path: '/search/index',
+        query: {
+          keyword: val
+        }
       })
     }
   }

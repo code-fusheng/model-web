@@ -32,6 +32,8 @@ service.interceptors.response.use(
         // 未登录
         message.error(res.msg)
         store.commit('SET_USER', {})
+      } else if (res.code === 400) {
+        message.error(res.msg)
       }
       return Promise.reject(new Error(res.msg || 'Error'))
     } else {

@@ -2,10 +2,10 @@
   <div class="login-background">
     <a-spin :spinning="spinning">
       <div class="login-container">
-        <div class="login-title">欢迎进入</div>
+        <div class="login-title">个人论坛 | code-fusheng</div>
         <a-menu v-model="current" mode="horizontal" @select="changeTab">
-          <a-menu-item key="login">登录</a-menu-item>
-          <a-menu-item key="register">注册</a-menu-item>
+          <a-menu-item id="loginItem" key="login">登录</a-menu-item>
+          <a-menu-item id="registerItem" key="register">注册</a-menu-item>
         </a-menu>
         <div class="content">
           <div v-show="login" class="login">
@@ -47,7 +47,9 @@
                     { rules: [{ required: true, message: '请输入账号!' }] }
                   ]"
                   placeholder="请输入账号"
-                />
+                >
+                  <a-icon slot="prefix" type="user" style="color: rgba(0,0,0,.25)" />
+                </a-input>
               </a-form-item>
               <a-form-item>
                 <a-input
@@ -57,35 +59,9 @@
                   ]"
                   placeholder="请输入密码"
                   type="password"
-                />
-              </a-form-item>
-              <a-form-item>
-                <a-input
-                  v-decorator="[
-                    'nickname',
-                    { rules: [{ required: true, message: '请输入昵称!' }] }
-                  ]"
-                  placeholder="请输入昵称"
-                />
-              </a-form-item>
-              <a-form-item>
-                <a-input
-                  v-decorator="[
-                    'userEmail',
-                    { rules: [{ required: true, message: '请输入邮箱!' }] }
-                  ]"
-                  placeholder="请输入邮箱"
-                />
-              </a-form-item>
-              <a-form-item>
-                <a-radio-group v-decorator="['sex']">
-                  <a-radio value="1">
-                    男
-                  </a-radio>
-                  <a-radio value="2">
-                    女
-                  </a-radio>
-                </a-radio-group>
+                >
+                  <a-icon slot="prefix" type="lock" style="color: rgba(0,0,0,.25)" />
+                </a-input>
               </a-form-item>
               <a-form-item>
                 <a-button type="primary" html-type="submit" block>注册</a-button>
@@ -99,7 +75,6 @@
 </template>
 
 <script>
-import userApi from '@/api/user/user'
 // import md5 from 'js-md5'
 export default {
   data() {
@@ -142,8 +117,14 @@ export default {
       e.preventDefault()
       // eslint-disable-next-line handle-callback-err
       this.registerForm.validateFields((err, values) => {
-        userApi.register(values).then(res => {
-          this.$message.info(res.msg)
+        this.spinning = true
+        this.$store.dispatch('user/register', values).then(() => {
+          this.$message.success('注册成功！')
+          this.spinning = false
+          document.getElementById('loginItem').click()
+        }).catch(res => {
+          // this.$message.error('注册失败！账号或密码已经存在！')
+          this.spinning = false
         })
       })
     }

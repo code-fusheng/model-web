@@ -1,4 +1,4 @@
-import { login, logout, getInfo } from '@/api/user/user'
+import { login, logout, getInfo, register } from '@/api/user/user'
 import { getToken, setToken, removeToken } from '@/utils/auth'
 
 const getDefaultState = () => {
@@ -39,6 +39,17 @@ const actions = {
         // 放到 Vuex
         commit('SET_TOKEN', res.data)
         setToken(res.data)
+        resolve()
+      }).catch(error => {
+        reject(error)
+      })
+    })
+  },
+
+  // 注册
+  register({ commit }, userInfo) {
+    return new Promise((resolve, reject) => {
+      register(userInfo).then(res => {
         resolve()
       }).catch(error => {
         reject(error)
