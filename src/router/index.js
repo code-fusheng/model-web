@@ -41,6 +41,11 @@ const routes = [
         component: () => import('@/views/about/index')
       },
       {
+        path: '/userInfo',
+        name: 'UserInfo',
+        component: () => import('@/views/user/userInfo/index')
+      },
+      {
         path: '/search/:keyword',
         name: 'Search',
         component: () => import('@/views/search/index')

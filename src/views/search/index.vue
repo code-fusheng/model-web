@@ -139,7 +139,7 @@ export default {
     align-items: center;
     /* 线性渐变 */
     /* background-image: linear-gradient(to right,#e8f1f1,#d2dde7); */
-    /* background: url(../../assets/img/search-back.jpg) no-repeat; */
+    /* background: url(../../assets/img/cool-background.png) no-repeat; */
     background-size: 100% 100%;
     background-position: center;
   }

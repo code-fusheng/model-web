@@ -101,6 +101,7 @@ export default {
 }
 .main-container {
     min-width: 1280px;
+    height: 100%;
     margin: auto;
     display: flex;
     flex-direction: row;
@@ -109,7 +110,8 @@ export default {
 
 .center-container {
     margin: auto;
-    width: 95%;
+    width: 100%;
+    height: 100%;
     min-height: 1200px;
     padding: 0 10px;
     border: solid 1px blue;
