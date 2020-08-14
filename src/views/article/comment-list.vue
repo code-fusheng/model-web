@@ -22,25 +22,32 @@
       </div>
     </div>
     <!-- 评论列表容器 -->
-    <div class="comment-list-container">
+    <div class="article-comment-container">
       <div v-for="item in articleCommentPage.list" :key="item.commentId">
         <a-comment>
           <span slot="actions">
             <a-icon
               type="like"
               :class=" item.goodCommentFlag ? 'meta-active' : ''"
-              @click="saveGoodForComment(item.commentId)"
+              @click="saveGoodArticleComment(item)"
             /> {{ item.goodCount }}
           </span>
-          <span v-if="(userId === item.commentUserId) || (userId === article.authorId)" slot="actions" @click="deleteComment(item)">删除</span>
+          <span v-if="($store.getters.userId === item.commentUserId) || ($store.getters.userId === article.authorId)" slot="actions">
+            <a-popconfirm title="确认删除该条评论?" ok-text="确认" cancel-text="取消" @confirm="deleteArticleComment(item)">
+              <a href="#">删除</a>
+            </a-popconfirm>
+          </span>
           <span slot="actions" key="comment-nested-reply-to" @click="doSaveCommentComment(item)">回复</span>
           <span slot="actions" :style="{ margin:'20px 50px'}">共{{ item.commentCount }}条回复
-            <a v-if=" (showCommentComment != item.commentId) && (item.commentCount !== 0) " @click="getCommentChildList(item.commentId)">点击查看</a>
-            <a v-if="showCommentComment === item.commentId" @click="hiddenCommentChildList(item.commentId)">收起</a>
+            <a @click="getCommentCommentList(item.commentId)">点击查看</a>
+            <a @click="hiddenCommentComment(item.commentId)">收起</a>
           </span>
           <span slot="author">
-            <a-tag v-if=" article.articleAuthor === item.commentUser " :style="{ float:'left'}" color="orange">
+            <a-tag v-if=" article.authorName === item.username " :style="{ float:'left'}" color="orange">
               作者
+            </a-tag>
+            <a-tag v-if=" $store.getters.userId === item.commentUserId " :style="{ float:'left'}" color="blue">
+              我的
             </a-tag>
             <a>{{ item.username }}</a>
           </span>
@@ -55,6 +62,57 @@
           <a-tooltip slot="datetime">
             <span>{{ item.commentTime }}</span>
           </a-tooltip>
+          <!-- 二级评论 -->
+          <div v-if="showCommentComment === item.commentId" class="comment-comment-list" @scroll="scrollLoadMore($event, item)">
+            <a-comment v-for="item1 in commentCommentList" :key="item1.commentId">
+              <span slot="actions">
+                <a-icon
+                  type="like"
+                  :class=" item1.goodCommentFlag ? 'meta-active' : ''"
+                  @click="saveGoodCommentComment(item1.commentId, item.commentId)"
+                /> {{ item1.commentGood }}
+              </span>
+              <span slot="actions" @click="deleteCommentComment(item1)">删除</span>
+              <span slot="actions" @click="doSaveCommentCommentWithParent(item1,item)">回复</span>
+              <span slot="author">
+                <a-tag v-if=" article.authorName === item1.username " :style="{ float:'left'}" color="orange">
+                  作者
+                </a-tag>
+                <a-tag v-if=" $store.getters.userId === item1.commentUserId " :style="{ float:'left'}" color="blue">
+                  我的
+                </a-tag>
+                <a>{{ item1.username }}</a>
+              </span>
+              <a-avatar
+                slot="avatar"
+                :src="item1.header"
+              />
+              <span slot="content">
+                <p>回复 @{{ item1.parentCommentUser }}</p>
+                {{ item1.commentContent }}
+              </span>
+              <a-tooltip slot="datetime">
+                <span>{{ item1.commentTime }}</span>
+              </a-tooltip>
+            </a-comment>
+          </div>
+          <!-- 二级评论 -->
+          <div v-if="commentParentUser !== '' && item.commentId === doCurrentComment" id="commentCommentContent" class="user-comment">
+            <div class="comment-top">
+              <a-avatar
+                slot="avatar"
+                :size="72.4"
+                :src="$store.getters.header"
+              />
+              <a-textarea v-model="commentCommentContent" :placeholder="'回复@' + commentParentUser" :rows="3" :style="{maxWidth: '90%'}" />
+            </div>
+            <div class="comment-button">
+              <a-button type="primary" :loading="commentCommentLoading" @click="saveCommentComment(item.commentId)">发表评论</a-button>
+              <div v-show="cCountShow" class="content-count">
+                还能输入 {{ commentContentCount }} 个字符
+              </div>
+            </div>
+          </div>
         </a-comment>
       </div>
     </div>
@@ -72,7 +130,8 @@
 </template>
 
 <script>
-import commentApi from '@/api/article/comment.js'
+import commentApi from '@/api/operation/comment.js'
+import goodApi from '@/api/operation/good.js'
 export default {
   props: {
     article: {
@@ -90,6 +149,7 @@ export default {
         totalCount: 0,
         totalPage: 0,
         params: {
+          commentType: 0,
           commentTarget: this.$route.params.id
         },
         sortColumn: 'commentTime',
@@ -102,6 +162,7 @@ export default {
         totalCount: 0,
         totalPage: 0,
         params: {
+          commentType: 1,
           commentTarget: ''
         },
         sortColumn: 'commentTime',
@@ -109,16 +170,25 @@ export default {
         list: []
       },
       commentLoading: false,
+      commentCommentLoading: false,
       current: ['commentTime'],
       comment: {
         commentContent: '',
         commentTarget: '',
-        commentType: 1,
+        commentType: 0,
         commentRoot: '',
         commentParentUser: ''
       },
-      showCommentComment: true, // 控制二级评论的显示
+      good: {
+        goodTarget: '',
+        goodType: 2
+      },
+      doCurrentComment: '',
+      commentParentUser: '',
+      commentCommentList: [],
+      showCommentComment: '', // 控制二级评论的显示
       countShow: false, // 控制是否显示字符个数提示
+      cCountShow: false,
       articleCommentContent: '', // 文章评论文本内容
       commentCommentContent: '', // 评论评论文本内容
       commentContentCount: 300 // 显示还能输入的字符数量
@@ -143,9 +213,9 @@ export default {
         this.commentCommentContent = this.commentCommentContent.substring(0, 300)
       }
       if (this.commentCommentContent.length > 0) {
-        this.childCountShow = true
+        this.cCountShow = true
       } else {
-        this.childCountShow = false
+        this.cCountShow = false
       }
       const newValLength = newVal ? newVal.length : 0
       const oldValLength = oldVal ? oldVal.length : 0
@@ -167,10 +237,13 @@ export default {
       })
     },
     // 评论的评论列表
-    getCommentCommentList() {
+    getCommentCommentList(val) {
+      this.commentCommentPage.params.commentTarget = val
       commentApi.getByPage(this.commentCommentPage).then(res => {
         console.log(res)
         this.commentCommentPage = res.data
+        this.commentCommentList = res.data.list
+        this.showCommentComment = val
       })
     },
     // 评论文章
@@ -186,7 +259,6 @@ export default {
         this.comment.commentContent = this.articleCommentContent
         this.comment.commentParentUser = null
         commentApi.save(this.comment).then(res => {
-          this.commentCommentPage = false
           this.articleCommentContent = ''
           this.commentLoading = false
           this.getArticleCommentList()
@@ -194,10 +266,67 @@ export default {
         })
       }
     },
-    // 删除评论
-    deleteComment() {},
+    // 评论评论
+    saveCommentComment(val) {
+      this.comment.commentRoot = this.$route.params.id
+      this.comment.commentContent = this.commentCommentContent
+      this.comment.commentType = 1
+      commentApi.save(this.comment).then(res => {
+        this.commentCommentContent = ''
+        this.commentCommentLoading = false
+        this.getCommentCommentList(val)
+        this.$message.success(res.msg)
+      })
+    },
+    hiddenCommentComment() {},
+    scrollLoadMore() {},
+    // 删除文章的评论
+    deleteArticleComment(val) {
+      commentApi.deleteById(val.commentId).then(res => {
+        this.$message.success(res.msg)
+        this.getArticleCommentList()
+      })
+    },
+    // 删除评论的评论
+    deleteCommentComment(val) {
+      this.$confirm('是否删除？', '操作提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        commentApi.deleteById(val.commentId).then(res => {
+          this.$message.success(res.msg)
+          this.getCommentCommentList(val.commentTarget)
+        })
+      })
+    },
+    // 点赞文章的评论
+    saveGoodArticleComment(val) {
+      this.good.goodTarget = val.commentId
+      this.good.goodType = 2
+      goodApi.save(this.good).then(res => {
+        this.$message.success(res.msg)
+        this.getArticleCommentList()
+      })
+    },
+    // 点赞评论的评论
+    saveGoodCommentComment() {
+
+    },
     // 跳转评论的评论
-    doSaveCommentComment() {},
+    doSaveCommentComment(val) {
+      this.comment = {}
+      this.doCurrentComment = val.commentId
+      this.commentParentUser = val.username
+      this.comment.commentTarget = val.commentId
+    },
+    // 参数 val1 为评论的评论 参数 val 为文章的评论
+    doSaveCommentCommentWithParent(val1, val) {
+      this.doCurrentComment = val.commentId
+      this.commentParentUser = val1.username
+      this.comment.commentParentUser = val1.commentUserId
+      this.comment.commentTarget = val.commentId
+    },
     // 改变排序
     changeSort(e) {
       this.articleCommentPage.sortColumn = e.key
@@ -219,7 +348,7 @@ export default {
 </script>
 
 <style scoped>
-    .do-comment-container {
+  .do-comment-container {
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -257,7 +386,7 @@ export default {
     background-color:white;
     border: 1px solid #e8e8e8;
   }
-  .comment-list-container {
+  .article-comment-container {
     display: flex;
     flex-direction: column;
     padding: 10px 10px;

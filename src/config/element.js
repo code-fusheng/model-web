@@ -19,9 +19,7 @@ import {
   Upload,
   Card,
   Divider,
-  Image,
-  Loading,
-  Message
+  Image
 } from 'element-ui'
 
 Vue.use(Pagination)
@@ -43,7 +41,3 @@ Vue.use(Card)
 Vue.use(Divider)
 Vue.use(Image)
 
-Vue.use(Loading.directive)
-
-Vue.prototype.$loading = Loading.service
-Vue.prototype.$message = Message

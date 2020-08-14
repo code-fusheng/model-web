@@ -25,13 +25,13 @@
           <!-- 文章操作 -->
           <div class="article-action">
             <div class="article-good">
-              <a :loading="goodLoading" href="javascript:void(0);" :class="isGoodArticle ? 'article-good meta-active' : 'article-good'">
+              <a :loading="goodLoading" href="javascript:void(0);" :class="article.goodArticleFlag ? 'article-good meta-active' : 'article-good'" @click="saveGood">
                 <a-icon type="like" /> 点赞
               </a>
             </div>
             <div class="article-collection">
-              <a :loading="collectionLoading" href="javascript:void(0);" :class="isCollection ? 'article-collection meta-active' : 'article-collection'">
-                <a-icon type="heart" /> 收藏
+              <a :loading="collectionLoading" href="javascript:void(0);" :class="article.collectionArticleFlag ? 'article-collection meta-active' : 'article-collection'" @click="saveCollection">
+                <a-icon type="star" /> 收藏
               </a>
             </div>
           </div>
@@ -47,6 +47,8 @@
 
 <script>
 import articleApi from '@/api/article/article'
+import goodApi from '@/api/operation/good'
+import collectionApi from '@/api/operation/collection'
 import CommentList from '@/views/article/comment-list'
 export default {
   components: {
@@ -56,16 +58,22 @@ export default {
     return {
       article: {
         articleId: '',
-        articleAuthor: ''
+        articleAuthor: '',
+        goodArticleFlag: false,
+        collectionArticleFlag: false
+      },
+      good: {
+        goodTarget: '',
+        goodType: 1
+      },
+      collection: {
+        collectionTarget: '',
+        collectionType: 1
       },
       loading: false,
       commentLoading: false,
       goodLoading: false,
-      collectionLoading: false,
-
-      isGoodArticle: false, // 判断是否已经点赞文章
-      isGoodComment: false, // 判断评论是否已经点赞
-      isCollection: false // 判断是否已经收藏
+      collectionLoading: false
     }
   },
   created() {
@@ -75,14 +83,38 @@ export default {
     read() {
       this.article.articleId = this.$route.params.id
       articleApi.read(this.article.articleId).then(res => {
+        console.log(res)
         this.article = res.data
         this.loading = false
       })
     },
+    saveGood() {
+      if (this.article.goodArticleFlag === false) {
+        this.good.goodTarget = this.$route.params.id
+        goodApi.save(this.good).then(res => {
+          this.article.goodArticleFlag = true
+          console.log(res)
+        })
+      } else {
+        this.$message.info('操作提示: 您已点赞，请勿重复点赞！')
+      }
+    },
+    saveCollection() {
+      if (this.article.collectionArticleFlag === false) {
+        this.collection.collectionTarget = this.$route.params.id
+        collectionApi.save(this.collection).then(res => {
+          this.article.collectionArticleFlag = true
+          console.log(res)
+        })
+      } else {
+        this.$message.info('操作提示: 您已收藏，请勿重复收藏！')
+      }
+    },
     goBack() {
-      this.$router.push({
-        path: '/article'
-      })
+      this.$router.go(-1)
+      // this.$router.push({
+      //   path: '/article'
+      // })
     },
     toEdit() {}
   }
@@ -206,10 +238,6 @@ export default {
   ::-webkit-scrollbar-thumb {
     background-color: rgb(121, 216, 240);
     border-radius: 3px;
-  }
-  .child-comment-list {
-    max-height: 420px;
-    overflow: auto;
   }
 
 </style>

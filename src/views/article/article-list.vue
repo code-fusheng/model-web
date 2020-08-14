@@ -44,10 +44,10 @@
                   <div class="article-meta">
                     <div class="created-time">{{ item.createdTime }}</div>
                     <div class="article-other">
-                      <a-icon class="action-icon" type="eye" /><span class="count-num"> {{ item.readCount }}</span>
-                      <a-icon class="action-icon" type="heart" /><span class="count-num"> {{ item.collectionCount }}</span>
+                      <a-icon :class=" item.readArticleFlag ? 'action-icon meta-active' : 'action-icon'" type="eye" /><span class="count-num"> {{ item.readCount }}</span>
+                      <a-icon :class=" item.commentArticleFlag ? 'action-icon meta-active' : 'action-icon'" type="message" /><span class="count-num"> {{ item.commentCount }}</span>
                       <a-icon :class=" item.goodArticleFlag ? 'action-icon meta-active' : 'action-icon'" type="like" /><span class="count-num"> {{ item.goodCount }}</span>
-                      <a-icon class="action-icon" type="message" /><span class="count-num"> {{ item.commentCount }}</span>
+                      <a-icon :class=" item.collectionArticleFlag ? 'action-icon meta-active' : 'action-icon'" type="star" /><span class="count-num"> {{ item.collectionCount }}</span>
                     </div>
                   </div>
                 </div>
@@ -112,10 +112,10 @@ export default {
     getByPage() {
       this.loading = true
       articleApi.getByPage(this.page).then(res => {
+        console.log(res)
         this.page = res.data
         this.loading = false
       })
-      console.log(this.noMore)
     },
     scrollLoadMore(e) {
       // !this.moreLoading 没有在加载状态，触发加载更多时，把this.moreLoading置未true

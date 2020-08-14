@@ -32,7 +32,6 @@ export default {
       categoryApi.getList().then(res => {
         this.$store.commit('global/SET_CATEGORY', res.data)
         this.categoryList = res.data
-        console.log(res.data)
         this.loading = false
       })
     },
