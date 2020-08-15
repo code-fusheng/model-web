@@ -134,7 +134,7 @@ export default {
     padding: 0 20px;
     line-height: 60px;
     background-color: rgb(255, 255, 255);
-    margin-bottom: 10px;
+    /* margin-bottom: 10px; */
     border: 1px red solid;
 }
 
