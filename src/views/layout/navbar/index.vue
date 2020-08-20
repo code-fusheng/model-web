@@ -135,7 +135,7 @@ export default {
     line-height: 60px;
     background-color: rgb(255, 255, 255);
     /* margin-bottom: 10px; */
-    border: 1px red solid;
+    /* border: 1px red solid; */
 }
 
 .nav-logo {

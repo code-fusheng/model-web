@@ -6,7 +6,7 @@ Vue.use(VueRouter)
 const routes = [
   {
     path: '/',
-    redirect: '/index',
+    redirect: '/article',
     name: 'layout',
     component: () => import('@/views/layout/index'),
     children: [
@@ -24,11 +24,6 @@ const routes = [
         path: '/articleRead/:id',
         name: 'ArticleRead',
         component: () => import('@/views/article/article-read')
-      },
-      {
-        path: '/articleEdit/:id',
-        name: 'ArticleEdit',
-        component: () => import('@/views/article/article-edit')
       },
       {
         path: '/tools',

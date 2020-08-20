@@ -22,7 +22,7 @@
       </a-layout-content>
     </a-layout>
 
-    <el-dialog width="50%" title="创作文章" :visible.sync="addDialog">
+    <el-dialog width="50%" :title="stateMode === 'create' ? '创建文章' : '编辑文章'" :visible.sync="addDialog">
       <el-form ref="addForm" :model="article" label-width="40px" size="mini">
         <el-form-item label="分类">
           <el-select v-model="article.articleCategory" clearable filterable placeholder="请选择" style="width: 40%" @change="autoSetImage(article.articleCategory)">
@@ -42,7 +42,8 @@
             :on-success="uploadSuccess"
             :headers="headers"
           >
-            <img v-if="imageUrl" :src="imageUrl" class="avatar">
+            <!-- <img v-if="imageUrl" :src="imageUrl" class="avatar"> -->
+            <img v-if="imageUrl" :src="stateMode === 'create' ? imageUrl : article.articleImage" class="avatar">
             <i v-else class="el-icon-plus avatar-uploader-icon" />
           </el-upload>
         </el-form-item>
@@ -77,10 +78,14 @@ export default {
       headers: { // 上传文件的请求头
         Authorization: getToken()
       },
+      stateMode: '', // 状态模式
       categoryList: this.$store.getters.categoryList,
+      editArticleId: '',
       article: {
+        articleId: '',
         articleTitle: '',
         articleContent: '',
+        editContent: '',
         articleCategory: '',
         articleImage: '',
         editModel: ''
@@ -95,14 +100,29 @@ export default {
   },
   watch: {
     'editorModeState': function() {
-
     }
   },
   created() {
-    this.categoryList = this.$store.getters.categoryList
-    console.log(this.categoryList)
+    console.log(this.$route.query.id)
+    if (this.$route.query.id === null || this.$route.query.id === '' || this.$route.query.id === undefined) {
+      this.stateMode = 'create'
+      console.log('create 模式')
+      this.categoryList = this.$store.getters.categoryList
+    } else {
+      this.stateMode = 'edit'
+      console.log('edit 模式')
+      this.editArticleId = this.$route.query.id
+      console.log(this.editArticleId)
+      this.getArticleById()
+    }
   },
   methods: {
+    getArticleById() {
+      articleApi.getById(this.editArticleId).then(res => {
+        this.article = res.data
+        this.markdownContent = res.data.editContent
+      })
+    },
     changeEditor() {
       this.editorModeState = !this.editorModeState
       if (this.editorModeState === false) {
@@ -140,27 +160,40 @@ export default {
       } else {
         this.addLoading = true
         if (this.editorModeName === 'MarkDown') {
+          this.article.editContent = this.$refs.md.d_value
           this.article.articleContent = this.$refs.md.d_render
         } else {
           this.article.articleContent = this.tinymceContent
         }
         this.article.editModel = this.editorModeName
-        articleApi.save(this.article).then(res => {
-          this.$message.success(res.msg)
-          this.addLoading = false
-          this.addDialog = false
-          this.closeAddDialog()
-          this.$router.push({
-            path: '/article'
+        if (this.$route.query.id === null || this.$route.query.id === '' || this.$route.query.id === undefined) {
+          articleApi.save(this.article).then(res => {
+            this.$message.success(res.msg)
+            this.addLoading = false
+            this.addDialog = false
+            this.closeAddDialog()
+            this.$router.push({
+              path: '/article'
+            })
           })
-        })
+        } else {
+          articleApi.update(this.article).then(res => {
+            this.$message.success(res.msg)
+            this.addLoading = false
+            this.addDialog = false
+            this.closeAddDialog()
+            this.$router.push({
+              path: '/article'
+            })
+          })
+        }
       }
     },
     closeAddDialog() {
       // 关闭添加弹窗
       this.addDialog = false
       this.addLoading = false
-      this.article = {}
+      // this.article = {}
     },
     uploadSuccess(res, file) {
       this.$message.success(res.msg)

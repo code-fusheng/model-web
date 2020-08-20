@@ -6,6 +6,7 @@ import '@/permission'
 
 import './config/ant-design'
 import './config/element'
+import './config/aplayer'
 
 Vue.config.productionTip = false
 Vue.prototype.$bus = new Vue()

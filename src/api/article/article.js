@@ -30,7 +30,7 @@ export default {
   },
   getById(id) { // 根据id查询 - 查
     return request({
-      url: `/${group_name}/getById/${id}`,
+      url: `/${group_name}/get/${id}`,
       method: 'get'
     })
   },

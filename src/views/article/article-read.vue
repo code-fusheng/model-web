@@ -116,7 +116,9 @@ export default {
       //   path: '/article'
       // })
     },
-    toEdit() {}
+    toEdit() {
+      this.$router.push({ path: '/create', query: { id: this.$route.params.id }})
+    }
   }
 }
 </script>
@@ -134,7 +136,7 @@ export default {
     flex-direction: row;
     min-height: 900px;
     width: 95%;
-    border: 1px solid red;
+    /* border: 1px solid red; */
     /* 左右自适应 */
     margin: auto;
     margin-top: 10px;

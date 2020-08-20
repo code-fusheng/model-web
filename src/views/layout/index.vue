@@ -9,6 +9,7 @@
           <router-view />
         </a-config-provider>
       </div>
+      <player v-show="false" class="music-player" />
     </div>
     <bottom />
     <a-back-top />
@@ -19,9 +20,11 @@ import categoryApi from '@/api/article/category'
 import zhCN from 'ant-design-vue/lib/locale-provider/zh_CN'
 import Navbar from '@/views/layout/navbar/index'
 import Bottom from '@/views/layout/bottom/index'
+import Player from '@/views/common/Aplayer/index'
 import { getToken } from '@/utils/auth'
 export default {
   components: {
+    Player,
     Navbar,
     Bottom
   },
@@ -105,7 +108,7 @@ export default {
     margin: auto;
     display: flex;
     flex-direction: row;
-    border: 1px green solid;
+    /* border: 1px green solid; */
 }
 
 .center-container {
@@ -114,7 +117,7 @@ export default {
     height: 100%;
     min-height: 1200px;
     padding: 0 10px;
-    border: solid 1px blue;
+    /* border: solid 1px blue; */
 }
 
 .menu-container {
@@ -135,5 +138,13 @@ export default {
 /* .menu-leave-active for below version 2.1.8 */ {
     transform: translateY(-70px);
     opacity: 0;
+}
+.music-player {
+  position: fixed;
+  top: 35%;
+  left: 0px;
+  max-width: 300px;
+  max-height: 250px;
+  z-index: 99999;
 }
 </style>

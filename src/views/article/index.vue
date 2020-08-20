@@ -48,9 +48,9 @@ export default {
     max-width: 1334px;
     /* 左右自适应 */
     margin: auto;
-    /* margin-top: 10px; */
+    margin-top: 10px;
     /* margin-bottom: 20px; */
-    border: 1px solid red;
+    /* border: 1px solid red; */
     /* background-color: white; */
   }
   .left-container {

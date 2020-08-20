@@ -7,7 +7,6 @@
     <!-- 条件列 -->
     <div class="scree-menu">
       <a-menu v-model="current" mode="horizontal" :style="{ backgroundColor: 'black', color: 'white', border: 'none' }" @click="changeParams">
-        <a-menu-item key="report">报告</a-menu-item>
         <a-menu-item key="question">提问</a-menu-item>
         <a-menu-item key="answer">答复</a-menu-item>
         <a-menu-item key="article">文章</a-menu-item>
