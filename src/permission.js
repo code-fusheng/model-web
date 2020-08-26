@@ -1,9 +1,9 @@
 import router from './router'
 import store from './store'
-import { Message } from 'element-ui'
 import NProgress from 'nprogress' // progress bar
 import 'nprogress/nprogress.css' // progress bar style
 import { getToken } from '@/utils/auth' // get token from cookie
+import notification from 'ant-design-vue/es/notification'
 import appConfig from './app.config'
 
 NProgress.configure({ showSpinner: false }) // NProgress配置
@@ -18,35 +18,32 @@ router.beforeEach(async(to, from, next) => {
   const hasToken = getToken()
 
   if (hasToken) {
-    if (to.path === '/login') {
-      // if is logged in, redirect to the home page
-      next({ path: '/' })
-      NProgress.done()
+    const hasGetUserInfo = store.getters.name
+    if (hasGetUserInfo) {
+      next()
     } else {
-      const hasGetUserInfo = store.getters.name
-      if (hasGetUserInfo) {
-        next()
-      } else {
-        store
-          .dispatch('user/getInfo')
-          .then(res => {
-            next()
-          }).catch(() => {
-            Message.error('Has Error')
-            NProgress.done()
+      store
+        .dispatch('user/getInfo')
+        .then(res => {
+          next()
+        }).catch(() => {
+          notification.error({
+            message: '错误',
+            description: '请求用户信息失败，请重试'
           })
-      }
+          NProgress.done()
+        })
     }
     next()
   } else {
-    /* has no token*/
-    // in the free login whitelist, go directly
+    // 如果当前页面是登录的，则不会在每个钩子之后触发，因此请手动处理它
     next()
     NProgress.done()
+    // document.getElementById('loginButton').click()
   }
 })
 
 router.afterEach(() => {
-  // finish progress bar
+  // 完成进度条
   NProgress.done()
 })

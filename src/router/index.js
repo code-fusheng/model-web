@@ -6,7 +6,7 @@ Vue.use(VueRouter)
 const routes = [
   {
     path: '/',
-    redirect: '/article',
+    redirect: '/index',
     name: 'layout',
     component: () => import('@/views/layout/index'),
     children: [
@@ -51,6 +51,21 @@ const routes = [
         component: () => import('@/views/create/index')
       }
     ]
+  },
+  {
+    path: '/exception/403',
+    name: '403',
+    component: () => import('../views/exception/403')
+  },
+  {
+    path: '/exception/500',
+    name: '500',
+    component: () => import('../views/exception/500')
+  },
+  {
+    path: '/exception/404',
+    name: '404',
+    component: () => import('../views/exception/404')
   }
 ]
 

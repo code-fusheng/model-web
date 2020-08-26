@@ -5,6 +5,7 @@ const getters = {
   header: state => state.user.header,
   name: state => state.user.name,
   userId: state => state.user.userId,
+  roleId: state => state.user.roleId,
   categoryList: state => state.global.categoryList
 }
 export default getters

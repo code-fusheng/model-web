@@ -2,55 +2,6 @@
   <a-layout>
     <a-layout-content :style="{margin:'55px 15%'}">
       <div class="model-index-banner-title">个人论坛 | code-fusheng</div>
-      <div class="model-index-banner-text">浮生若梦</div>
-    </a-layout-content>
-    <a-layout-content :style="{margin:'0 15%',width:'70%',height:'330px',minWidth:'1100px'}">
-      <div :style="{float:'left',width:'23%',height:'330px',minWidth:'230px'}">
-        <a-carousel arrows autoplay>
-          <div><img :style="{height:'330px',width: '100%' }" src="http://175.24.9.127:8888/group1/M00/00/00/rxgJf17tqPOAFD_pAAKj-AouHM4682.jpg"></div>
-          <div><img :style="{height:'330px',width: '100%' }" src="http://175.24.9.127:8888/group1/M00/00/00/rxgJf17tqReAYxHaAAKR2JqUeyU085.jpg"></div>
-          <div><img :style="{height:'330px',width: '100%' }" src="http://175.24.9.127:8888/group1/M00/00/00/rxgJf17tqTSAVJM9AAMfXSYnxs8728.jpg"></div>
-          <div><img :style="{height:'330px',width: '100%' }" src="http://175.24.9.127:8888/group1/M00/00/00/rxgJf17tqVCAcz9YAAL8e7Q89tM517.jpg"></div>
-        </a-carousel>
-      </div>
-      <div class="paddle-operator-gird-item" :style="{width:'100%',height:'330px'}">
-        <router-link :to="{path:'/report'}">
-          <a-card :style="{margin:'0px 0px 10px 10px',float:'left',width:'24.5%',height:'160px',minWidth:'230px'}" hoverable>
-            <div class="model-index-icon-text-card-item-title">写报告</div>
-            <div class="model-operator-gird-item-extra">立即前往 <a-icon type="right" /></div>
-          </a-card>
-        </router-link>
-        <router-link :to="{path:'/article'}">
-          <a-card :style="{margin:'0px 0px 10px 10px',float:'left',width:'24.5%',height:'160px',minWidth:'230px'}" hoverable>
-            <p class="model-index-icon-text-card-item-title">看文章</p>
-            <div class="model-operator-gird-item-extra">立即前往 <a-icon type="right" /></div>
-          </a-card>
-        </router-link>
-        <router-link :to="{path:'/answer'}">
-          <a-card :style="{margin:'0px 0px 10px 10px',float:'left',width:'24.5%',height:'160px',minWidth:'230px'}" hoverable>
-            <p class="model-index-icon-text-card-item-title">提问题</p>
-            <div class="model-operator-gird-item-extra">立即前往 <a-icon type="right" /></div>
-          </a-card>
-        </router-link>
-        <router-link :to="{path:'/tasknotice'}">
-          <a-card :style="{margin:'0px 0px 10px 10px',float:'left',width:'24.5%',height:'160px',minWidth:'230px'}" hoverable>
-            <p class="model-index-icon-text-card-item-title">读通知</p>
-            <div class="model-operator-gird-item-extra">立即前往 <a-icon type="right" /></div>
-          </a-card>
-        </router-link>
-        <router-link :to="{path:'/statistics'}">
-          <a-card :style="{margin:'0px 0px 10px 10px',float:'left',width:'24.5%',height:'160px',minWidth:'230px'}" hoverable>
-            <p class="model-index-icon-text-card-item-title">数据统计</p>
-            <div class="model-operator-gird-item-extra">立即前往 <a-icon type="right" /></div>
-          </a-card>
-        </router-link>
-        <router-link :to="{path:'/userInfo'}">
-          <a-card :style="{margin:'0px 0px 10px 10px',float:'left',width:'24.5%',height:'160px',minWidth:'230px'}" hoverable>
-            <p class="model-index-icon-text-card-item-title">个人中心</p>
-            <div class="model-operator-gird-item-extra">立即前往 <a-icon type="right" /></div>
-          </a-card>
-        </router-link>
-      </div>
     </a-layout-content>
     <a-layout-content :style="{margin:'25px 15%'}">
       <div class="model-index-banner-title">社区交流</div>
