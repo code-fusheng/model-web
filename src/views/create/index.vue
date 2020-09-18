@@ -204,7 +204,10 @@ export default {
 }
 </script>
 
-<style scope>
+<style scoped>
+    .shadow {
+      box-shadow: none !important;
+    }
     #tinymce {
       min-height: 1312px;
     }
@@ -228,7 +231,7 @@ export default {
         width: 100%;
         height: 59px;
         background-color: #ffffff;
-        margin-bottom: 5px;
+        /* margin-bottom: 5px; */
     }
     .editor-input-title {
         height: 100%;

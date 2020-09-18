@@ -1,152 +1,190 @@
 <template>
-  <a-layout>
-    <a-layout-content :style="{margin:'55px 15%'}">
-      <div class="model-index-banner-title">个人论坛 | code-fusheng</div>
-    </a-layout-content>
-    <a-layout-content :style="{margin:'25px 15%'}">
-      <div class="model-index-banner-title">社区交流</div>
-      <div class="model-index-banner-text">讨论交流，技术分享，有问题找组织</div>
-    </a-layout-content>
-    <a-layout-content :style="{margin:'0 15%',width:'70%',height:'160px',minWidth:'1100px'}">
-      <div :style="{width:'100%',height:'330px'}">
-        <a-card :style="{margin:'0px 5px 10px 0px',float:'left',width:'24%',height:'160px',minWidth:'230px'}" hoverable>
-          <div :style="{margin:'25px 0px'}">
-            <div :style="{float:'left'}">
-              <div class="model-index-icon-text-card-item-title">项目GitHub</div>
-              <a class="model-index-icon-text-card-item-text" target="_blank" href="https://github.com/code-fusheng/model">立即访问！</a>
-            </div>
-            <a-icon type="github" :style="{ fontSize: '50px', color: 'black'}" />
-          </div>
-        </a-card>
-        <a-card :style="{margin:'0px 5px 10px 5px',float:'left',width:'24%',height:'160px',minWidth:'230px'}" hoverable>
-          <div :style="{margin:'25px 0px'}">
-            <div :style="{float:'left'}">
-              <div class="model-index-icon-text-card-item-title">项目Gitee</div>
-              <a class="model-index-icon-text-card-item-text" target="_blank" href="https://github.com/code-fusheng/model">立即访问！</a>
-            </div>
-            <img :style="{height:'50px',width: '50px' }" src="https://ai.bdstatic.com/file/B4220CD9991547E58FBD0D5BC77264B0">
-          </div>
-        </a-card>
-        <a-card :style="{margin:'0px 5px 10px 5px',float:'left',width:'24%',height:'160px',minWidth:'230px'}" hoverable>
-          <div :style="{margin:'25px 0px'}">
-            <div :style="{float:'left'}">
-              <div class="model-index-icon-text-card-item-title">电话Phone</div>
-              <a class="model-index-icon-text-card-item-text" href="tel:15973607118">立即联系！</a>
-            </div>
-            <a-icon type="message" :style="{ fontSize: '50px', color: 'black'}" />
-          </div>
-        </a-card>
-        <a-card :style="{margin:'0px 0px 10px 5px',float:'left',width:'24%',height:'160px',minWidth:'230px'}" hoverable>
-          <div :style="{margin:'25px 0px'}">
-            <div :style="{float:'left'}">
-              <div class="model-index-icon-text-card-item-title">官方QQ</div>
-              <a class="model-index-icon-text-card-item-text" href="https://qm.qq.com/cgi-bin/qm/qr?k=XYX9hWIo2kC1OlOacqrOMi3uDoPLVwK5&noverify=0">立即添加！</a>
-            </div>
-            <a-icon type="qq" :style="{ fontSize: '50px', color: '#059AF5'}" />
-          </div>
-        </a-card>
-      </div>
-    </a-layout-content>
-  </a-layout>
+  <div class="index-container">
+    <!-- 主页图层 -->
+    <div class="index-carousel-container" :style="'height:' + carouselStyle.height + 'px'">
+      <div class="carousel-bg" />
+      <div class="center-container">
+        <div class="carousel-center-title">生而为人-我很抱歉</div>
+        <!-- 动态座右铭 -->
+        <div
+          v-if="carouselShow"
+          class="carousel-center-desc-ch"
+        >XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</div>
+        <div
+          v-else
+          class="carousel-center-desc-english"
+        >XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</div>
 
+        <!-- 中间按钮 -->
+        <div class="carousel-center-button-container">
+          <div class="read-button">开始阅读</div>
+          <div class="link-button">GitHub</div>
+        </div>
+        图层宽高:{{ carouselStyle }}
+      </div>
+    </div>
+    <!-- 主页内容区 -->
+    <div class="index-content-container">
+      <!-- 上端推荐文章 -->
+      <div class="recom-article-container">上端推荐文章</div>
+      <!-- 下端文章列表 -->
+      <div class="article-card-list-container">文章卡片列表</div>
+    </div>
+  </div>
 </template>
 
 <script>
 export default {
-  components: {
-  },
+  components: {},
   data() {
     return {
-      // recommendVideoTop: [],
-      recommendVideoBottom: []
+      // 主页图层动态样式
+      carouselStyle: {
+        widht: '',
+        height: ''
+      },
+      //
+      carouselShow: true
     }
   },
-  created() {
-  },
-  methods: {
-    more() {
-      this.$router.push('/tilltill/1')
+  mounted() {
+    this.carouselStyle.height = document.body.clientHeight + 10
+    this.carouselStyle.widht = document.body.clientWidth + 10
+    window.onresize = () => {
+      return (() => {
+        this.carouselStyle.height = document.body.clientHeight + 10
+        this.carouselStyle.widht = document.body.clientWidth + 10
+        console.log('高度' + document.body.clientHeight + '宽度' + document.body.clientWidth)
+      })()
     }
-  }
+  },
+  created() {},
+  methods: {}
 }
 </script>
 <style scoped>
-  /* For demo */
-    .ant-carousel >>> .slick-slide {
-        text-align: center;
-        height: 330px;
-        line-height: 160px;
-        background: #364d79;
-        overflow: hidden;
-    }
+/* 主页图层 */
+.index-carousel-container {
+    margin-top: -60px;
+    /* height: 1340px; */
+    /* height: 100%; */
+    min-height: 660px;
+    z-index: 1;
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(0px) translateX(0px) translateX(0px) translateZ(0px);
+    background-image: linear-gradient(to right, #646366 0%, #caafb5 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    perspective: 500px;
+    -webkit-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+    -webkit-transform-origin: 0% 50%;
+    transform-origin: 0% 50%;
+    background-image: url("https://visualhunt.com/photos/1/black-and-white-nature-sailing-ship-ship.jpg?s=l");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+}
 
-    .ant-carousel >>> .custom-slick-arrow {
-        width: 25px;
-        height: 25px;
-        font-size: 25px;
-        color: #fff;
-        background-color: rgba(31, 45, 61, 0.11);
-        opacity: 0.3;
-    }
-    .ant-carousel >>> .custom-slick-arrow:before {
-        display: none;
-    }
-    .ant-carousel >>> .custom-slick-arrow:hover {
-        opacity: 0.5;
-    }
-
-    .ant-carousel >>> .slick-slide h3 {
-        color: #fff;
-    }
-
-  .model-index-banner-title {
-    color: #000;
-    font-size: 42px;
-    font-weight: 600;
-    letter-spacing: 2px;
-    line-height: 60px;
-  }
-  .model-index-banner-text {
-    color: #000;
-    font-weight: 400;
-    font-size: 20px;
-    letter-spacing: .5px;
-    line-height: 60px;
-  }
-  .model-index-icon-text-card-item-title {
-    color: #1f2024;
-    font-size: 20px;
-    font-weight: 600;
-    letter-spacing: 0;
-    line-height: 28px;
-    margin-right: 42px;
-  }
-  .model-index-icon-text-card-item-text {
-    color: #666;
-    font-weight: 400;
-    font-size: 16px;
-    letter-spacing: 0;
-    line-height: 1.5;
-    margin-top: 5px;
-    margin-right: 42px;
-  }
-  .model-operator-gird-item-video:hover .model-operator-gird-item-extra {
-    opacity: 0;
-  }
-  .model-operator-gird-item:hover .model-operator-gird-item-extra {
-    color: #2932e1;
-  }
-  .model-operator-gird-item-extra {
-    bottom: 0;
-    color: #666;
-    font-size: 14px;
-    font-weight: 400;
-    left: 0;
-    letter-spacing: 0;
-    line-height: 22px;
-    padding: 10px 25px 15px;
+.carousel-bg {
+    background: rgba(0, 0, 0, 0.2);
+    z-index: -99;
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(0px) translateX(0px) translateX(0px) translateZ(0px);
+    width: 100%;
+    height: 100%;
     position: absolute;
-    right: 0;
-    transition: all .3s cubic-bezier(.645,.045,.355,1);
-  }
+    top: 0;
+    left: 0;
+}
+
+.center-container {
+    border: 1px solid rgb(247, 243, 243);
+    color: #ffffff;
+    width: 600px;
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.carousel-center-title {
+    font-size: 40px;
+}
+
+/* 中间按钮 */
+.carousel-center-button-container {
+    width: 65%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.read-button {
+    width: 120px;
+    height: 45px;
+    border: 1px solid #ffffff;
+    text-align: center;
+    line-height: 45px;
+    border-radius: 30px;
+    cursor: pointer;
+}
+
+.read-button:hover {
+    border: 1px solid #f44336;
+    background-color: #f44336;
+    box-shadow: 0 14px 26px -12px rgba(233, 30, 99, 0.42),
+        0 4px 23px 0 rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(233, 30, 99, 0.2);
+    transition: background-color 0.5s;
+}
+
+.link-button {
+    width: 120px;
+    height: 45px;
+    border: 1px solid #ffffff;
+    text-align: center;
+    line-height: 45px;
+    border-radius: 30px;
+    cursor: pointer;
+}
+
+.link-button:hover {
+    border: 1px solid #f44336;
+    background-color: #f44336;
+    box-shadow: 0 14px 26px -12px rgba(233, 30, 99, 0.42),
+        0 4px 23px 0 rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(233, 30, 99, 0.2);
+    transition: background-color 0.5s;
+}
+
+/* 主页内容区 */
+.index-content-container {
+    background-color: rgb(232, 232, 233);
+    min-height: 1503px;
+    margin-top: -10px;
+    padding-top: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+/* 上端推荐文章 */
+.recom-article-container {
+    width: 80%;
+    height: 600px;
+    border: 1px solid blue;
+    background-color: blue;
+}
+
+/* 下端文章卡片列表 */
+.article-card-list-container {
+    width: 80%;
+    height: 1120px;
+    max-height: 1120px;
+    border: 1px solid green;
+    background-color: green;
+}
 </style>

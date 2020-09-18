@@ -11,7 +11,7 @@
       </div>
       <player v-show="false" class="music-player" />
     </div>
-    <bottom />
+    <bottom class="buttom-container" />
     <a-back-top />
   </div>
 </template>
@@ -42,16 +42,16 @@ export default {
     })
   },
   mounted() {
-    this.initLive2d()
+    // this.initLive2d()
   },
   methods: {
     mouseScroll() {
       // 给页面绑定滑轮滚动事件
-      // if (document.addEventListener) { // firefox
-      //   document.addEventListener('DOMMouseScroll', this.watchScroll, false)
-      // }
-      // 滚动滑轮触发scrollFunc方法  //ie 谷歌
-      // window.onmousewheel = document.onmousewheel = this.watchScroll
+      if (document.addEventListener) { // firefox
+        document.addEventListener('DOMMouseScroll', this.watchScroll, false)
+      }
+      // 滚动滑轮触发scrollFunc方法 // ie 谷歌
+      window.onmousewheel = document.onmousewheel = this.watchScroll
     },
     initLive2d() {
       if (this.Authorization != null) {
@@ -99,13 +99,16 @@ export default {
 .main {
     background-color: #f5f5f5;
     width: 100%;
-    height: 100%;
-    margin: 0 auto;
-}
-.main-container {
-    min-width: 1280px;
+    min-width: 1200px;
     height: 100%;
     margin: auto;
+
+}
+.main-container {
+    min-width: 1200px;
+    margin: auto;
+    width: 100%;
+    height: 100%;
     display: flex;
     flex-direction: row;
     /* border: 1px green solid; */
@@ -116,7 +119,7 @@ export default {
     width: 100%;
     height: 100%;
     min-height: 1200px;
-    padding: 0 10px;
+    /* padding: 0 10px; */
     /* border: solid 1px blue; */
 }
 
@@ -125,7 +128,8 @@ export default {
     top: 0;
     z-index: 999;
     width: 100%;
-    height: 60px;
+    min-width: 1200px;
+    height: 50px;
 }
 
 /* 可以设置不同的进入和离开动画 */
@@ -139,6 +143,14 @@ export default {
     transform: translateY(-70px);
     opacity: 0;
 }
+
+.buttom-container {
+    margin: auto;
+    width: 100%;
+    height: 100%;
+    min-width: 1200px;
+}
+
 .music-player {
   position: fixed;
   top: 35%;

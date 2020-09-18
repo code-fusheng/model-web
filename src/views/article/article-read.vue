@@ -1,16 +1,15 @@
 <template>
   <!-- 文章阅读主体容器 -->
   <div class="read-container">
-    <!-- 左侧容器,作者信息介绍 -->
-    <div class="left-container">
-      左侧内容
+    <!-- <a-button class="go-back top-action" @click="goBack()">返回</a-button> -->
+    <!-- 图片区域 -->
+    <div class="top-image">
+      <img :src="article.articleImage">
     </div>
-    <!-- 右侧容器,文章内容 -->
-    <div class="right-container">
-      <a-button class="go-back top-action" @click="goBack()">返回</a-button>
-      <!-- 中间区域,放置文章 -->
-      <div class="article-container">
-        <a-spin :spinning="loading" style="min-height: 400px">
+    <!-- 中间区域,放置文章 -->
+    <div class="article-container">
+      <a-spin :spinning="loading">
+        <div>
           <div class="article-title">{{ article.articleTitle }}</div>
           <div class="article-item">
             <div class="created-time">发表时间: {{ article.createdTime }}</div>
@@ -35,12 +34,12 @@
               </a>
             </div>
           </div>
-        </a-spin>
-      </div>
-      <!-- 底部区域，放置评论 -->
-      <div class="buttom-container">
-        <commentList :article="article" />
-      </div>
+        </div>
+      </a-spin>
+    </div>
+    <!-- 底部区域，放置评论 -->
+    <div class="buttom-container">
+      <commentList :article="article" />
     </div>
   </div>
 </template>
@@ -70,7 +69,7 @@ export default {
         collectionTarget: '',
         collectionType: 1
       },
-      loading: false,
+      loading: true,
       commentLoading: false,
       goodLoading: false,
       collectionLoading: false
@@ -124,6 +123,10 @@ export default {
 </script>
 
 <style scoped>
+  .top-image {
+    width: 60%;
+    height: 80%;
+  }
   .count-num {
     color: #349edf;
     margin-right: 5px;
@@ -133,47 +136,31 @@ export default {
   }
   .read-container {
     display: flex;
-    flex-direction: row;
-    min-height: 900px;
-    width: 95%;
+    flex-direction: column;
+    align-items: center;
+    /* 3.居中对齐 【子元素水平居中】 */
+    justify-content: center;
+    width: 100%;
     /* border: 1px solid red; */
     /* 左右自适应 */
     margin: auto;
-    margin-top: 10px;
-    margin-bottom: 10px;
-  }
-  .left-container {
-    display: flex;
-    flex-direction: column;
-    width: 25%;
-    min-height: 900px;
-    margin-right: 3px;
-    background-color: white;
-    border: 1px solid rgb(56, 112, 197);
-  }
-  .right-container {
-    display: flex;
-    flex-direction: column;
-    width: 75%;
-    min-height: 900px;
-    margin-left: 3px;
-    background-color: white;
-    border: 1px solid rgb(192, 25, 156);
+    /* margin-top: 10px; */
+    /* margin-bottom: 10px; */
   }
   .article-container {
-    overflow:hidden;
+    /* overflow:hidden; */
     display: flex;
     flex-direction: column;
-    width: 100%;
-    min-height: 500px;
+    width: 60%;
     background-color: white;
     /* border: 1px solid yellow; */
     background: #fff;
-    padding: 40px 25px 20px 25px;
+    padding: 0px 25px 20px 25px;
   }
   .article-content {
     margin-top: 10px;
-    max-height: 1000px;
+    /* max-height: 500px; */
+    min-height: 500px;
     overflow: auto;
   }
   .article-content img {
@@ -230,6 +217,9 @@ export default {
   /* 输入文本域 */
   .ant-input {
     border-radius: 0px !important;
+  }
+  .buttom-container {
+    width: 60%;
   }
   /* 滚动条的宽度 */
   ::-webkit-scrollbar {

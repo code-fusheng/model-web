@@ -20,8 +20,8 @@
       </div>
     </div>
     <!-- 文案列表容器 -->
-    <div class="article-list-container" @scroll="scrollLoadMore($event)">
-      <a-spin :spinning="loading">
+    <a-spin :spinning="loading">
+      <div class="article-list-container" @scroll="scrollLoadMore($event)">
         <div class="spin-content">
           <!-- 文章卡片 -->
           <a-card v-for="item in page.list" :key="item.articleId" :body-style="articleBodyStyle" class="article-card">
@@ -55,8 +55,8 @@
             </div>
           </a-card>
         </div>
-      </a-spin>
-    </div>
+      </div>
+    </a-spin>
     <a-button v-if="page.list.length != 0 && page.list.length === page.totalCount" style="width: 100%" :loading="loadingMore">
       到底了
     </a-button>
@@ -182,6 +182,7 @@ export default {
   }
   .span-content {
     max-height: 1200px;
+    height: 1200px;
     overflow: auto;
   }
   .type-text {
@@ -196,6 +197,7 @@ export default {
   }
   .article-list-container {
     max-height: 1250px;
+    height: 1250px;
     overflow: auto;
   }
   .article-main {
@@ -301,7 +303,7 @@ export default {
     color: red;
   }
   .meta-active:hover {
-    color: red !important;
+    color: blue !important;
   }
 
 </style>

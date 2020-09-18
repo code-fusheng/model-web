@@ -89,4 +89,15 @@ export default {
     background-color:rgb(255,46,47);
     color: #fff;
   }
+
+  /* 滚动条的宽度 */
+::-webkit-scrollbar {
+    width: 0px;
+    height: 2px;
+}
+/* 滚动条滑块样式 */
+::-webkit-scrollbar-thumb {
+    border-radius: 5px;
+    background-color: rgb(119, 214, 110);
+}
 </style>

@@ -133,15 +133,26 @@ export default {
     align-items: center;
     padding: 0 20px;
     line-height: 60px;
-    background-color: rgb(255, 255, 255);
+    /* background-image: linear-gradient(to right,#623AA2 0%,#F97794 100%); */
+    background-image: linear-gradient(to right,#dbd8e2 0%,#5a5a5a 100%);
     /* margin-bottom: 10px; */
     /* border: 1px red solid; */
+}
+
+.ant-menu {
+  /* background-color: rgba(255, 255, 255, 0) !important; */
+  background-color: transparent;
+}
+
+.ant-menu-item a {
+  color: #ffffff !important;
 }
 
 .nav-logo {
     display: flex;
     flex-direction: row;
     align-items: center;
+    margin-left: 20px;
 }
 
 .logo-img {
@@ -151,6 +162,7 @@ export default {
 }
 
 .logo-text {
+    cursor: pointer;
     line-height: 40px;
     font-size: 24px;
     color: white;

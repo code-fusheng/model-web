@@ -27,11 +27,11 @@ img {
 /* 滚动条的宽度 */
 ::-webkit-scrollbar {
     width: 5px;
-    height: 5px;
+    height: 2px;
 }
 /* 滚动条滑块样式 */
 ::-webkit-scrollbar-thumb {
     border-radius: 5px;
-    background-color: rgb(154, 158, 155);
+    background-color: rgb(119, 214, 110);
 }
 </style>

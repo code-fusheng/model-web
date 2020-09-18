@@ -11,7 +11,7 @@
     </div>
     <!-- 评论列表组件 -->
     <!-- 筛选栏容器 -->
-    <div class="scree-container">
+    <div v-if="articleCommentPage.list != 0" class="scree-container">
       <!-- 条件列 -->
       <div class="scree-menu">
         <a-menu v-model="current" mode="horizontal" @click="changeSort">
@@ -22,10 +22,11 @@
       </div>
     </div>
     <!-- 评论列表容器 -->
-    <div class="article-comment-container">
+    <div v-if="articleCommentPage.list != 0" class="article-comment-container">
       <div v-for="item in articleCommentPage.list" :key="item.commentId">
         <a-comment>
           <span slot="actions">
+            <!-- 点赞图标 -->
             <a-icon
               type="like"
               :class=" item.goodCommentFlag ? 'meta-active' : ''"
@@ -68,8 +69,8 @@
               <span slot="actions">
                 <a-icon
                   type="like"
-                  :class=" item1.goodCommentFlag ? 'meta-active' : ''"
-                  @click="saveGoodCommentComment(item1.commentId, item.commentId)"
+                  :class=" item1.goodCommentFlag ? 'meta meta-active' : 'meta'"
+                  @click="saveGoodCommentComment(item1, item)"
                 /> {{ item1.commentGood }}
               </span>
               <span slot="actions" @click="deleteCommentComment(item1)">删除</span>
@@ -88,7 +89,7 @@
                 :src="item1.header"
               />
               <span slot="content">
-                <p>回复 @{{ item1.parentCommentUser }}</p>
+                <p>回复 @{{ item1.commentParentUserName }}</p>
                 {{ item1.commentContent }}
               </span>
               <a-tooltip slot="datetime">
@@ -118,6 +119,7 @@
     </div>
     <!-- 一级评论分页 -->
     <el-pagination
+      v-if="articleCommentPage.list > articleCommentPage.pageSize"
       align="center"
       class="comment-pagination"
       :current-page="articleCommentPage.currentPage"
@@ -153,7 +155,7 @@ export default {
           commentTarget: this.$route.params.id
         },
         sortColumn: 'commentTime',
-        sortMethod: 'desc',
+        sortMethod: 'asc',
         list: []
       },
       commentCommentPage: {
@@ -166,7 +168,7 @@ export default {
           commentTarget: ''
         },
         sortColumn: 'commentTime',
-        sortMethod: 'desc',
+        sortMethod: 'asc',
         list: []
       },
       commentLoading: false,
@@ -174,10 +176,12 @@ export default {
       current: ['commentTime'],
       comment: {
         commentContent: '',
+        goodCount: '',
         commentTarget: '',
         commentType: 0,
         commentRoot: '',
-        commentParentUser: ''
+        commentParentUser: '',
+        commentParentUserId: ''
       },
       good: {
         goodTarget: '',
@@ -195,6 +199,11 @@ export default {
     }
   },
   watch: {
+    '$store.getters.token': function() {
+      if (this.$store.getters.token !== undefined) {
+        this.getArticleCommentList()
+      }
+    },
     'articleCommentContent': function(newVal, oldVal) {
       if (this.articleCommentContent.length > 300) {
         this.articleCommentContent = this.articleCommentContent.substring(0, 300)
@@ -226,7 +235,16 @@ export default {
     }
   },
   created() {
-    this.getArticleCommentList()
+    var _this = this
+    var time
+    // 创建定时器
+    clearTimeout(time)
+    time = setTimeout(function() {
+      // 延迟加载处理的方法
+      if (_this.$store.getters.token !== undefined) {
+        _this.getArticleCommentList()
+      }
+    }, 1000)
   },
   methods: {
     // 文章评论列表
@@ -234,6 +252,8 @@ export default {
       commentApi.getByPage(this.articleCommentPage).then(res => {
         console.log(res)
         this.articleCommentPage = res.data
+      }).catch((res) => {
+        this.$message.error(res.msg)
       })
     },
     // 评论的评论列表
@@ -263,6 +283,8 @@ export default {
           this.commentLoading = false
           this.getArticleCommentList()
           this.$message.success(res.msg)
+        }).catch(() => {
+          this.commentLoading = false
         })
       }
     },
@@ -276,6 +298,8 @@ export default {
         this.commentCommentLoading = false
         this.getCommentCommentList(val)
         this.$message.success(res.msg)
+      }).catch(() => {
+        this.commentLoading = false
       })
     },
     hiddenCommentComment() {},
@@ -310,8 +334,13 @@ export default {
       })
     },
     // 点赞评论的评论
-    saveGoodCommentComment() {
-
+    saveGoodCommentComment(cval, pval) {
+      this.good.goodTarget = cval.commentId
+      this.good.goodType = 2
+      goodApi.save(this.good).then(res => {
+        this.$message.success(res.msg)
+        this.getCommentCommentList(pval)
+      })
     },
     // 跳转评论的评论
     doSaveCommentComment(val) {
@@ -319,12 +348,13 @@ export default {
       this.doCurrentComment = val.commentId
       this.commentParentUser = val.username
       this.comment.commentTarget = val.commentId
+      this.comment.commentParentUserId = val.commentUserId
     },
     // 参数 val1 为评论的评论 参数 val 为文章的评论
     doSaveCommentCommentWithParent(val1, val) {
       this.doCurrentComment = val.commentId
       this.commentParentUser = val1.username
-      this.comment.commentParentUser = val1.commentUserId
+      this.comment.commentParentUserId = val.commentUserId
       this.comment.commentTarget = val.commentId
     },
     // 改变排序
@@ -348,6 +378,11 @@ export default {
 </script>
 
 <style scoped>
+
+  .comment-list-container {
+    min-height: 135px;
+    height: 100%;
+  }
   .do-comment-container {
     display: flex;
     flex-direction: column;
@@ -357,6 +392,8 @@ export default {
     margin-top: 5px;
   }
   .user-comment {
+    height: 100%;
+    min-height: 135px;
     background-color: #fff;
   }
   .comment-top {
@@ -367,6 +404,7 @@ export default {
   }
   .comment-button {
     margin: 15px;
+    margin-bottom: 15px;
     display: flex;
     flex-direction: row-reverse;
     align-items: center;
@@ -429,5 +467,12 @@ export default {
   .comment-pagination {
     margin-top: 5px;
     margin-bottom: 5px;
+  }
+  .meta-active {
+    /* 标识当前是否已点赞，是否已收藏 */
+    color: red;
+  }
+  .meta:hover {
+    color: blue !important;
   }
 </style>

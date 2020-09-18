@@ -12,7 +12,7 @@
   flex-direction: row;
   justify-content: space-around;
   color: #2db7f5;
-  background-color: black;
+  background-image: linear-gradient(to right,#dbd8e2 0%,#5a5a5a 100%);
   font-size: 12px;
   line-height: 60px;
 }
