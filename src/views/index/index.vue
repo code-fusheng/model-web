@@ -4,7 +4,7 @@
     <div class="index-carousel-container" :style="'height:' + carouselStyle.height + 'px'">
       <div class="carousel-bg" />
       <div class="center-container">
-        <div class="carousel-center-title">生而为人-我很抱歉</div>
+        <div class="carousel-center-title">其生若浮-其死若休</div>
         <!-- 动态座右铭 -->
         <!-- <div
           v-if="carouselShow"
@@ -18,7 +18,7 @@
         <!-- 中间按钮 -->
         <div class="carousel-center-button-container">
           <a class="read-button" href="#recom-article"><a-icon class="button-icon" type="down-circle" />开始阅读</a>
-          <a class="link-button" href="https://github.com/code-fusheng"><a-icon class="button-icon" type="right-circle" />GitHub</a>
+          <a class="link-button" href="https://github.com/code-fusheng"><a-icon class="button-icon" type="link" />GitHub</a>
         </div>
         <div class="carousel-center-icon-container">
           <a-tooltip placement="top">
@@ -77,14 +77,44 @@
                 <div class="recom-article-category">{{ recomArticle.categoryName }}</div>
                 <div class="recom-article-title">{{ recomArticle.articleTitle }}</div>
                 <div class="recom-article-desc">{{ recomArticle.articleDesc }}</div>
-                <div class="read-more"><a-icon class="read-more-icon" type="eye" />阅读更多</div>
+                <router-link :to="'articleRead/'+recomArticle.articleId">
+                  <div class="read-more"><a-icon class="read-more-icon" type="eye" />阅读更多</div>
+                </router-link>
               </div>
             </div>
           </div>
         </div>
       </div>
       <!-- 下端文章列表 -->
-      <div class="article-card-list-container">文章卡片列表</div>
+      <div class="article-card-container">
+        <div class="article-card-list-container">
+          <div v-for="item in articleList" :key="item.articleId" class="article-card-item">
+            <!-- 文章卡片容器 图片+说明 -->
+            <div class="card-container">
+              <router-link class="article-card-image" :style="{backgroundImage: 'url(' + item.articleImage + ')', backgroundSize:'100% 100%', backgroundRepeat: 'no-repeat'}" :to="'articleRead/'+item.articleId">
+                <div class="article-card-title">{{ item.articleTitle }}</div>
+              </router-link>
+              <div class="article-card-info">
+                <router-link :to="'articleRead/'+item.articleId">
+                  <div class="article-desc-container">
+                    <div class="article-desc">
+                      {{ item.articleDesc }}
+                    </div>
+                  </div>
+                </router-link>
+                <div class="article-meta-container">
+                  <div class="article-createdTime">
+                    <a-icon class="meta-icon" type="clock-circle" />{{ item.createdTime }}
+                  </div>
+                  <div class="article-category">
+                    <a-icon class="meta-icon" type="tags" />{{ item.categoryName }}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -110,6 +140,8 @@ export default {
         articleImage: '',
         categoryName: ''
       },
+      //
+      articleList: [],
       // 分页查询对象
       page: {
         currentPage: 1,
@@ -136,12 +168,26 @@ export default {
   },
   created() {
     this.getRecomArticle()
+    this.getArticleList()
   },
   methods: {
+    // 获取推荐文章
     getRecomArticle() {
+      this.page.pageSize = 1
+      this.page.currentPage = 1
+      this.page.sortColumn = 'updateTime'
       articleApi.getByPage(this.page).then(res => {
         this.recomArticle = res.data.list[0]
         console.log(this.recomArticle)
+      })
+    },
+    //
+    getArticleList() {
+      this.page.pageSize = 12
+      this.page.sortColumn = 'createdTime'
+      articleApi.getByPage(this.page).then(res => {
+        this.articleList = res.data.list
+        console.log(this.articleList)
       })
     }
   }
@@ -158,7 +204,7 @@ export default {
     opacity: 1;
     visibility: visible;
     transform: translateX(0px) translateX(0px) translateX(0px) translateZ(0px);
-    background-image: linear-gradient(to right, #646366 0%, #caafb5 100%);
+    /* background-image: linear-gradient(to right, #646366 0%, #caafb5 100%); */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -168,6 +214,7 @@ export default {
     -webkit-transform-origin: 0% 50%;
     transform-origin: 0% 50%;
     background-image: url("https://visualhunt.com/photos/1/black-and-white-nature-sailing-ship-ship.jpg?s=l");
+    /* background-image: url('../../assets/img/bgi-1.jpg'); */
     background-repeat: no-repeat;
     background-size: 100% 100%;
 }
@@ -197,6 +244,7 @@ export default {
 }
 
 .carousel-center-title {
+  font-family: 'STXingkai';
     font-size: 40px;
 }
 
@@ -213,6 +261,7 @@ export default {
 }
 
 .read-button {
+    margin-right: 2px;
     width: 120px;
     height: 45px;
     border: 1px solid #ffffff;
@@ -233,6 +282,7 @@ export default {
 }
 
 .link-button {
+    margin-left: 2px;
     width: 120px;
     height: 45px;
     border: 1px solid #ffffff;
@@ -272,7 +322,7 @@ export default {
 /* 主页内容区 */
 .index-content-container {
     background-color: rgb(232, 232, 233);
-    min-height: 1503px;
+    min-height: 1500px;
     margin-top: -10px;
     padding-top: 20px;
     display: flex;
@@ -283,10 +333,10 @@ export default {
 
 /* 上端推荐文章开始 */
 .recom-container {
-    width: 80%;
+    width: 94%;
     max-width: 1125px;
     height: 700px;
-    margin-bottom: 10px;
+    /* margin-bottom: 10px; */
     border: 1px solid white;
     background-color: white;
     display: flex;
@@ -294,6 +344,7 @@ export default {
     justify-content: space-around;
     align-items: center;
     border-radius: 10px;
+    margin-top: 15px;
 }
 
 .my-dream-container {
@@ -324,11 +375,16 @@ export default {
 }
 
 .dream-content {
+  /* text-indent: 2em; */
   width: 100%;
-  height: 90px;
+  height: 93px;
   font-size: 16px;
   color: #A5A5A5;
   text-align: center;
+    /* 超出隐藏 */
+  overflow: hidden;
+  /* 超出部分省略号 */
+  text-overflow: ellipsis;
 }
 
 .my-recom-container {
@@ -423,11 +479,115 @@ export default {
 /* 上端推荐文章结束 */
 
 /* 下端文章卡片列表 */
-.article-card-list-container {
+
+.article-card-container {
     width: 80%;
-    height: 1120px;
-    max-height: 1120px;
-    border: 1px solid green;
-    background-color: green;
+    max-width: 1125px;
+    display: flex;
+    justify-content: center;
+    min-height: 100vh;
+    align-items: center;
+    margin-bottom: 20px;
+    margin-top: 10px;
+    /* background: linear-gradient(45deg,#24006b,#f42f8c) */
+}
+
+.article-card-list-container {
+    width: 1125px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(350px,1fr));
+    grid-gap: 15px;
+    margin: 0 auto;
+    transform-style: preserve-3d;
+}
+
+.article-card-item {
+    position: relative;
+    min-width: 350px;
+    height: 290px;
+    margin: 0 auto;
+    background: #fff;
+    box-shadow: 0 15px 20px rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    /* padding: 10px; */
+    transition:transform 1s;
+    -moz-transition:transform 1s; /* Firefox 4 */
+    -webkit-transition:transform 1s; /* Safari and Chrome */
+    -o-transition:transform 1s; /* Opera */
+}
+
+.article-card-item:hover {
+  transform: scale(1.05,1.05);
+}
+
+.card-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.article-card-image {
+  position: relative;
+  height: 220px;
+  width: 100%;
+  /* min-width: 350px; */
+  /* border: 1px solid black; */
+  border-radius: 10px;
+}
+
+.article-card-title {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  padding: 24px;
+  font-size: 15px;
+  color: #ffffff;
+}
+
+.article-card-info {
+  height: 70px;
+  width: 100%;
+  min-width: 350px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+}
+
+.article-desc-container {
+  /* border: 1px solid red; */
+  height: 40px;
+}
+
+.article-desc {
+  width: 350px;
+  text-align: left;
+  line-height: 40px;
+  white-space: nowrap;
+  /* 超出隐藏 */
+  overflow: hidden;
+  /* 超出部分省略号 */
+  text-overflow: ellipsis;
+  text-indent: 1em;
+  color: black;
+}
+
+.article-meta-container {
+  padding: 0 10px;
+  /* border: 1px solid blue; */
+  height: 28px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.meta-icon {
+  margin-right: 5px;
+  margin-left: 5px;
 }
 </style>

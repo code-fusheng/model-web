@@ -12,11 +12,11 @@
         <div>
           <div class="article-title">{{ article.articleTitle }}</div>
           <div class="article-item">
-            <div class="created-time">发表时间: {{ article.createdTime }}</div>
+            <div class="created-time">{{ article.createdTime }}</div>
             <div class="article-meta">
-              <a-icon class="action-icon" type="eye" /><span class="count-num"> {{ article.readCount }} 阅读</span>
-              <a-icon class="action-icon" type="heart" /><span class="count-num"> {{ article.collectionCount }} 收藏</span>
-              <a-icon class="action-icon" type="like" /><span class="count-num"> {{ article.goodCount }} 点赞</span>
+              <a-icon class="action-icon" type="eye" /><span class="count-num"> {{ article.readCount }}</span>
+              <a-icon class="action-icon" type="heart" /><span class="count-num"> {{ article.collectionCount }}</span>
+              <a-icon class="action-icon" type="like" /><span class="count-num"> {{ article.goodCount }}</span>
               <a href="javascript:void(0);"><span class="do-editer" @click="toEdit(article.articleId)">编辑</span></a>
             </div>
           </div>
@@ -124,7 +124,8 @@ export default {
 
 <style scoped>
   .top-image {
-    width: 60%;
+    width: 100%;
+    max-width: 1200px;
     height: 80%;
   }
   .count-num {
@@ -151,7 +152,8 @@ export default {
     /* overflow:hidden; */
     display: flex;
     flex-direction: column;
-    width: 60%;
+    width: 100%;
+    max-width: 1200px;
     background-color: white;
     /* border: 1px solid yellow; */
     background: #fff;
@@ -175,6 +177,7 @@ export default {
     line-height: 70px;
   }
   .created-time {
+    white-space: nowrap;
     font-size: 12px;
     color: #9c9ea8;
   }
@@ -185,6 +188,10 @@ export default {
     /* margin-bottom: 10px; */
     margin-top: 25px;
   }
+  .article-meta {
+    white-space: nowrap;
+  }
+
   .article-action {
     display: flex;
     flex-direction: row;
@@ -219,7 +226,8 @@ export default {
     border-radius: 0px !important;
   }
   .buttom-container {
-    width: 60%;
+    width: 100%;
+    max-width: 1200px;
   }
   /* 滚动条的宽度 */
   ::-webkit-scrollbar {

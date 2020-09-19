@@ -2,9 +2,11 @@
   <div class="menu-container">
     <div class="nav-logo">
       <!-- <img src="@/assets/img/code-fusheng.jpg" class="logo-img"> -->
-      <span class="logo-text">个人论坛 | code-fusheng</span>
+      <router-link to="/">
+        <span class="logo-text">个人论坛 | code-fusheng</span>
+      </router-link>
     </div>
-    <div class="nav-menu-search">
+    <div class="nav-menu-item">
       <a-menu :default-selected-keys="[$route.path]" mode="horizontal">
         <a-menu-item key="/index">
           <router-link to="/">
@@ -27,15 +29,18 @@
           </router-link>
         </a-menu-item>
       </a-menu>
-      <a-input-search v-model="content" placeholder="搜索中心" style="width: 200px" @search="toSearch(content)" />
+    </div>
+
+    <div class="nav-menu-search">
+      <a-input-search v-model="content" placeholder="搜索中心" @search="toSearch(content)" />
       <!-- <a-input-search v-model="content" placeholder="在这里能搜到奇怪的东西" style="width: 200px" @click="toSearch()" /> -->
-      <a-divider type="vertical" />
+      <!-- <a-divider type="vertical" /> -->
       <!-- 登录注册框 -->
       <a-divider v-if="!isLogin" type="vertical" />
-      <a v-if="!isLogin" id="loginButton" @click="showLoginModal()">登录</a>
+      <a v-if="!isLogin" id="loginButton" class="login-button" @click="showLoginModal()">登录</a>
       <a-divider v-if="!isLogin" type="vertical" />
-      <a v-if="!isLogin" @click="showRegisterModal()">注册</a>
-      <span v-else>
+      <a v-if="!isLogin" class="login-button" @click="showRegisterModal()">注册</a>
+      <span v-else class="login-span">
         <a-badge count="10">
           <a href="/remind">
             <a-icon type="bell" :style="{color:'#000',fontSize:'20px'}" />
@@ -84,6 +89,8 @@ export default {
   },
   data() {
     return {
+      collapsed: true,
+      showNav: false,
       content: '',
       visible: false,
       isLogin: this.$store.getters.token !== undefined,
@@ -99,8 +106,14 @@ export default {
   },
   created() {
     console.log(this.$route.path)
+    // this.changeShowNav()
   },
   methods: {
+    changeShowNav() {
+      // return setInterval(() => {
+      //   this.showNav = !this.showNav
+      // }, 5000)
+    },
     showLoginModal() {
       this.visible = true
       // document.getElementById('loginItem').click()
@@ -126,13 +139,28 @@ export default {
 }
 </script>
 <style scoped>
+/* 滚动条的宽度 */
+::-webkit-scrollbar {
+    width: 0px;
+    height: 1px;
+}
+/* 滚动条滑块样式 */
+::-webkit-scrollbar-thumb {
+    border-radius: 5px;
+    background-color: rgb(119, 214, 110);
+}
+
 .menu-container {
+    width: 100%;
+    overflow: scroll;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    text-align: center;
+    height: 50px;
     padding: 0 20px;
-    line-height: 60px;
+    line-height: 50px;
     /* background-image: linear-gradient(to right,#623AA2 0%,#F97794 100%); */
     background-image: linear-gradient(to right,#dbd8e2 0%,#5a5a5a 100%);
     /* margin-bottom: 10px; */
@@ -148,22 +176,30 @@ export default {
   color: #ffffff !important;
 }
 
+.login-button {
+  white-space: nowrap;
+}
+
 .nav-logo {
-    display: flex;
-    flex-direction: row;
+    height: 50px;
+    /* width: 414px; */
+    white-space: nowrap;
+    /* display: flex;
+    flex-direction: row; */
     align-items: center;
-    margin-left: 20px;
+    text-align: center;
+    margin: 0 20px;
 }
 
 .logo-img {
     width: 40px;
-    height: 40px;
+    height: 50px;
     margin-right: 10px;
 }
 
 .logo-text {
     cursor: pointer;
-    line-height: 40px;
+    line-height: 50px;
     font-size: 24px;
     color: white;
     font-family: 'Courier New', Courier, monospace;
@@ -191,6 +227,7 @@ export default {
     flex-direction: row;
     align-items: center;
     margin-right: 10px;
+    padding-right: 20px;
 }
 
 .ant-menu {
@@ -199,6 +236,17 @@ export default {
 
 .ant-menu-horizontal {
     border-bottom: none !important;
+}
+
+.login-span {
+  width: 100px;
+  white-space: nowrap;
+  height: 50px;
+  line-height: 50px;
+  align-content: center;
+  align-items: center;
+  text-align: center;
+  margin: 0 10px;
 }
 
 .login {

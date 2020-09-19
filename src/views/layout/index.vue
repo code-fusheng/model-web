@@ -99,13 +99,13 @@ export default {
 .main {
     background-color: #f5f5f5;
     width: 100%;
-    min-width: 1200px;
+    /* min-width: 1200px; */
     height: 100%;
     margin: auto;
 
 }
 .main-container {
-    min-width: 1200px;
+    /* min-width: 1200px; */
     margin: auto;
     width: 100%;
     height: 100%;
@@ -118,7 +118,7 @@ export default {
     margin: auto;
     width: 100%;
     height: 100%;
-    min-height: 1200px;
+    /* min-height: 1200px; */
     /* padding: 0 10px; */
     /* border: solid 1px blue; */
 }
@@ -128,7 +128,7 @@ export default {
     top: 0;
     z-index: 999;
     width: 100%;
-    min-width: 1200px;
+    /* min-width: 1200px; */
     height: 50px;
 }
 
@@ -148,7 +148,7 @@ export default {
     margin: auto;
     width: 100%;
     height: 100%;
-    min-width: 1200px;
+    /* min-width: 1200px; */
 }
 
 .music-player {
