@@ -7,7 +7,8 @@
       </router-link>
     </div>
     <div class="nav-menu-item">
-      <a-menu :default-selected-keys="[$route.path]" mode="horizontal">
+      <!-- <a-menu :default-selected-keys="[$route.path]" mode="horizontal"> -->
+      <a-menu mode="horizontal">
         <a-menu-item key="/index">
           <router-link to="/">
             <a-icon type="home" />首页
@@ -162,7 +163,7 @@ export default {
     padding: 0 20px;
     line-height: 50px;
     /* background-image: linear-gradient(to right,#623AA2 0%,#F97794 100%); */
-    background-image: linear-gradient(to right,#dbd8e2 0%,#5a5a5a 100%);
+    background-image: linear-gradient(to right,#667682 0%, #79868e 25%, #9fa7a9 50%, #969a9b 75%, #8d9498 100%);
     /* margin-bottom: 10px; */
     /* border: 1px red solid; */
 }
@@ -174,10 +175,14 @@ export default {
 
 .ant-menu-item a {
   color: #ffffff !important;
+  font-family: '楷体';
 }
 
 .login-button {
   white-space: nowrap;
+  font-size: 18px;
+  color: white;
+  font-family: '楷体';
 }
 
 .nav-logo {

@@ -4,7 +4,7 @@
     <div class="index-carousel-container" :style="'height:' + carouselStyle.height + 'px'">
       <div class="carousel-bg" />
       <div class="center-container">
-        <div class="carousel-center-title">其生若浮-其死若休</div>
+        <div class="carousel-center-title">世间繁华 何止三千 人生一世 何只百年</div>
         <!-- 动态座右铭 -->
         <!-- <div
           v-if="carouselShow"
@@ -125,6 +125,7 @@ export default {
   components: {},
   data() {
     return {
+      showSingle: true,
       // 主页图层动态样式
       carouselStyle: {
         widht: '',
@@ -167,10 +168,16 @@ export default {
     }
   },
   created() {
+    // this.changeShowSingle()
     this.getRecomArticle()
     this.getArticleList()
   },
   methods: {
+    changeShowSingle() {
+      return setInterval(() => {
+        this.showSingle = !this.showSingle
+      }, 5000)
+    },
     // 获取推荐文章
     getRecomArticle() {
       this.page.pageSize = 1
@@ -213,8 +220,8 @@ export default {
     transform-style: preserve-3d;
     -webkit-transform-origin: 0% 50%;
     transform-origin: 0% 50%;
-    background-image: url("https://visualhunt.com/photos/1/black-and-white-nature-sailing-ship-ship.jpg?s=l");
-    /* background-image: url('../../assets/img/bgi-1.jpg'); */
+    /* background-image: url("https://visualhunt.com/photos/1/black-and-white-nature-sailing-ship-ship.jpg?s=l"); */
+    background-image: url('../../assets/img/bgi-1.jpg');
     background-repeat: no-repeat;
     background-size: 100% 100%;
 }
@@ -235,7 +242,7 @@ export default {
 .center-container {
     /* border: 1px solid rgb(247, 243, 243); */
     color: #ffffff;
-    width: 600px;
+    min-width: 600px;
     height: 30%;
     display: flex;
     flex-direction: column;

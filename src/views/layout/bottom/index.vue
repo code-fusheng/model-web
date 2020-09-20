@@ -16,8 +16,7 @@
   align-items: center;
   text-align: center;
   color:rgb(196, 193, 190);
-  color: #2db7f5;
-  background-image: linear-gradient(to right,#623AA2 0%,#F97794 100%);
+  background-image: linear-gradient(to right,#667682 0%, #79868e 25%, #9fa7a9 50%, #969a9b 75%, #8d9498 100%);
   font-size: 12px;
   line-height: 30px;
 }
