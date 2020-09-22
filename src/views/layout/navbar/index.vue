@@ -42,7 +42,7 @@
       <a-divider v-if="!isLogin" type="vertical" />
       <a v-if="!isLogin" class="login-button" @click="showRegisterModal()">注册</a>
       <span v-else class="login-span">
-        <a-badge count="10">
+        <a-badge :count="messageCount">
           <a href="/remind">
             <a-icon type="bell" :style="{color:'#000',fontSize:'20px'}" />
           </a>
@@ -84,6 +84,7 @@
 </template>
 <script>
 import Login from '@/views/user/login/index'
+import messageApi from '@/api/operation/message'
 export default {
   components: {
     Login
@@ -97,17 +98,39 @@ export default {
       isLogin: this.$store.getters.token !== undefined,
       userName: '',
       userIcon: this.$store.getters.header,
+      temp: {},
+      messageList: [],
       messageCount: 0 // 消息计数
     }
   },
   watch: {
     'this.$route.path': function() {
       console.log(this.$route.path)
+    },
+    '$store.getters.messageCount': function() {
+      this.messageCount = this.$store.getters.messageCount
     }
   },
   created() {
     console.log(this.$route.path)
     // this.changeShowNav()
+    this.name = this.$store.getters.name
+    if (this.$store.getters.token) {
+      this.getMessageList()
+    }
+  },
+  mounted() {
+    // WebSocket
+    if ('WebSocket' in window) {
+      this.websocket = new WebSocket(process.env.VUE_APP_WEBSOCKET_URL)
+      // alert('连接浏览器')
+      this.initWebSocket()
+    } else {
+      alert('当前浏览器 不支持')
+    }
+  },
+  beforeDestroy() {
+    this.onbeforeunload()
   },
   methods: {
     changeShowNav() {
@@ -134,6 +157,146 @@ export default {
         query: {
           keyword: val
         }
+      })
+    },
+    initWebSocket() {
+      // 连接错误
+      this.websocket.onerror = this.setErrorMessage
+
+      // 连接成功
+      this.websocket.onopen = this.setOnopenMessage
+
+      // 收到消息的回调
+      this.websocket.onmessage = this.setOnmessageMessage
+
+      // 连接关闭的回调
+      this.websocket.onclose = this.setOncloseMessage
+
+      // 监听窗口关闭事件，当窗口关闭时，主动去关闭websocket连接，防止连接还没断开就关闭窗口，server端会抛异常。
+      window.onbeforeunload = this.onbeforeunload
+    },
+    setErrorMessage() {
+      console.log('WebSocket连接发生错误   状态码：' + this.websocket.readyState)
+    },
+    setOnopenMessage() {
+      console.log('WebSocket连接成功    状态码：' + this.websocket.readyState)
+    },
+    setOnmessageMessage(event) {
+      // 根据服务器推送的消息做自己的业务处理
+      console.log('服务端返回：' + event.data)
+      this.temp = JSON.parse(event.data)
+      if (this.temp.receiveUserName === this.$store.getters.name) {
+        this.messageCount++
+        this.$store.commit('global/SET_MESSAGE_COUNT', this.messageCount)
+      }
+      if (this.temp.sendUserName !== this.$store.getters.name) {
+        switch (this.temp.messageType) {
+          case 1:
+            this.$message({
+              customClass: 'message-model',
+              message: `${this.temp.sendUserName} 评论了 ${this.temp.receiveUserName} 的文章 ${this.temp.messageTargetDesc}`,
+              type: 'success'
+            })
+            break
+          case 2:
+            this.$message({
+              customClass: 'message-model',
+              message: `${this.temp.sendUserName} 回复了 ${this.temp.receiveUserName} 的评论 ${this.temp.messageTargetDesc}`,
+              type: 'success'
+            })
+            break
+          case 3:
+            this.$message({
+              customClass: 'message-model',
+              message: `${this.temp.sendUserName} 点赞了 ${this.temp.receiveUserName} 的文章 ${this.temp.messageTargetDesc}`,
+              type: 'success'
+            })
+            break
+          case 4:
+            this.$message({
+              customClass: 'message-model',
+              message: `${this.temp.sendUserName} 点赞了 ${this.temp.receiveUserName} 的评论 ${this.temp.messageTargetDesc}`,
+              type: 'success'
+            })
+            break
+          case 5:
+            this.$message({
+              customClass: 'message-model',
+              message: `${this.temp.sendUserName} 点赞了 ${this.temp.receiveUserName} 的提问 ${this.temp.messageTargetDesc}`,
+              type: 'success'
+            })
+            break
+          case 6:
+            this.$message({
+              customClass: 'message-model',
+              message: `${this.temp.sendUserName} 点赞了 ${this.temp.receiveUserName} 的答复 ${this.temp.messageTargetDesc}`,
+              type: 'success'
+            })
+            break
+          case 7:
+            break
+          case 8:
+            this.$message({
+              customClass: 'message-model',
+              message: `${this.temp.sendUserName} 收藏了 ${this.temp.receiveUserName} 的文章 ${this.temp.messageTargetDesc}`,
+              type: 'success'
+            })
+            break
+          case 9:
+            this.$message({
+              customClass: 'message-model',
+              message: `${this.temp.sendUserName} 收藏了 ${this.temp.receiveUserName} 的提问 ${this.temp.messageTargetDesc}`,
+              type: 'success'
+            })
+            break
+          case 10:
+            this.$message({
+              customClass: 'message-model',
+              message: `${this.temp.sendUserName} 收藏了 ${this.temp.receiveUserName} 的答复 ${this.temp.messageTargetDesc}`,
+              type: 'success'
+            })
+            break
+          case 12:
+            this.$message({
+              customClass: 'message-model',
+              message: `${this.temp.sendUserName} 批阅了 ${this.temp.receiveUserName} 的报告 ${this.temp.messageTargetDesc}`,
+              type: 'success'
+            })
+            break
+          case 13:
+            this.$message({
+              customClass: 'message-model',
+              message: `${this.temp.sendUserName} 答复了 ${this.temp.receiveUserName} 的提问 ${this.temp.messageTargetDesc}`,
+              type: 'success'
+            })
+            break
+          default:
+            this.$message({
+              customClass: 'message-model',
+              message: `${this.temp.sendUserName} 评论了 ${this.temp.receiveUserName} 的文章 ${this.temp.messageTargetDesc}`,
+              type: 'success'
+            })
+        }
+      }
+    },
+    setOncloseMessage() {
+      console.log('WebSocket连接关闭    状态码：' + this.websocket.readyState)
+    },
+    onbeforeunload() {
+      this.closeWebSocket()
+    },
+    closeWebSocket() {
+      this.websocket.close()
+    },
+    getMessageList() {
+      messageApi.getList().then(res => {
+        this.messageList = res.data
+        this.messageList.forEach(element => {
+          if (element.messageState === 0) {
+            this.messageCount++
+          }
+        })
+        this.$store.commit('global/SET_MESSAGE_COUNT', this.messageCount)
       })
     }
   }

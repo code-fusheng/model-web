@@ -4,7 +4,7 @@
     <div class="index-carousel-container" :style="'height:' + carouselStyle.height + 'px'">
       <div class="carousel-bg" />
       <div class="center-container">
-        <div class="carousel-center-title">世间繁华 何止三千 人生一世 何只百年</div>
+        <div class="carousel-center-title">浮生若梦 为欢几何</div>
         <!-- 动态座右铭 -->
         <!-- <div
           v-if="carouselShow"
@@ -242,7 +242,7 @@ export default {
 .center-container {
     /* border: 1px solid rgb(247, 243, 243); */
     color: #ffffff;
-    min-width: 600px;
+    width: 600px;
     height: 30%;
     display: flex;
     flex-direction: column;
