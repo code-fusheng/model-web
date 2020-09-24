@@ -40,8 +40,8 @@
           </span>
           <span slot="actions" key="comment-nested-reply-to" @click="doSaveCommentComment(item)">回复</span>
           <span slot="actions" :style="{ margin:'20px 50px'}">共{{ item.commentCount }}条回复
-            <a @click="getCommentCommentList(item.commentId)">点击查看</a>
-            <a @click="hiddenCommentComment(item.commentId)">收起</a>
+            <a v-if=" (showCommentComment != item.commentId) && (item.commentCount !== 0) " @click="getCommentCommentList(item.commentId)">点击查看</a>
+            <a v-if="showCommentComment === item.commentId" @click="hiddenCommentComment(item.commentId)">收起</a>
           </span>
           <span slot="author">
             <a-tag v-if=" article.authorName === item.username " :style="{ float:'left'}" color="orange">
@@ -302,7 +302,9 @@ export default {
         this.commentLoading = false
       })
     },
-    hiddenCommentComment() {},
+    hiddenCommentComment() {
+      this.showCommentComment = 0
+    },
     scrollLoadMore() {},
     // 删除文章的评论
     deleteArticleComment(val) {

@@ -1,3 +1,6 @@
+/* eslint-disable vue/attribute-hyphenation */
+/* eslint-disable vue/attribute-hyphenation */
+/* eslint-disable vue/attribute-hyphenation */
 <template>
   <!-- 文章阅读主体容器 -->
   <div class="read-container">
@@ -20,21 +23,32 @@
               <a href="javascript:void(0);"><span class="do-editer" @click="toEdit(article.articleId)">编辑</span></a>
             </div>
           </div>
-          <div class="article-content" v-html="article.articleContent" />
-          <!-- 文章操作 -->
-          <div class="article-action">
-            <div class="article-good">
-              <a :loading="goodLoading" href="javascript:void(0);" :class="article.goodArticleFlag ? 'article-good meta-active' : 'article-good'" @click="saveGood">
-                <a-icon type="like" /> 点赞
-              </a>
+          <a-layout-content>
+            <mavon-editor
+              v-model="article.articleContent"
+              :toolbarsFlag="false"
+              :subfield="false"
+              defaultOpen="preview"
+              codeStyle="monokai"
+              :toolbars="markdownOption"
+              :ishljs="true"
+              style="zIndex: 1"
+            />
+            <!-- <div class="article-content" v-html="article.articleContent" /> -->
+            <!-- 文章操作 -->
+            <div class="article-action">
+              <div class="article-good">
+                <a :loading="goodLoading" href="javascript:void(0);" :class="article.goodArticleFlag ? 'article-good meta-active' : 'article-good'" @click="saveGood">
+                  <a-icon type="like" /> 点赞
+                </a>
+              </div>
+              <div class="article-collection">
+                <a :loading="collectionLoading" href="javascript:void(0);" :class="article.collectionArticleFlag ? 'article-collection meta-active' : 'article-collection'" @click="saveCollection">
+                  <a-icon type="star" /> 收藏
+                </a>
+              </div>
             </div>
-            <div class="article-collection">
-              <a :loading="collectionLoading" href="javascript:void(0);" :class="article.collectionArticleFlag ? 'article-collection meta-active' : 'article-collection'" @click="saveCollection">
-                <a-icon type="star" /> 收藏
-              </a>
-            </div>
-          </div>
-        </div>
+          </a-layout-content></div>
       </a-spin>
     </div>
     <!-- 底部区域，放置评论 -->
@@ -45,6 +59,7 @@
 </template>
 
 <script>
+import '@/config/mavon-editor.js'
 import articleApi from '@/api/article/article'
 import goodApi from '@/api/operation/good'
 import collectionApi from '@/api/operation/collection'
@@ -55,6 +70,9 @@ export default {
   },
   data() {
     return {
+      markdownOption: {
+
+      },
       article: {
         articleId: '',
         articleAuthor: '',
@@ -92,6 +110,7 @@ export default {
         this.good.goodTarget = this.$route.params.id
         goodApi.save(this.good).then(res => {
           this.article.goodArticleFlag = true
+          this.$message.success(res.msg)
           console.log(res)
         })
       } else {
@@ -103,6 +122,7 @@ export default {
         this.collection.collectionTarget = this.$route.params.id
         collectionApi.save(this.collection).then(res => {
           this.article.collectionArticleFlag = true
+          this.$message.success(res.msg)
           console.log(res)
         })
       } else {
