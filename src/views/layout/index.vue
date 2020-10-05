@@ -37,7 +37,8 @@ export default {
   },
   created() {
     this.mouseScroll()
-    categoryApi.getList().then(res => {
+    this.tocuchMoveEvent()
+    categoryApi.getList().then((res) => {
       this.$store.commit('global/SET_CATEGORY', res.data)
     })
   },
@@ -45,13 +46,57 @@ export default {
     // this.initLive2d()
   },
   methods: {
+    tocuchMoveEvent() {
+      var _this = this
+      var startX, startY, x, y
+      function touchStart(e) {
+        // e.preventDefault()
+        var touch = e.touches[0]
+        startX = touch.pageX
+        startY = touch.pageY
+      }
+      function touchMove(e) {
+        // 滑动
+        // e.preventDefault()
+        var touch = e.touches[0]
+        x = startX - touch.pageX // 滑动的距离 x
+        y = startY - touch.pageY // 滑动的距离 y
+      }
+      function touchEnd(e) {
+        // 手指离开屏幕
+        // x 左右滑动距离 以及方向 左滑大于 0 右滑小于0
+        // y 上下滑动距离 以及方向 上滑 大于0 下滑小于0
+        // 判断滑动方向 上下
+        if (y > 0 && _this.show === true) {
+          _this.show = false
+          console.log('上滑距离:' + y + 'px')
+        } else if (y < 0 && _this.show === false) {
+          y = y * -1
+          _this.show = true
+          console.log('下滑距离:' + y + 'px')
+        }
+        if (x > 0) {
+          x = 0
+        }
+        // e.preventDefault()
+      }
+      document.addEventListener('touchstart', touchStart, false)
+      document.addEventListener('touchmove', touchMove, false)
+      document.addEventListener('touchend', touchEnd, false)
+    },
     mouseScroll() {
       // 给页面绑定滑轮滚动事件
-      if (document.addEventListener) { // firefox
-        document.addEventListener('DOMMouseScroll', this.watchScroll, false)
+      if (document.addEventListener) {
+        // firefox
+        document.addEventListener(
+          'DOMMouseScroll',
+          this.watchScroll,
+          false
+        )
       }
       // 滚动滑轮触发scrollFunc方法 // ie 谷歌
       window.onmousewheel = document.onmousewheel = this.watchScroll
+      // 移动端页面手指滑动事件
     },
     initLive2d() {
       if (this.Authorization != null) {
@@ -62,7 +107,9 @@ export default {
             pluginModelPath: 'live2d-widget-model-shizuku/assets/',
             tagMode: false,
             debug: false,
-            model: { jsonPath: '../live2dw/live2d-widget-model-shizuku/assets/shizuku.model.json' },
+            model: {
+              jsonPath: '../live2dw/live2d-widget-model-shizuku/assets/shizuku.model.json'
+            },
             display: { position: 'left', width: 240, height: 480 },
             mobile: { show: true },
             log: false
@@ -102,7 +149,6 @@ export default {
     /* min-width: 1200px; */
     height: 100%;
     margin: auto;
-
 }
 .main-container {
     /* min-width: 1200px; */
@@ -111,10 +157,9 @@ export default {
     height: 100%;
     display: flex;
     flex-direction: row;
-/* background-image: linear-gradient(to right,rgba(12, 12, 12, 0.133) 0%, #1e4468 25%, #3366a8 50%, #20386b 75%, #051f2e 100%); */
+    /* background-image: linear-gradient(to right,rgba(12, 12, 12, 0.133) 0%, #1e4468 25%, #3366a8 50%, #20386b 75%, #051f2e 100%); */
     /* border: 1px green solid; */
 }
-
 .center-container {
     margin: auto;
     width: 100%;
@@ -153,11 +198,11 @@ export default {
 }
 
 .music-player {
-  position: fixed;
-  top: 35%;
-  left: 0px;
-  max-width: 300px;
-  max-height: 250px;
-  z-index: 99999;
+    position: fixed;
+    top: 35%;
+    left: 0px;
+    max-width: 300px;
+    max-height: 250px;
+    z-index: 99999;
 }
 </style>
