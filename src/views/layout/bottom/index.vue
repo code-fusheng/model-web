@@ -16,7 +16,7 @@
   align-items: center;
   text-align: center;
   color:rgb(196, 193, 190);
-  background-image: linear-gradient(to right,#667682 0%, #79868e 25%, #9fa7a9 50%, #969a9b 75%, #8d9498 100%);
+  /* background-image: linear-gradient(to right,rgba(12, 12, 12, 0.133) 0%, #1e4468 25%, #3366a8 50%, #20386b 75%, #051f2e 100%); */
   font-size: 12px;
   line-height: 30px;
 }

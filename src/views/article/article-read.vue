@@ -1,6 +1,3 @@
-/* eslint-disable vue/attribute-hyphenation */
-/* eslint-disable vue/attribute-hyphenation */
-/* eslint-disable vue/attribute-hyphenation */
 <template>
   <!-- 文章阅读主体容器 -->
   <div class="read-container">
@@ -25,7 +22,7 @@
           </div>
           <a-layout-content>
             <mavon-editor
-              v-model="article.articleContent"
+              v-model="article.editContent"
               :toolbarsFlag="false"
               :subfield="false"
               defaultOpen="preview"
@@ -48,7 +45,8 @@
                 </a>
               </div>
             </div>
-          </a-layout-content></div>
+          </a-layout-content>
+          </div>
       </a-spin>
     </div>
     <!-- 底部区域，放置评论 -->
@@ -177,7 +175,7 @@ export default {
     background-color: white;
     /* border: 1px solid yellow; */
     background: #fff;
-    padding: 0px 25px 20px 25px;
+    /* padding: 0px 25px 20px 25px; */
   }
   .article-content {
     margin-top: 10px;

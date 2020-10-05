@@ -111,6 +111,7 @@ export default {
     height: 100%;
     display: flex;
     flex-direction: row;
+/* background-image: linear-gradient(to right,rgba(12, 12, 12, 0.133) 0%, #1e4468 25%, #3366a8 50%, #20386b 75%, #051f2e 100%); */
     /* border: 1px green solid; */
 }
 

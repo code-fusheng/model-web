@@ -41,6 +41,11 @@ const routes = [
         component: () => import('@/views/user/userInfo/index')
       },
       {
+        path: '/remind',
+        name: 'Remind',
+        component: () => import('@/views/user/remind/index')
+      },
+      {
         path: '/search/:keyword',
         name: 'Search',
         component: () => import('@/views/search/index')

@@ -42,8 +42,7 @@
             :on-success="uploadSuccess"
             :headers="headers"
           >
-            <!-- <img v-if="imageUrl" :src="imageUrl" class="avatar"> -->
-            <img v-if="imageUrl" :src="stateMode === 'create' ? imageUrl : article.articleImage" class="avatar">
+            <img v-if="imageUrl || article.articleImage" :src="stateMode === 'create' ? imageUrl : article.articleImage" class="avatar">
             <i v-else class="el-icon-plus avatar-uploader-icon" />
           </el-upload>
         </el-form-item>

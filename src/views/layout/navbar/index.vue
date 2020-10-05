@@ -34,8 +34,6 @@
 
     <div class="nav-menu-search">
       <a-input-search v-model="content" placeholder="搜索中心" @search="toSearch(content)" />
-      <!-- <a-input-search v-model="content" placeholder="在这里能搜到奇怪的东西" style="width: 200px" @click="toSearch()" /> -->
-      <!-- <a-divider type="vertical" /> -->
       <!-- 登录注册框 -->
       <a-divider v-if="!isLogin" type="vertical" />
       <a v-if="!isLogin" id="loginButton" class="login-button" @click="showLoginModal()">登录</a>
@@ -44,13 +42,13 @@
       <span v-else class="login-span">
         <a-badge :count="messageCount">
           <a href="/remind">
-            <a-icon type="bell" :style="{color:'#000',fontSize:'20px'}" />
+            <a-icon type="bell" :style="{color:'#fff',fontSize:'20px'}" />
           </a>
         </a-badge>
         <a-divider type="vertical" />
         <a-badge count="10">
           <a href="/chat">
-            <a-icon type="message" :style="{color:'#000',fontSize:'20px'}" />
+            <a-icon type="message" :style="{color:'#fff',fontSize:'20px'}" />
           </a>
         </a-badge>
         <a-divider type="vertical" />
@@ -75,6 +73,9 @@
             </a-menu-item>
             <a-menu-item>
               <a @click="logout">退出登录</a>
+            </a-menu-item>
+            <a-menu-item>
+              <a v-if="$store.getters.userId == 1" href="http://175.24.45.179:10000/" target="_blank">后台管理</a>
             </a-menu-item>
           </a-menu>
         </a-dropdown>
@@ -311,7 +312,7 @@ export default {
 /* 滚动条滑块样式 */
 ::-webkit-scrollbar-thumb {
     border-radius: 5px;
-    background-color: rgb(119, 214, 110);
+    background-color: rgb(31, 162, 238);
 }
 
 .menu-container {
@@ -325,8 +326,9 @@ export default {
     height: 50px;
     padding: 0 20px;
     line-height: 50px;
+    /* background-image: linear-gradient(to right,rgba(12, 12, 12, 0.133) 0%, #1e4468 25%, #3366a8 50%, #20386b 75%, #051f2e 100%); */
     /* background-image: linear-gradient(to right,#623AA2 0%,#F97794 100%); */
-    background-image: linear-gradient(to right,#667682 0%, #79868e 25%, #9fa7a9 50%, #969a9b 75%, #8d9498 100%);
+    /* background-image: linear-gradient(to right,#667682 0%, #79868e 25%, #9fa7a9 50%, #969a9b 75%, #8d9498 100%); */
     /* margin-bottom: 10px; */
     /* border: 1px red solid; */
 }
@@ -410,7 +412,7 @@ export default {
   width: 100px;
   white-space: nowrap;
   height: 50px;
-  line-height: 50px;
+  line-height: 60px;
   align-content: center;
   align-items: center;
   text-align: center;

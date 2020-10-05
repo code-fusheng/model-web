@@ -13,8 +13,8 @@
         <div
           v-else
           class="carousel-center-desc-english"
-        >XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</div> -->
-
+        >XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+        </div> -->
         <!-- 中间按钮 -->
         <div class="carousel-center-button-container">
           <a class="read-button" href="#recom-article"><a-icon class="button-icon" type="down-circle" />开始阅读</a>
@@ -132,7 +132,6 @@ export default {
         height: ''
       },
       myDream: '不是每个人都应该像我这样去建造一座水晶大教堂，但是每个人都应该拥有自己的梦想，设计自己的梦想，追求自己的梦想，实现自己的梦想。梦想是生命的灵魂，是心灵的灯塔，是引导人走向成功的信仰。有了崇高的梦想，只要矢志不渝地追求，梦想就会成为现实，奋斗就会变成壮举，生命就会创造奇迹。——罗伯·舒乐',
-      //
       carouselShow: true,
       recomArticle: {
         articleId: null,
@@ -221,7 +220,7 @@ export default {
     -webkit-transform-origin: 0% 50%;
     transform-origin: 0% 50%;
     /* background-image: url("https://visualhunt.com/photos/1/black-and-white-nature-sailing-ship-ship.jpg?s=l"); */
-    background-image: url('../../assets/img/bgi-1.jpg');
+    background-image: url('../../assets/img/bgi-7-plus.jpg');
     background-repeat: no-repeat;
     background-size: 100% 100%;
 }
@@ -280,10 +279,10 @@ export default {
 }
 
 .read-button:hover {
-    border: 1px solid #f44336;
-    background-color: #f44336;
-    box-shadow: 0 14px 26px -12px rgba(233, 30, 99, 0.42),
-        0 4px 23px 0 rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(233, 30, 99, 0.2);
+    border: 1px solid #133751;
+    background-color: #133751;
+    box-shadow: 0 14px 26px -12px rgba(23, 75, 172, 0.42),
+        0 4px 23px 0 rgba(52, 95, 173, 0.12), 0 8px 10px -5px rgba(63, 110, 163, 0.2);
     transition: background-color 0.5s;
     transition: border 0.2s;
 }
@@ -301,10 +300,10 @@ export default {
 }
 
 .link-button:hover {
-    border: 1px solid #f44336;
-    background-color: #f44336;
-    box-shadow: 0 14px 26px -12px rgba(233, 30, 99, 0.42),
-        0 4px 23px 0 rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(233, 30, 99, 0.2);
+    border: 1px solid #133751;
+    background-color: #133751;
+    box-shadow: 0 14px 26px -12px rgba(23, 75, 172, 0.42),
+        0 4px 23px 0 rgba(52, 95, 173, 0.12), 0 8px 10px -5px rgba(63, 110, 163, 0.2);
     transition: background-color 0.5s;
     transition: border 0.2s;
 }
