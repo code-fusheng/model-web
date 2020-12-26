@@ -111,6 +111,7 @@ export default {
   methods: {
     getByPage() {
       this.loading = true
+      this.page.list = []
       articleApi.getByPage(this.page).then(res => {
         console.log(res)
         this.page = res.data

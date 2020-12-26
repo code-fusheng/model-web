@@ -14,11 +14,11 @@
             <a-icon type="home" />首页
           </router-link>
         </a-menu-item>
-        <a-menu-item key="/article">
+        <!-- <a-menu-item key="/article">
           <router-link to="/article">
             <a-icon type="book" />文章
           </router-link>
-        </a-menu-item>
+        </a-menu-item> -->
         <a-menu-item key="/tools">
           <router-link to="/tools">
             <a-icon type="tool" />工具

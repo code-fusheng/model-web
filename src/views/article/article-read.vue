@@ -11,22 +11,28 @@
       <a-spin :spinning="loading">
         <div>
           <div class="article-title">{{ article.articleTitle }}</div>
+          <div class="article-operation">
+            <div class="operation-content">
+              阅读 <a-icon class="action-icon" type="eye" /><span class="count-num"> {{ article.readCount }}</span>
+              收藏 <a-icon class="action-icon" type="heart" /><span class="count-num"> {{ article.collectionCount }}</span>
+              点赞 <a-icon class="action-icon" type="like" /><span class="count-num"> {{ article.goodCount }}</span>
+            </div>
+          </div>
           <div class="article-item">
-            <div class="created-time">{{ article.createdTime }}</div>
+            <div class="created-time">
+              <a-icon class="meta-icon" type="clock-circle" />{{ article.createdTime }}
+            </div>
             <div class="article-meta">
-              <a-icon class="action-icon" type="eye" /><span class="count-num"> {{ article.readCount }}</span>
-              <a-icon class="action-icon" type="heart" /><span class="count-num"> {{ article.collectionCount }}</span>
-              <a-icon class="action-icon" type="like" /><span class="count-num"> {{ article.goodCount }}</span>
-              <a href="javascript:void(0);"><span class="do-editer" @click="toEdit(article.articleId)">编辑</span></a>
+              <a v-if="$store.getters.userId === article.authorId" href="javascript:void(0);" @click="toEdit(article.articleId)"><a-icon class="meta-icon" type="edit" /><span class="do-editer">编辑</span></a>
             </div>
           </div>
           <a-layout-content>
             <mavon-editor
               v-model="article.editContent"
-              :toolbarsFlag="false"
+              :toolbars-flag="false"
               :subfield="false"
-              defaultOpen="preview"
-              codeStyle="monokai"
+              default-open="preview"
+              code-style="monokai"
               :toolbars="markdownOption"
               :ishljs="true"
               style="zIndex: 1"
@@ -46,7 +52,7 @@
               </div>
             </div>
           </a-layout-content>
-          </div>
+        </div>
       </a-spin>
     </div>
     <!-- 底部区域，放置评论 -->
@@ -194,12 +200,27 @@ export default {
     font-weight: bold;
     line-height: 70px;
   }
+  .article-operation {
+    display: flex;
+    align-items: center;
+    align-content: center;
+  }
+  .operation-content {
+    width: 60%;
+    margin: 0 auto;
+    text-align: center;
+  }
   .created-time {
+    line-height: 50px;
     white-space: nowrap;
     font-size: 12px;
-    color: #9c9ea8;
+    color: rgb(13, 138, 19);
   }
   .article-item {
+    padding: 0 20px;
+    height: 50px;
+    line-height: 50px;
+    /* border: 1px solid red; */
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -208,6 +229,11 @@ export default {
   }
   .article-meta {
     white-space: nowrap;
+  }
+
+  .meta-icon {
+    margin-right: 5px;
+    margin-left: 5px;
   }
 
   .article-action {

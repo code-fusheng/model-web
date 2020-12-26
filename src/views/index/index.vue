@@ -5,6 +5,7 @@
       <div class="carousel-bg" />
       <div class="center-container">
         <div class="carousel-center-title">浮生若梦 为欢几何</div>
+        <spoltLight />
         <!-- 动态座右铭 -->
         <!-- <div
           v-if="carouselShow"
@@ -74,7 +75,7 @@
           <div class="recom-article-container" :style="{backgroundImage: 'url(' + recomArticle.articleImage + ')', backgroundSize:'100% 100%', backgroundRepeat: 'no-repeat'}">
             <div class="recom-article-card">
               <div class="article-card-body">
-                <div class="recom-article-category">{{ recomArticle.categoryName }}</div>
+                <!-- <div class="recom-article-category">{{ recomArticle.categoryName }}</div> -->
                 <div class="recom-article-title">{{ recomArticle.articleTitle }}</div>
                 <div class="recom-article-desc">{{ recomArticle.articleDesc }}</div>
                 <router-link :to="'articleRead/'+recomArticle.articleId">
@@ -113,8 +114,13 @@
               </div>
             </div>
           </div>
+          <!-- <div v-if="noMore = true" class="load-more" :loading="loadingMore"><a-icon class="load-more-icon" type="close" />到底了</div> -->
         </div>
       </div>
+      <div class="load-more-item">
+        <div v-if="noMore != true" :loading="loadingMore" class="load-more streamer-sun-button" @click="loadMore()"><a-icon class="load-more-icon" type="arrow-down" />加载更多</div>
+      </div>
+
     </div>
   </div>
 </template>
@@ -122,7 +128,6 @@
 <script>
 import articleApi from '@/api/article/article'
 export default {
-  components: {},
   data() {
     return {
       showSingle: true,
@@ -131,7 +136,7 @@ export default {
         widht: '',
         height: ''
       },
-      myDream: '不是每个人都应该像我这样去建造一座水晶大教堂，但是每个人都应该拥有自己的梦想，设计自己的梦想，追求自己的梦想，实现自己的梦想。梦想是生命的灵魂，是心灵的灯塔，是引导人走向成功的信仰。有了崇高的梦想，只要矢志不渝地追求，梦想就会成为现实，奋斗就会变成壮举，生命就会创造奇迹。——罗伯·舒乐',
+      myDream: '不是每个人都应该像我这样去建造一座水晶大教堂，但是每个人都应该拥有自己的梦想，设计自己的梦想，追求自己的梦想，实现自己的梦想。',
       carouselShow: true,
       recomArticle: {
         articleId: null,
@@ -152,7 +157,9 @@ export default {
         sortColumn: 'updateTime',
         sortMethod: 'desc',
         list: []
-      }
+      },
+      loadingMore: false,
+      noMore: false
     }
   },
   mounted() {
@@ -195,6 +202,24 @@ export default {
         this.articleList = res.data.list
         console.log(this.articleList)
       })
+    },
+    loadMore() {
+      if (this.noMore === false) {
+        this.loadingMore = true
+        this.page.currentPage += 1
+        this.page.pageSize = 12
+        articleApi.getByPage(this.page).then(res => {
+          if (res.data.list.length < this.page.pageSize) {
+            this.$message.warning('当前是最后一页了!')
+            this.noMore = true
+          }
+          const dataList = res.data.list
+          dataList.forEach(item => {
+            this.articleList.push(item)
+          })
+          this.loadingMore = false
+        })
+      }
     }
   }
 }
@@ -250,8 +275,51 @@ export default {
 }
 
 .carousel-center-title {
+  position: relative;
   font-family: 'STXingkai';
-    font-size: 40px;
+  color: #333333;
+  font-size: 40px;
+  cursor: pointer;
+}
+
+.carousel-center-title::after {
+    content: '浮生若梦 为欢几何';
+    position: absolute;
+    top: 0;
+    left: 0;
+    /* 文字透明色 */
+    color: transparent;
+    background-image: linear-gradient(to right,
+        #c23616, #192a56, #00d2d3, yellow,
+        #6d214f, #2e86de, #4cd137, #e84118
+    );
+    /* 背景绘制区域 值:text 代表设置了文字的镂空效果 前提必须是文字为透明色 */
+    background-clip: text;
+    /* 谷歌浏览器的私有属性 */
+    -webkit-background-clip: text;
+    /* 利用裁剪来创建爱你元素的可显示区域
+    circle 表示创建了圆形;
+    100px 表示圆形的直径;
+    0%和50%表示圆形的圆心;
+    圆形的直径和圆形的圆心利用 at 关键字隔开
+    */
+    clip-path: circle(50px at 0% 50%);
+    /* 动画 名称 时长 无限循环 */
+    animation: move 5s infinite;
+}
+
+/* 设置移动效果 */
+@keyframes move{
+    0% {
+        clip-path: circle(50px at 0% 50%);
+    }
+    50% {
+        clip-path: circle(50px at 100% 50%);
+    }
+    100% {
+        clip-path: circle(50px at 0% 50%);
+    }
+
 }
 
 /* 中间按钮 */
@@ -425,7 +493,7 @@ export default {
   margin-top: 10px;
   width: 90%;
   height: 300px;
-  border: 1px solid black;
+  border: 1px solid rgba(180, 170, 170, 0.178);
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -458,6 +526,10 @@ export default {
 }
 
 .recom-article-desc {
+  /* 超出隐藏 */
+overflow: hidden;
+/* 超出部分省略号 */
+text-overflow: ellipsis;
   height: 80px;
   font-size: 18px;
   line-height: 80px;
@@ -486,12 +558,77 @@ export default {
 
 /* 下端文章卡片列表 */
 
+.load-more-icon {
+  margin-right: 5px;
+}
+
+.load-more-item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* height: 100vh; */
+    margin-bottom: 20px;
+    cursor: pointer;
+}
+
+.streamer-sun-button {
+    position: relative;
+    width: 120px;
+    height: 45px;
+    line-height: 45px;
+    text-transform: uppercase;
+    text-align: center;
+    /* 文本下划线 */
+    text-decoration: none;
+    /* font-size: 24px; */
+    color: #ffffff;
+    border-radius: 50px;
+    background-image: linear-gradient(to right,
+        #03a9f4, #f441a5, #ffeb3b, #09a8f4
+    );
+    /* 背景渐变色大小 - 宽度 */
+    background-size: 400%;
+    z-index: 1;
+}
+
+/* 发光效果 */
+.streamer-sun-button::before {
+    content: '';
+    position: absolute;
+    top: -5px;
+    bottom: -5px;
+    left: -5px;
+    right: -5px;
+    border-radius: 50px;
+    background-image: linear-gradient(to right, #03a9f4, #f441a5, #ffeb3b, #09a8f4);
+    background-size: 400%;
+    z-index: -1;
+    /* 设置模糊度 */
+    filter: blur(20px);
+}
+
+/* 流光动画 */
+.streamer-sun-button:hover {
+    animation: streamersun 8s infinite;
+}
+
+.streamer-sun-button:hover::before {
+    animation: streamersun 8s infinite;
+}
+
+@keyframes streamersun {
+    100% {
+        /* 背景位置 */
+        background-position: -400%, 0;
+    }
+}
+
 .article-card-container {
-    width: 80%;
+    width: 94%;
     max-width: 1125px;
     display: flex;
     justify-content: center;
-    min-height: 100vh;
+    /* min-height: 100vh; */
     align-items: center;
     margin-bottom: 20px;
     margin-top: 10px;
@@ -500,18 +637,24 @@ export default {
 
 .article-card-list-container {
     width: 1125px;
-    display: grid;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-items: center;
+    /* display: grid;
     grid-template-columns: repeat(auto-fit,minmax(350px,1fr));
-    grid-gap: 15px;
+    grid-gap: 15px; */
     margin: 0 auto;
     transform-style: preserve-3d;
 }
 
 .article-card-item {
     position: relative;
+    width: 30%;
     min-width: 350px;
-    height: 290px;
-    margin: 0 auto;
+    height: 245px;
+    margin: 10px 5px;
     background: #fff;
     box-shadow: 0 15px 20px rgba(0, 0, 0, 0.5);
     border-radius: 10px;
@@ -539,7 +682,7 @@ export default {
 
 .article-card-image {
   position: relative;
-  height: 220px;
+  height: 175px;
   width: 100%;
   /* min-width: 350px; */
   /* border: 1px solid black; */
@@ -590,6 +733,14 @@ export default {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+}
+
+.article-createdTime {
+  color: rgb(13, 138, 19);
+}
+
+.article-category {
+  color: #f40;
 }
 
 .meta-icon {

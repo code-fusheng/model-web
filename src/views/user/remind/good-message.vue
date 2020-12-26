@@ -88,6 +88,7 @@ export default {
   },
   methods: {
     getByPage() {
+      this.page.list = []
       messageApi.getByPage(this.page).then(res => {
         this.page = res.data
       })

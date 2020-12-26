@@ -249,6 +249,7 @@ export default {
   methods: {
     // 文章评论列表
     getArticleCommentList() {
+      this.articleCommentPage.list = []
       commentApi.getByPage(this.articleCommentPage).then(res => {
         console.log(res)
         this.articleCommentPage = res.data
@@ -258,6 +259,7 @@ export default {
     },
     // 评论的评论列表
     getCommentCommentList(val) {
+      this.commentCommentPage.list = []
       this.commentCommentPage.params.commentTarget = val
       commentApi.getByPage(this.commentCommentPage).then(res => {
         console.log(res)

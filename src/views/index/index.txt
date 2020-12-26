@@ -1,0 +1,318 @@
+<!-- 上端推荐文章 -->
+      <div id="recom-article" class="recom-container">
+        <div class="my-dream-container">
+          <div class="dream-top">
+            <div class="dream-icon"><a-icon type="cloud" /></div>
+            <div class="dream-label">我的梦想</div>
+          </div>
+          <div class="dream-content">{{ myDream }}</div>
+        </div>
+        <div class="my-recom-container">
+          <div class="recom-top">
+            <div class="recom-icon"><a-icon type="like" /></div>
+            <div class="recom-label">推荐文章</div>
+          </div>
+          <div class="recom-article-container" :style="{backgroundImage: 'url(' + recomArticle.articleImage + ')', backgroundSize:'100% 100%', backgroundRepeat: 'no-repeat'}">
+            <div class="recom-article-card">
+              <div class="article-card-body">
+                <div class="recom-article-category">{{ recomArticle.categoryName }}</div>
+                <div class="recom-article-title">{{ recomArticle.articleTitle }}</div>
+                <div class="recom-article-desc">{{ recomArticle.articleDesc }}</div>
+                <router-link :to="'articleRead/'+recomArticle.articleId">
+                  <div class="read-more"><a-icon class="read-more-icon" type="eye" />阅读更多</div>
+                </router-link>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- 下端文章列表 -->
+      <div class="article-card-container">
+        <div class="article-card-list-container">
+          <div v-for="item in articleList" :key="item.articleId" class="article-card-item">
+            <!-- 文章卡片容器 图片+说明 -->
+            <div class="card-container">
+              <router-link class="article-card-image" :style="{backgroundImage: 'url(' + item.articleImage + ')', backgroundSize:'100% 100%', backgroundRepeat: 'no-repeat'}" :to="'articleRead/'+item.articleId">
+                <div class="article-card-title">{{ item.articleTitle }}</div>
+              </router-link>
+              <div class="article-card-info">
+                <router-link :to="'articleRead/'+item.articleId">
+                  <div class="article-desc-container">
+                    <div class="article-desc">
+                      {{ item.articleDesc }}
+                    </div>
+                  </div>
+                </router-link>
+                <div class="article-meta-container">
+                  <div class="article-createdTime">
+                    <a-icon class="meta-icon" type="clock-circle" />{{ item.createdTime }}
+                  </div>
+                  <div class="article-category">
+                    <a-icon class="meta-icon" type="tags" />{{ item.categoryName }}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      /* 上端推荐文章开始 */
+.recom-container {
+    width: 94%;
+    max-width: 1125px;
+    height: 700px;
+    /* margin-bottom: 10px; */
+    border: 1px solid white;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    border-radius: 10px;
+    margin-top: 15px;
+}
+
+.my-dream-container {
+  margin-top: 60px;
+  width: 63%;
+  height: 30%;
+  /* border: 1px solid red; */
+  display: flex;
+  flex-direction: column;
+  /* justify-content: center; */
+  align-items: center;
+}
+
+.dream-top {
+  height: 45px;
+  font-size: 30px;
+  line-height: 45px;
+  font-weight: bold;
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 20px;
+}
+
+.dream-icon {
+  font-size: 30px;
+  margin-right: 10px;
+  line-height: 45px;
+}
+
+.dream-content {
+  /* text-indent: 2em; */
+  width: 100%;
+  height: 93px;
+  font-size: 16px;
+  color: #A5A5A5;
+  text-align: center;
+    /* 超出隐藏 */
+  overflow: hidden;
+  /* 超出部分省略号 */
+  text-overflow: ellipsis;
+}
+
+.my-recom-container {
+  /* border: 1px solid green; */
+  width: 100%;
+  height: 60%;
+  display: flex;
+  flex-direction: column;
+  /* justify-content: space-around; */
+  align-items: center;
+  margin-bottom: 60px;
+}
+
+.recom-top {
+  height: 45px;
+  font-size: 30px;
+  line-height: 45px;
+  font-weight: bold;
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 20px;
+}
+
+.recom-icon {
+  font-size: 30px;
+  margin-right: 10px;
+  line-height: 45px;
+}
+
+.recom-article-container {
+  /* filter:grayscale(80%); */
+  margin-top: 10px;
+  width: 90%;
+  height: 300px;
+  border: 1px solid black;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  border-radius: 10px;
+  color: rgba(0, 0, 0, .87);
+  box-shadow: 0 15px 35px rgba(50, 50, 93, .1),
+              0 5px 15px rgba(0, 0, 0, .07);
+}
+
+.article-card-body {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+}
+
+.recom-article-category {
+  height: 21px;
+  font-size: 16px;
+  line-height: 21px;
+}
+
+.recom-article-title {
+  height: 50px;
+  font-size: 30px;
+  font-weight: bold;
+  line-height: 50px;
+}
+
+.recom-article-desc {
+  height: 80px;
+  font-size: 18px;
+  line-height: 80px;
+  color: #A5A5A5;
+}
+
+.read-more {
+  width: 120px;
+  height: 45px;
+  cursor: pointer;
+  margin: 0 20px;
+  color: #ffffff;
+  line-height: 45px;
+  font-size: 18px;
+  border-radius: 30px;
+  cursor: pointer;
+  border: 1px solid #f44336;
+  background-color: #f44336;
+}
+
+.read-more-icon {
+  margin-right: 5px;
+}
+
+/* 上端推荐文章结束 */
+
+/* 下端文章卡片列表 */
+
+.article-card-container {
+    width: 80%;
+    max-width: 1125px;
+    display: flex;
+    justify-content: center;
+    min-height: 100vh;
+    align-items: center;
+    margin-bottom: 20px;
+    margin-top: 10px;
+    /* background: linear-gradient(45deg,#24006b,#f42f8c) */
+}
+
+.article-card-list-container {
+    width: 1125px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(350px,1fr));
+    grid-gap: 15px;
+    margin: 0 auto;
+    transform-style: preserve-3d;
+}
+
+.article-card-item {
+    position: relative;
+    min-width: 350px;
+    height: 290px;
+    margin: 0 auto;
+    background: #fff;
+    box-shadow: 0 15px 20px rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    /* padding: 10px; */
+    transition:transform 1s;
+    -moz-transition:transform 1s; /* Firefox 4 */
+    -webkit-transition:transform 1s; /* Safari and Chrome */
+    -o-transition:transform 1s; /* Opera */
+}
+
+.article-card-item:hover {
+  transform: scale(1.05,1.05);
+}
+
+.card-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.article-card-image {
+  position: relative;
+  height: 220px;
+  width: 100%;
+  /* min-width: 350px; */
+  /* border: 1px solid black; */
+  border-radius: 10px;
+}
+
+.article-card-title {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  padding: 24px;
+  font-size: 15px;
+  color: #ffffff;
+}
+
+.article-card-info {
+  height: 70px;
+  width: 100%;
+  min-width: 350px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+}
+
+.article-desc-container {
+  /* border: 1px solid red; */
+  height: 40px;
+}
+
+.article-desc {
+  width: 350px;
+  text-align: left;
+  line-height: 40px;
+  white-space: nowrap;
+  /* 超出隐藏 */
+  overflow: hidden;
+  /* 超出部分省略号 */
+  text-overflow: ellipsis;
+  text-indent: 1em;
+  color: black;
+}
+
+.article-meta-container {
+  padding: 0 10px;
+  /* border: 1px solid blue; */
+  height: 28px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.meta-icon {
+  margin-right: 5px;
+  margin-left: 5px;
+}

@@ -1,4 +1,4 @@
-import { login, logout, getInfo, register } from '@/api/user/user'
+import { login, logout, getInfo, register, smsLogin } from '@/api/user/user'
 import { getToken, setToken, removeToken } from '@/utils/auth'
 
 const getDefaultState = () => {
@@ -37,6 +37,19 @@ const actions = {
     return new Promise((resolve, reject) => {
       login({ username: username, password: password }).then(res => {
         // 放到 Vuex
+        commit('SET_TOKEN', res.data)
+        setToken(res.data)
+        resolve()
+      }).catch(error => {
+        reject(error)
+      })
+    })
+  },
+
+  // 用户短信登录
+  smsLogin({ commit }, userInfo) {
+    return new Promise((resolve, reject) => {
+      smsLogin(userInfo).then(res => {
         commit('SET_TOKEN', res.data)
         setToken(res.data)
         resolve()
