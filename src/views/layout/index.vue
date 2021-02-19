@@ -186,7 +186,7 @@ export default {
 }
 .menu-enter, .menu-leave-to
 /* .menu-leave-active for below version 2.1.8 */ {
-    transform: translateY(-70px);
+    transform: translateY(-50px);
     opacity: 0;
 }
 

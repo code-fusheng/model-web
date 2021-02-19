@@ -12,47 +12,47 @@ const routes = [
     children: [
       {
         path: '/index',
-        name: 'Index',
+        name: '首页',
         component: () => import('@/views/index/index')
       },
       {
         path: '/article',
-        name: 'Article',
+        name: '文章',
         component: () => import('@/views/article/index')
       },
       {
         path: '/articleRead/:id',
-        name: 'ArticleRead',
+        name: '阅读文章',
         component: () => import('@/views/article/article-read')
       },
       {
         path: '/tools',
-        name: 'Tools',
-        component: () => import('@/views/tools/index')
+        name: '工具',
+        component: () => import('@/views/tools/index-v2')
       },
       {
         path: '/about',
-        name: 'About',
+        name: '关于',
         component: () => import('@/views/about/index')
       },
       {
         path: '/userInfo',
-        name: 'UserInfo',
+        name: '个人中心',
         component: () => import('@/views/user/userInfo/index')
       },
       {
         path: '/remind',
-        name: 'Remind',
+        name: '提醒',
         component: () => import('@/views/user/remind/index')
       },
       {
         path: '/search/:keyword',
-        name: 'Search',
+        name: '搜索',
         component: () => import('@/views/search/index')
       },
       {
         path: '/create',
-        name: 'Create',
+        name: '创作中心',
         component: () => import('@/views/create/index')
       }
     ]

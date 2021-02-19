@@ -63,5 +63,11 @@ export default {
       url: `/${group_name}/read/${id}`,
       method: 'get'
     })
-  }
+  },
+  getLastAndNextArticleVo(id) { // 根据id获取上一篇与下一篇的文章内容信息
+    return request({
+      url: `/${group_name}/getLastAndNextArticleVo/${id}`,
+      method: 'get'
+    })
+  } 
 }

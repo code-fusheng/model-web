@@ -45,7 +45,7 @@ export default {
     display: flex;
     flex-direction: row;
     max-height: 1600px;
-    /* width: 90%; */
+    width: 85%;
     max-width: 1334px;
     /* 左右自适应 */
     margin: auto;
@@ -58,7 +58,7 @@ export default {
     width: 8%;
     height: 1333px;
     margin-right: 3px;
-    background-color: white;
+    /* background-color: white; */
     display: flex;
     flex-direction: column;
   }
@@ -69,13 +69,13 @@ export default {
     /* 上 右 下 左 */
     /* padding: 0 5px 5px 5px; */
     margin: 0 3px 0 3px;
-    background-color: white;
+    /* background-color: white; */
   }
   .right-container  {
     width: 26%;
     height: 1333px;
     /* border: 1px solid #9c9ea8; */
-    background-color: white;
+    /* background-color: white; */
     margin-left: 3px;
   }
 </style>

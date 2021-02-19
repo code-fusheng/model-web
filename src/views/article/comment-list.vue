@@ -229,10 +229,10 @@ export default {
       const newValLength = newVal ? newVal.length : 0
       const oldValLength = oldVal ? oldVal.length : 0
       this.commentContentCount = this.commentContentCount - (newValLength - oldValLength)
-    },
-    '$route': function() {
-      this.read(this.$route.params.id)
     }
+    // '$route': function() {
+    //   this.read(this.$route.params.id)
+    // }
   },
   created() {
     var _this = this

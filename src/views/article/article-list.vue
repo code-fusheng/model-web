@@ -94,14 +94,6 @@ export default {
       pageShow: false
     }
   },
-  watch: {
-    category: function() {
-      this.noMore = false
-      this.page.currentPage = 1
-      this.page.params.articleCategory = this.category.categoryId
-      this.getByPage(this.page)
-    }
-  },
   created() {
     this.getByPage()
     this.$bus.$on('changeCategory', val => {
@@ -154,6 +146,14 @@ export default {
       this.page.currentPage = 1
       this.getByPage(this.page)
     }
+  },
+  watch: {
+    category: function() {
+      this.noMore = false
+      this.page.currentPage = 1
+      this.page.params.articleCategory = this.category.categoryId
+      this.getByPage(this.page)
+    }
   }
 }
 </script>
@@ -198,8 +198,8 @@ export default {
   }
   .article-list-container {
     max-height: 1250px;
-    height: 1250px;
-    overflow: auto;
+    min-height: 150px;
+    /* overflow: auto; */
   }
   .article-main {
     display: flex;
@@ -208,7 +208,7 @@ export default {
   }
   .article-container {
     width: 100%;
-    min-height: 100px;
+    /* min-height: 300px; */
   }
   .action-icon :hover {
     color: #349edf;
@@ -225,7 +225,7 @@ export default {
     color: red;
   }
   .article-desc {
-    width: 100%;
+    max-width: 490px;
     align-self: start;
     margin-bottom: 10px;
     font-size: 14px;
@@ -259,7 +259,7 @@ export default {
     margin-right: 20px;
   }
   .article-cover {
-    width: 100%;
+    min-width: 210px;
     height:110px;
     border-radius: 5px;
   }
@@ -270,15 +270,11 @@ export default {
     align-items: center;
   }
   .image-article {
-    width: 562px;
+    width: 100%;
     min-height: 100px;
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
-  }
-  .article-container {
-    min-width: 812px;
-    min-height: 110px;
   }
   .author-img {
     width: 36px;

@@ -40,6 +40,7 @@
             <!-- <div class="article-content" v-html="article.articleContent" /> -->
             <!-- 文章操作 -->
             <div class="article-action">
+              <!-- 前一篇 -->
               <div class="article-good">
                 <a :loading="goodLoading" href="javascript:void(0);" :class="article.goodArticleFlag ? 'article-good meta-active' : 'article-good'" @click="saveGood">
                   <a-icon type="like" /> 点赞
@@ -49,6 +50,14 @@
                 <a :loading="collectionLoading" href="javascript:void(0);" :class="article.collectionArticleFlag ? 'article-collection meta-active' : 'article-collection'" @click="saveCollection">
                   <a-icon type="star" /> 收藏
                 </a>
+              </div>
+            </div>
+            <div class="article-change">
+              <div class="last-article" @click="toLastArticle()">
+                <a-icon type="arrow-left" /> 上一篇 {{ lastArticle == null ? "已经没有啦" : lastArticle.articleTitle }}
+              </div>            
+              <div class="next-article" @click="toNextArticle()">
+                {{ nextArticle == null ? "已经没有啦" : nextArticle.articleTitle }} 下一篇 <a-icon type="arrow-right" />
               </div>
             </div>
           </a-layout-content>
@@ -91,23 +100,58 @@ export default {
         collectionTarget: '',
         collectionType: 1
       },
+      lastAndNextArticleList: [],
+      lastArticle: {
+        articleId: 0
+      },
+      nextArticle:{
+        articleId: 0
+      },
       loading: true,
       commentLoading: false,
       goodLoading: false,
       collectionLoading: false
     }
   },
+  watch: {
+    '$route': function() {
+      this.read()
+      this.getLastAndNextArticleVo()
+    }
+  },
   created() {
     this.read()
+    this.getLastAndNextArticleVo()
   },
   methods: {
     read() {
       this.article.articleId = this.$route.params.id
       articleApi.read(this.article.articleId).then(res => {
-        console.log(res)
+        // console.log(res)
         this.article = res.data
         this.loading = false
       })
+    },
+    getLastAndNextArticleVo() {
+      this.article.articleId = this.$route.params.id
+      articleApi.getLastAndNextArticleVo(this.article.articleId).then(res => {
+        // console.log(res)
+        this.lastAndNextArticleList = res.data
+        this.lastArticle = this.lastAndNextArticleList[0]
+        // console.log(this.lastArticle)
+        this.nextArticle = this.lastAndNextArticleList[1]
+        // console.log(this.nextArticle)
+      })
+    },
+    toLastArticle() {
+      if (this.lastArticle != null) {
+        this.$router.push("/articleRead/" + this.lastArticle.articleId)
+      }
+    },
+    toNextArticle() {
+      if (this.nextArticle != null) {
+        this.$router.push("/articleRead/" + this.nextArticle.articleId)
+      }
     },
     saveGood() {
       if (this.article.goodArticleFlag === false) {
@@ -235,17 +279,39 @@ export default {
     margin-right: 5px;
     margin-left: 5px;
   }
-
+  /* 文章操作按钮 点赞 收藏 */
   .article-action {
+    margin-top: 50px;
     display: flex;
     flex-direction: row;
     width: 300px;
-    min-height: 200px;
-    line-height: 200px;
+    min-height: 100px;
+    line-height: 100px;
     margin: auto;
     justify-content: space-evenly;
     font-size: 24px;
   }
+
+  /* 文章前后切换操作区域 */
+  .article-change {
+    display: flex;
+    min-height: 100px;
+    line-height: 100px;
+    flex-direction: row;
+    justify-content: space-around;
+  }
+
+  .last-article {
+    color: red;
+    cursor: pointer;
+  }
+
+  .next-article {
+    color: green;
+    cursor: pointer;
+  }
+
+
   .meta-active {
     /* 标识当前是否已点赞，是否已收藏 */
     color: red;
@@ -283,5 +349,6 @@ export default {
     background-color: rgb(121, 216, 240);
     border-radius: 3px;
   }
+
 
 </style>

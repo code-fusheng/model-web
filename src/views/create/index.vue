@@ -227,14 +227,18 @@ export default {
         flex-direction: row;
     }
     .editor-header{
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
         width: 100%;
-        height: 59px;
+        height: 40px;
         background-color: #ffffff;
+        line-height: 40px;
         /* margin-bottom: 5px; */
     }
     .editor-input-title {
         height: 100%;
-        width: 900px;
+        width: 50%;
         margin-right: 10px;
         border: none;
         outline: none;
@@ -262,5 +266,13 @@ export default {
     height: 150px;
     display: block;
   }
+
+  .ant-btn {
+    margin-left: 20px;
+    line-height: 40px !important;
+    border-radius: 30px;
+    height: 40px;
+  }
+
 </style>
 

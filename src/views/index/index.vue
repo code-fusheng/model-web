@@ -4,7 +4,8 @@
     <div class="index-carousel-container" :style="'height:' + carouselStyle.height + 'px'">
       <div class="carousel-bg" />
       <div class="center-container">
-        <div class="carousel-center-title">浮生若梦 为欢几何</div>
+        <div class="carousel-center-title1">Hello World ! code-fusheng</div>
+        <!-- <div class="carousel-center-title2">人生一世 何只百年 非我不知餍足</div> -->
         <spoltLight />
         <!-- 动态座右铭 -->
         <!-- <div
@@ -63,7 +64,7 @@
         <div class="my-dream-container">
           <div class="dream-top">
             <div class="dream-icon"><a-icon type="cloud" /></div>
-            <div class="dream-label">我的梦想</div>
+            <div class="dream-label">浮生若梦</div>
           </div>
           <div class="dream-content">{{ myDream }}</div>
         </div>
@@ -136,7 +137,8 @@ export default {
         widht: '',
         height: ''
       },
-      myDream: '不是每个人都应该像我这样去建造一座水晶大教堂，但是每个人都应该拥有自己的梦想，设计自己的梦想，追求自己的梦想，实现自己的梦想。',
+      myDream: '世间繁华 何止三千 独我索然无味 人生一世 何只百年 非我不知餍足',
+      myDream1: '不是每个人都应该像我这样去建造一座水晶大教堂，但是每个人都应该拥有自己的梦想，设计自己的梦想，追求自己的梦想，实现自己的梦想。',
       carouselShow: true,
       recomArticle: {
         articleId: null,
@@ -154,8 +156,8 @@ export default {
         totalCount: 0,
         totalPage: 0,
         params: {},
-        sortColumn: 'updateTime',
-        sortMethod: 'desc',
+        sortColumn: 'createdTime',
+        sortMethod: 'asc',
         list: []
       },
       loadingMore: false,
@@ -274,16 +276,23 @@ export default {
     align-items: center;
 }
 
-.carousel-center-title {
+.carousel-center-title1 {
+  position: relative;
+  font-family: "STXingkai";
+  color: #333333;
+  font-size: 30px;
+  cursor: pointer;
+}
+.carousel-center-title2 {
   position: relative;
   font-family: 'STXingkai';
   color: #333333;
-  font-size: 40px;
+  font-size: 30px;
   cursor: pointer;
 }
 
-.carousel-center-title::after {
-    content: '浮生若梦 为欢几何';
+.carousel-center-title1::after {
+    content: 'Hello World ! code-fusheng';
     position: absolute;
     top: 0;
     left: 0;
@@ -303,27 +312,67 @@ export default {
     0%和50%表示圆形的圆心;
     圆形的直径和圆形的圆心利用 at 关键字隔开
     */
-    clip-path: circle(50px at 0% 50%);
+    clip-path: circle(30px at 0% 50%);
     /* 动画 名称 时长 无限循环 */
-    animation: move 5s infinite;
+    animation: move1 5s infinite;
+}
+
+.carousel-center-title2::after {
+    content: '人生一世 何只百年 非我不知餍足';
+    position: absolute;
+    top: 0;
+    left: 0;
+    /* 文字透明色 */
+    color: transparent;
+    background-image: linear-gradient(to left,
+        #c23616, #192a56, #00d2d3, yellow,
+        #6d214f, #2e86de, #4cd137, #e84118
+    );
+    /* 背景绘制区域 值:text 代表设置了文字的镂空效果 前提必须是文字为透明色 */
+    background-clip: text;
+    /* 谷歌浏览器的私有属性 */
+    -webkit-background-clip: text;
+    /* 利用裁剪来创建爱你元素的可显示区域
+    circle 表示创建了圆形;
+    100px 表示圆形的直径;
+    0%和50%表示圆形的圆心;
+    圆形的直径和圆形的圆心利用 at 关键字隔开
+    */
+    clip-path: circle(30px at 0% 50%);
+    /* 动画 名称 时长 无限循环 */
+    animation: move2 5s infinite;
 }
 
 /* 设置移动效果 */
-@keyframes move{
+@keyframes move1{
     0% {
-        clip-path: circle(50px at 0% 50%);
+        clip-path: circle(30px at 0% 50%);
     }
     50% {
-        clip-path: circle(50px at 100% 50%);
+        clip-path: circle(30px at 100% 50%);
     }
     100% {
-        clip-path: circle(50px at 0% 50%);
+        clip-path: circle(30px at 0% 50%);
+    }
+
+}
+
+@keyframes move2{
+    0% {
+        clip-path: circle(30px at 100% 50%);
+    }
+    50% {
+        clip-path: circle(30px at 0% 50%);
+    }
+    100% {
+        clip-path: circle(30px at 100% 50%);
     }
 
 }
 
 /* 中间按钮 */
 .carousel-center-button-container {
+  /* margin-top: 15px; */
     width: 60%;
     display: flex;
     flex-direction: row;
@@ -377,6 +426,7 @@ export default {
 }
 
 .carousel-center-icon-container {
+  margin-top: 15px;
   display: flex;
   flex-direction: row;
 }
@@ -396,7 +446,7 @@ export default {
 /* 主页内容区 */
 .index-content-container {
     background-color: rgb(232, 232, 233);
-    min-height: 1500px;
+    min-height: 1080px;
     margin-top: -10px;
     padding-top: 20px;
     display: flex;
@@ -527,12 +577,13 @@ export default {
 
 .recom-article-desc {
   /* 超出隐藏 */
-overflow: hidden;
-/* 超出部分省略号 */
-text-overflow: ellipsis;
+  overflow: hidden;
+  /* 超出部分省略号 */
+  text-overflow: ellipsis;
   height: 80px;
+  width: 80%;
   font-size: 18px;
-  line-height: 80px;
+  line-height: 40px;
   color: #A5A5A5;
 }
 

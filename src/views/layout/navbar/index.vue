@@ -3,7 +3,7 @@
     <div class="nav-logo">
       <!-- <img src="@/assets/img/code-fusheng.jpg" class="logo-img"> -->
       <router-link to="/">
-        <span class="logo-text">个人论坛 | code-fusheng</span>
+        <span class="logo-text"> Code-fusheng | 浮生</span>
       </router-link>
     </div>
     <div class="nav-menu-item">
@@ -14,11 +14,11 @@
             <a-icon type="home" />首页
           </router-link>
         </a-menu-item>
-        <!-- <a-menu-item key="/article">
+        <a-menu-item key="/article">
           <router-link to="/article">
             <a-icon type="book" />文章
           </router-link>
-        </a-menu-item> -->
+        </a-menu-item>
         <a-menu-item key="/tools">
           <router-link to="/tools">
             <a-icon type="tool" />工具
@@ -362,7 +362,7 @@ export default {
 }
 
 .logo-img {
-    width: 40px;
+    width: 50px;
     height: 50px;
     margin-right: 10px;
 }
@@ -370,10 +370,10 @@ export default {
 .logo-text {
     cursor: pointer;
     line-height: 50px;
-    font-size: 24px;
+    font-size: 20px;
     color: white;
     font-family: 'Courier New', Courier, monospace;
-    background-image: -webkit-linear-gradient(left,blue,#66ffff 10%,#cc00ff 20%,#CC00CC 30%, #CCCCFF 40%, #00FFFF 50%,#CCCCFF 60%,#CC00CC 70%,#CC00FF 80%,#66FFFF 90%,blue 100%);
+    background-image: -webkit-linear-gradient(left,rgb(255, 81, 0),#ffc966 10%,#ffee00 20%,#00cc11 30%, #ccffe7 40%, #0026ff 50%,#efccff 60%,#CC00CC 70%,#CC00FF 80%,#66FFFF 90%,blue 100%);
     -webkit-text-fill-color: transparent;/* 将字体设置成透明色 */
     -webkit-background-clip: text;/* 裁剪背景图，使文字作为裁剪区域向外裁剪 */
     -webkit-background-size: 200% 100%;
@@ -389,7 +389,7 @@ export default {
   }
 
 .logo-text {
-    font-size: 24px;
+    font-size: 20px;
 }
 
 .nav-menu-search {
