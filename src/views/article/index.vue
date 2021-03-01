@@ -44,7 +44,7 @@ export default {
   .article-container {
     display: flex;
     flex-direction: row;
-    max-height: 1600px;
+    /* max-height: 1600px; */
     width: 85%;
     max-width: 1334px;
     /* 左右自适应 */

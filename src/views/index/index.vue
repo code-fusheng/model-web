@@ -188,10 +188,13 @@ export default {
     },
     // 获取推荐文章
     getRecomArticle() {
-      this.page.pageSize = 1
-      this.page.currentPage = 1
-      this.page.sortColumn = 'updateTime'
-      articleApi.getByPage(this.page).then(res => {
+      const page = JSON.parse(JSON.stringify(this.page))
+      page.pageSize = 1
+      page.currentPage = 1
+      page.sortColumn = 'updateTime'
+      page.sortMethod = 'desc'
+      articleApi.getByPage(page).then(res => {
+        console.log(this.page)
         this.recomArticle = res.data.list[0]
         console.log(this.recomArticle)
       })
@@ -200,6 +203,7 @@ export default {
     getArticleList() {
       this.page.pageSize = 12
       this.page.sortColumn = 'createdTime'
+      this.page.sortMethod = 'asc'
       articleApi.getByPage(this.page).then(res => {
         this.articleList = res.data.list
         console.log(this.articleList)

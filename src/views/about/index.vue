@@ -7,7 +7,7 @@
 </template>
 
 <style scoped>
-    .about-container {
-      min-height: 1080px;
-    }
+.about-container {
+  min-height: 1080px;
+}
 </style>

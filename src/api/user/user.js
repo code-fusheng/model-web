@@ -39,7 +39,7 @@ export function logout() {
 
 export function smsLogin(data) {
   return request({
-    url: 'authentication/mobile?' + `mobile=` + data.mobile + '&smsCode=' + data.smsCode,
+    url: '/authentication/mobile?' + `mobile=` + data.mobile + '&smsCode=' + data.smsCode,
     method: 'post',
     transformResponse: [function(data) {
       return JSON.parse(data)

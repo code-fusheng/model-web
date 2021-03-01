@@ -51,7 +51,7 @@ export default {
 
 <style scoped>
   .category-list {
-    max-height: 1333px;
+    /* max-height: 1333px; */
     overflow: auto;
     list-style: none;
     width: 100%;

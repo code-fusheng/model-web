@@ -94,6 +94,14 @@ export default {
       pageShow: false
     }
   },
+  watch: {
+    category: function() {
+      this.noMore = false
+      this.page.currentPage = 1
+      this.page.params.articleCategory = this.category.categoryId
+      this.getByPage(this.page)
+    }
+  },
   created() {
     this.getByPage()
     this.$bus.$on('changeCategory', val => {
@@ -146,14 +154,6 @@ export default {
       this.page.currentPage = 1
       this.getByPage(this.page)
     }
-  },
-  watch: {
-    category: function() {
-      this.noMore = false
-      this.page.currentPage = 1
-      this.page.params.articleCategory = this.category.categoryId
-      this.getByPage(this.page)
-    }
   }
 }
 </script>
@@ -197,7 +197,7 @@ export default {
     background: none !important;
   }
   .article-list-container {
-    max-height: 1250px;
+    /* max-height: 1250px; */
     min-height: 150px;
     /* overflow: auto; */
   }
@@ -304,4 +304,3 @@ export default {
   }
 
 </style>
-
