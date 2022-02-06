@@ -9,12 +9,12 @@ function resolve(dir) {
 // All configuration item explanations can be find in https://cli.vuejs.org/config/
 module.exports = {
   publicPath: '/',
-  outputDir: 'dist',
+  outputDir: 'model-web',
   assetsDir: 'static',
   lintOnSave: process.env.NODE_ENV === 'development',
   productionSourceMap: false,
   devServer: {
-    port: 10001,
+    port: 10000,
     open: true,
     overlay: {
       warnings: false,
@@ -22,7 +22,7 @@ module.exports = {
     },
     proxy: {
       [process.env.VUE_APP_BASE_API]: {
-        target: 'http://127.0.0.1:9999',
+        target: 'http://124.222.104.111:9999',
         changeOrigin: true,
         pathRewrite: {
           ['^' + process.env.VUE_APP_BASE_API]: ''
