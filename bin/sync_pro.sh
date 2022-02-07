@@ -1,3 +1,3 @@
 #!/bin/bash
-#密码:zH1314520?
-rsync -avz --progress  . root@175.24.45.179:/usr/local/nginx/model_web
+#密码:Tx!code-fusheng
+rsync -avz --progress  . root@42.192.222.62:/usr/local/nginx/model-web
