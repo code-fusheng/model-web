@@ -1,11 +1,6 @@
 <template>
   <a-spin :spinning="spinning">
-    <a-form
-      id="components-form-demo-normal-login"
-      :form="form"
-      class="login-form"
-      @submit="handleSubmit"
-    >
+    <a-form id="components-form-demo-normal-login" :form="form" class="login-form" @submit="handleSubmit">
       <a-form-item>
         <a-input
           v-decorator="[
@@ -45,22 +40,12 @@
               type="text"
               placeholder="验证码"
             >
-              <a-icon
-                slot="prefix"
-                type="mail"
-                :style="{ color: 'rgba(0,0,0,.25)' }"
-              />
+              <a-icon slot="prefix" type="mail" :style="{ color: 'rgba(0,0,0,.25)' }" />
             </a-input>
           </a-form-item>
         </a-col>
         <a-col class="gutter-row" :span="8">
-          <a-button
-            class="getCaptcha"
-            size="large"
-            :disabled="state.smsSendBtn"
-            @click.stop.prevent="getCaptcha"
-            v-text="(!state.smsSendBtn && '获取验证码') || state.time + ' s'"
-          />
+          <a-button class="getCaptcha" size="large" :disabled="state.smsSendBtn" @click.stop.prevent="getCaptcha" v-text="(!state.smsSendBtn && '获取验证码') || state.time + ' s'" />
         </a-col>
       </a-row>
       <a-form-item>
@@ -75,14 +60,7 @@
         >
           Remember me
         </a-checkbox>
-        <a-button
-          type="primary"
-          html-type="submit"
-          class="login-form-button"
-          :loading="loginBtn"
-          :disabled="loginBtn"
-          @click.stop.prevent="handleSubmit"
-        >
+        <a-button type="primary" html-type="submit" class="login-form-button" :loading="loginBtn" :disabled="loginBtn" @click.stop.prevent="handleSubmit">
           Log in
         </a-button>
       </a-form-item>
@@ -91,9 +69,9 @@
 </template>
 
 <script>
-import notification from "ant-design-vue/es/notification";
-import message from "ant-design-vue/es/message";
-import { SmsCaptcha } from "../../../api/user/user";
+import notification from 'ant-design-vue/es/notification'
+import message from 'ant-design-vue/es/message'
+import { SmsCaptcha } from '../../../api/user/user'
 export default {
   data() {
     return {
@@ -101,82 +79,80 @@ export default {
       state: {
         time: 60,
         smsSendBtn: false,
-        progressColor: "#FF0000"
+        progressColor: '#FF0000'
       },
       loginBtn: false
-    };
+    }
   },
   beforeCreate() {
-    this.form = this.$form.createForm(this, { name: "normal_login" });
+    this.form = this.$form.createForm(this, { name: 'normal_login' })
   },
   methods: {
     handlePhoneCheck(rule, value, callback) {
-      callback();
+      callback()
     },
     handleSubmit(e) {
-      e.preventDefault();
+      e.preventDefault()
       this.form.validateFields((err, values) => {
         if (!err) {
-          this.spinning = true;
+          this.spinning = true
           this.$store
-            .dispatch("user/smsLogin", values)
+            .dispatch('user/smsLogin', values)
             .then(() => {
-              this.$router.go(0);
+              this.$router.go(0)
             })
             .catch(() => {
-              this.spinning = false;
-            });
+              this.spinning = false
+            })
         }
-      });
+      })
     },
     getCaptcha(e) {
-      e.preventDefault();
-      const state = this.state;
-      this.form.validateFields(["mobile"], { force: true }, (err, values) => {
+      e.preventDefault()
+      const state = this.state
+      this.form.validateFields(['mobile'], { force: true }, (err, values) => {
         if (!err) {
-          state.smsSendBtn = true;
+          state.smsSendBtn = true
 
           const interval = window.setInterval(() => {
             if (state.time-- <= 0) {
-              state.time = 60;
-              state.smsSendBtn = false;
-              clearInterval(interval);
+              state.time = 60
+              state.smsSendBtn = false
+              clearInterval(interval)
             }
-          }, 1000);
+          }, 1000)
 
-          const hide = message.loading("验证码发送中..", 0);
+          const hide = message.loading('验证码发送中..', 0)
 
           SmsCaptcha(values.mobile)
             .then(res => {
-              setTimeout(hide, 2500);
-              notification["success"]({
-                message: "提示",
-                description: "验证码发送成功，您的验证码有效期为：180秒",
+              setTimeout(hide, 2500)
+              notification['success']({
+                message: '提示',
+                description: '验证码发送成功，您的验证码有效期为：180秒',
                 duration: 8
-              });
+              })
             })
             .catch(err => {
-              setTimeout(hide, 1);
-              clearInterval(interval);
-              state.time = 60;
-              state.smsSendBtn = false;
-              this.requestFailed(err);
-            });
+              setTimeout(hide, 1)
+              clearInterval(interval)
+              state.time = 60
+              state.smsSendBtn = false
+              this.requestFailed(err)
+            })
         }
-      });
+      })
     },
     requestFailed(err) {
-      this.$notification["error"]({
-        message: "错误",
-        description:
-          ((err.response || {}).data || {}).message ||
-          "请求出现错误，请稍后再试",
+      this.$notification['error']({
+        message: '错误',
+        description: ((err.response || {}).data || {}).message || '请求出现错误，请稍后再试',
         duration: 4
-      });
-      this.registerBtn = false;
+      })
+      this.registerBtn = false
     }
   }
-};
+}
 </script>
 <style>
 #components-form-demo-normal-login .login-form {

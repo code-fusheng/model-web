@@ -5,12 +5,18 @@
       <div class="card-container">
         <div class="card-item">
           <router-link to="/create">
-            <a-button class="tool-write-article"><a-icon type="edit" />创作中心</a-button>
+            <a-button class="tool-write-article">
+              <a-icon type="edit" />
+              创作中心
+            </a-button>
           </router-link>
         </div>
         <div class="card-item">
           <router-link to="/htc-test">
-            <a-button class="tool-write-article"><a-icon type="edit" />HTC-测试</a-button>
+            <a-button class="tool-write-article">
+              <a-icon type="edit" />
+              HTC-测试
+            </a-button>
           </router-link>
         </div>
       </div>
@@ -19,9 +25,7 @@
 </template>
 
 <script>
-export default {
-
-}
+export default {}
 </script>
 
 <style scoped>

@@ -18,7 +18,7 @@
       <div class="card-list">
         <a-spin :spinning="loading" style="min-height: 300px">
           <div class="spin-content">
-            <div v-if="(current+'') == 'article'">
+            <div v-if="current + '' == 'article'">
               <!-- 文章卡片 -->
               <article-card :page="searchPage" @doSearch="doSearch" />
             </div>
@@ -108,7 +108,7 @@ export default {
       this.searchPage.pageNo = 1
       this.current = [e.key]
       console.log('' + this.current)
-      if ((this.current + '') === 'article') {
+      if (this.current + '' === 'article') {
         console.log('执行了文章搜索')
         this.searchPage.index = 'model_article_index'
         this.searchPage.keyFields = ['articleTitle', 'articleDesc']
@@ -120,78 +120,78 @@ export default {
 </script>
 
 <style scoped>
-  /* 滚动条的宽度 */
-  ::-webkit-scrollbar {
-    width: 0px;
+/* 滚动条的宽度 */
+::-webkit-scrollbar {
+  width: 0px;
+}
+/* 滚动条滑块样式 */
+::-webkit-scrollbar-thumb {
+  background-color: rgb(226, 243, 247) !important;
+}
+.search-container {
+  width: 100%;
+  height: 100%;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  /* 1.居中对齐 以(水平)中轴为参照对齐 【子元素垂直居中】 */
+  align-items: center;
+  /* 线性渐变 */
+  /* background-image: linear-gradient(to right,#e8f1f1,#d2dde7); */
+  /* background: url(../../assets/img/cool-background.png) no-repeat; */
+  background-size: 100% 100%;
+  background-position: center;
+}
+.search-icon {
+  width: 800px;
+  height: 100px;
+  text-align: center; /*元素内容水平居中*/
+}
+.font-icon {
+  line-height: 100px;
+  font-size: 52px;
+  color: white;
+  font-family: 'Courier New', Courier, monospace;
+  background-image: -webkit-linear-gradient(left, blue, #66ffff 10%, #cc00ff 20%, #cc00cc 30%, #ccccff 40%, #00ffff 50%, #ccccff 60%, #cc00cc 70%, #cc00ff 80%, #66ffff 90%, blue 100%);
+  -webkit-text-fill-color: transparent; /* 将字体设置成透明色 */
+  -webkit-background-clip: text; /* 裁剪背景图，使文字作为裁剪区域向外裁剪 */
+  -webkit-background-size: 200% 100%;
+  -webkit-animation: masked-animation 4s linear infinite;
+}
+@keyframes masked-animation {
+  0% {
+    background-position: 0 0;
   }
-  /* 滚动条滑块样式 */
-  ::-webkit-scrollbar-thumb {
-    background-color: rgb(226, 243, 247) !important;
+  100% {
+    background-position: -100% 0;
   }
-  .search-container{
-    width: 100%;
-    height: 100%;
-    margin: auto;
-    display: flex;
-    flex-direction: column;
-    /* 1.居中对齐 以(水平)中轴为参照对齐 【子元素垂直居中】 */
-    align-items: center;
-    /* 线性渐变 */
-    /* background-image: linear-gradient(to right,#e8f1f1,#d2dde7); */
-    /* background: url(../../assets/img/cool-background.png) no-repeat; */
-    background-size: 100% 100%;
-    background-position: center;
-  }
-  .search-icon {
-    width: 800px;
-    height: 100px;
-    text-align: center; /*元素内容水平居中*/
-  }
-  .font-icon {
-    line-height: 100px;
-    font-size: 52px;
-    color: white;
-    font-family: 'Courier New', Courier, monospace;
-    background-image: -webkit-linear-gradient(left,blue,#66ffff 10%,#cc00ff 20%,#CC00CC 30%, #CCCCFF 40%, #00FFFF 50%,#CCCCFF 60%,#CC00CC 70%,#CC00FF 80%,#66FFFF 90%,blue 100%);
-    -webkit-text-fill-color: transparent;/* 将字体设置成透明色 */
-    -webkit-background-clip: text;/* 裁剪背景图，使文字作为裁剪区域向外裁剪 */
-    -webkit-background-size: 200% 100%;
-    -webkit-animation: masked-animation 4s linear infinite;
-  }
-  @keyframes masked-animation {
-    0% {
-        background-position: 0  0;
-    }
-    100% {
-        background-position: -100%  0;
-    }
-  }
-  .search-box {
-    width: 520px;
-    height: 50px;
-  }
-  .scree-menu {
-    text-align: center; /*元素内容水平居中*/
-    width: 80%;
-    border-radius: 3px;
-  }
-  .search-content {
-    display: flex;
-    width: 80%;
-    min-height: 690px;
-    max-height: 990px;
-    overflow: auto;
-    justify-content: center;
-    margin-bottom: 10px;
-  }
-  .span-content {
-    height: 100%;
-    width: 100%;
-    background-color: white;
-    min-height: 600px;
-  }
-  .card-list {
-    width: 100%;
-    height: 100%;
-  }
+}
+.search-box {
+  width: 520px;
+  height: 50px;
+}
+.scree-menu {
+  text-align: center; /*元素内容水平居中*/
+  width: 80%;
+  border-radius: 3px;
+}
+.search-content {
+  display: flex;
+  width: 80%;
+  min-height: 690px;
+  max-height: 990px;
+  overflow: auto;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+.span-content {
+  height: 100%;
+  width: 100%;
+  background-color: white;
+  min-height: 600px;
+}
+.card-list {
+  width: 100%;
+  height: 100%;
+}
 </style>

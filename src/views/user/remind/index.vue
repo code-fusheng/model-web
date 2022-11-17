@@ -1,13 +1,7 @@
 <template>
   <div class="user-message-container">
     <a-radio-group v-model="mode" :style="{ marginBottom: '8px' }" />
-    <a-tabs
-      default-active-key="goodmessage"
-      tab-position="left"
-      :style="'height:' + carouselStyle.height + 'px'"
-      @prevClick="callback"
-      @nextClick="callback"
-    >
+    <a-tabs default-active-key="goodmessage" tab-position="left" :style="'height:' + carouselStyle.height + 'px'" @prevClick="callback" @nextClick="callback">
       <a-tab-pane key="publicmessage">
         <span slot="tab">公告</span>
         <public-message />
@@ -86,13 +80,12 @@ export default {
 </script>
 
 <style scoped>
-  .user-message-container {
-    width: 80%;
-    height: 100%;
-    margin-top: 5px;
-    margin-bottom: 5px;
-    margin: auto;
-    background-color:#F0F2F5;
-  }
+.user-message-container {
+  width: 80%;
+  height: 100%;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  margin: auto;
+  background-color: #f0f2f5;
+}
 </style>
-

@@ -4,82 +4,76 @@
     <!-- <a-button class="go-back top-action" @click="goBack()">返回</a-button> -->
     <!-- 图片区域 -->
     <div class="top-image">
-      <img :src="article.articleImage">
+      <img :src="article.articleImage" />
     </div>
     <!-- 中间区域,放置文章 -->
     <div class="article-container">
       <a-spin :spinning="loading">
         <div>
-          <div id="article-title"
-               class="article-title">{{ article.articleTitle }}</div>
+          <div id="article-title" class="article-title">{{ article.articleTitle }}</div>
           <div class="article-operation">
             <div class="operation-content">
               阅读
-              <a-icon class="action-icon"
-                      type="eye" /><span class="count-num"> {{ article.readCount }}</span>
+              <a-icon class="action-icon" type="eye" />
+              <span class="count-num">{{ article.readCount }}</span>
               收藏
-              <a-icon class="action-icon"
-                      type="heart" /><span class="count-num"> {{ article.collectionCount }}</span>
+              <a-icon class="action-icon" type="heart" />
+              <span class="count-num">{{ article.collectionCount }}</span>
               点赞
-              <a-icon class="action-icon"
-                      type="like" /><span class="count-num"> {{ article.goodCount }}</span>
+              <a-icon class="action-icon" type="like" />
+              <span class="count-num">{{ article.goodCount }}</span>
             </div>
           </div>
           <div class="article-item">
             <div class="created-time">
-              <a-icon class="meta-icon"
-                      type="clock-circle" />{{ article.createdTime }}
+              <a-icon class="meta-icon" type="clock-circle" />
+              {{ article.createdTime }}
             </div>
             <div class="article-meta">
-              <a v-if="$store.getters.userId === article.authorId"
-                 href="javascript:void(0);"
-                 @click="toEdit(article.articleId)">
-                <a-icon class="meta-icon"
-                        type="edit" /><span class="do-editer">编辑</span>
+              <a v-if="$store.getters.userId === article.authorId" href="javascript:void(0);" @click="toEdit(article.articleId)">
+                <a-icon class="meta-icon" type="edit" />
+                <span class="do-editer">编辑</span>
               </a>
             </div>
           </div>
           <a-layout-content>
-            <mavon-editor v-model="article.editContent"
-                          :toolbars-flag="false"
-                          :subfield="false"
-                          default-open="preview"
-                          code-style="monokai"
-                          :toolbars="markdownOption"
-                          :ishljs="true"
-                          style="zIndex: 1" />
+            <mavon-editor
+              v-model="article.editContent"
+              :toolbars-flag="false"
+              :subfield="false"
+              default-open="preview"
+              code-style="monokai"
+              :toolbars="markdownOption"
+              :ishljs="true"
+              style="zIndex: 1"
+            />
             <!-- <div class="article-content" v-html="article.articleContent" /> -->
             <!-- 文章操作 -->
             <div class="article-action">
               <!-- 前一篇 -->
               <div class="article-good">
-                <a :loading="goodLoading"
-                   href="javascript:void(0);"
-                   :class="article.goodArticleFlag ? 'article-good meta-active' : 'article-good'"
-                   @click="saveGood">
-                  <a-icon type="like" /> 点赞
+                <a :loading="goodLoading" href="javascript:void(0);" :class="article.goodArticleFlag ? 'article-good meta-active' : 'article-good'" @click="saveGood">
+                  <a-icon type="like" />
+                  点赞
                 </a>
               </div>
               <div class="article-collection">
-                <a :loading="collectionLoading"
-                   href="javascript:void(0);"
-                   :class="article.collectionArticleFlag ? 'article-collection meta-active' : 'article-collection'"
-                   @click="saveCollection">
-                  <a-icon type="star" /> 收藏
+                <a :loading="collectionLoading" href="javascript:void(0);" :class="article.collectionArticleFlag ? 'article-collection meta-active' : 'article-collection'" @click="saveCollection">
+                  <a-icon type="star" />
+                  收藏
                 </a>
               </div>
             </div>
             <div class="article-change">
               <a href="#article-title">
-                <div class="last-article"
-                     @click="toLastArticle()">
-                  <a-icon type="arrow-left" /> 上一篇 {{ lastArticle == null ? "已经没有啦" : lastArticle.articleTitle }}
+                <div class="last-article" @click="toLastArticle()">
+                  <a-icon type="arrow-left" />
+                  上一篇 {{ lastArticle == null ? '已经没有啦' : lastArticle.articleTitle }}
                 </div>
               </a>
               <a href="#article-title">
-                <div class="next-article"
-                     @click="toNextArticle()">
-                  {{ nextArticle == null ? "已经没有啦" : nextArticle.articleTitle }} 下一篇
+                <div class="next-article" @click="toNextArticle()">
+                  {{ nextArticle == null ? '已经没有啦' : nextArticle.articleTitle }} 下一篇
                   <a-icon type="arrow-right" />
                 </div>
               </a>
@@ -105,11 +99,9 @@ export default {
   components: {
     CommentList
   },
-  data () {
+  data() {
     return {
-      markdownOption: {
-
-      },
+      markdownOption: {},
       article: {
         articleId: '',
         articleAuthor: '',
@@ -138,17 +130,17 @@ export default {
     }
   },
   watch: {
-    '$route': function () {
+    $route: function() {
       this.read()
       this.getLastAndNextArticleVo()
     }
   },
-  created () {
+  created() {
     this.read()
     this.getLastAndNextArticleVo()
   },
   methods: {
-    read () {
+    read() {
       this.article.articleId = this.$route.params.id
       articleApi.read(this.article.articleId).then(res => {
         // console.log(res)
@@ -156,7 +148,7 @@ export default {
         this.loading = false
       })
     },
-    getLastAndNextArticleVo () {
+    getLastAndNextArticleVo() {
       this.article.articleId = this.$route.params.id
       articleApi.getLastAndNextArticleVo(this.article.articleId).then(res => {
         // console.log(res)
@@ -167,17 +159,17 @@ export default {
         // console.log(this.nextArticle)
       })
     },
-    toLastArticle () {
+    toLastArticle() {
       if (this.lastArticle != null) {
-        this.$router.push("/articleRead/" + this.lastArticle.articleId)
+        this.$router.push('/articleRead/' + this.lastArticle.articleId)
       }
     },
-    toNextArticle () {
+    toNextArticle() {
       if (this.nextArticle != null) {
-        this.$router.push("/articleRead/" + this.nextArticle.articleId)
+        this.$router.push('/articleRead/' + this.nextArticle.articleId)
       }
     },
-    saveGood () {
+    saveGood() {
       if (this.article.goodArticleFlag === false) {
         this.good.goodTarget = this.$route.params.id
         goodApi.save(this.good).then(res => {
@@ -189,7 +181,7 @@ export default {
         this.$message.info('操作提示: 您已点赞，请勿重复点赞！')
       }
     },
-    saveCollection () {
+    saveCollection() {
       if (this.article.collectionArticleFlag === false) {
         this.collection.collectionTarget = this.$route.params.id
         collectionApi.save(this.collection).then(res => {
@@ -201,13 +193,13 @@ export default {
         this.$message.info('操作提示: 您已收藏，请勿重复收藏！')
       }
     },
-    goBack () {
+    goBack() {
       this.$router.go(-1)
       // this.$router.push({
       //   path: '/article'
       // })
     },
-    toEdit () {
+    toEdit() {
       this.$router.push({ path: '/create', query: { id: this.$route.params.id } })
     }
   }

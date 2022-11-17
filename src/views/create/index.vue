@@ -9,15 +9,7 @@
         </a-button>
       </a-layout-content>
       <a-layout-content>
-        <mavon-editor
-          v-if="editorModeState"
-          ref="md"
-          v-model="markdownContent"
-          code-style="monokai"
-          :ishljs="true"
-          style="zIndex: 1"
-          @save="saveMavon"
-        />
+        <mavon-editor v-if="editorModeState" ref="md" v-model="markdownContent" code-style="monokai" :ishljs="true" style="zIndex: 1" @save="saveMavon" />
         <tinymce v-else v-model="tinymceContent" />
       </a-layout-content>
     </a-layout>
@@ -26,24 +18,13 @@
       <el-form ref="addForm" :model="article" label-width="40px" size="mini">
         <el-form-item label="分类">
           <el-select v-model="article.articleCategory" clearable filterable placeholder="请选择" style="width: 40%" @change="autoSetImage(article.articleCategory)">
-            <el-option
-              v-for="category in categoryList"
-              :key="category.categoryId"
-              :label="category.categoryName"
-              :value="category.categoryId"
-            />
+            <el-option v-for="category in categoryList" :key="category.categoryId" :label="category.categoryName" :value="category.categoryId" />
           </el-select>
         </el-form-item>
         <el-form-item label="封面">
-          <el-upload
-            class="avatar-uploader"
-            :action="uploadUrl"
-            :show-file-list="false"
-            :on-success="uploadSuccess"
-            :headers="headers"
-          >
-            <img v-if="imageUrl || article.articleImage" :src="stateMode === 'create' ? imageUrl : article.articleImage" class="avatar">
-            <i v-else class="el-icon-plus avatar-uploader-icon" />
+          <el-upload class="avatar-uploader" :action="uploadUrl" :show-file-list="false" :on-success="uploadSuccess" :headers="headers">
+            <img v-if="imageUrl || article.articleImage" :src="stateMode === 'create' ? imageUrl : article.articleImage" class="avatar" />
+            <i v-else class="el-icon-plus avatar-uploader-icon"></i>
           </el-upload>
         </el-form-item>
         <el-form-item label="描述">
@@ -55,7 +36,6 @@
         </el-form-item>
       </el-form>
     </el-dialog>
-
   </div>
 </template>
 
@@ -74,7 +54,8 @@ export default {
     return {
       imageUrl: null, // 上传图片回显
       uploadUrl: process.env.VUE_APP_UPLOAD_URL_IMAGE, // 上传图片路径
-      headers: { // 上传文件的请求头
+      headers: {
+        // 上传文件的请求头
         Authorization: getToken()
       },
       stateMode: '', // 状态模式
@@ -98,8 +79,7 @@ export default {
     }
   },
   watch: {
-    'editorModeState': function() {
-    }
+    editorModeState: function() {}
   },
   created() {
     console.log(this.$route.query.id)
@@ -204,75 +184,73 @@ export default {
 </script>
 
 <style scoped>
-    .shadow {
-      box-shadow: none !important;
-    }
-    #tinymce {
-      min-height: 1312px;
-    }
-    .ant-tabs-bar {
-        margin: 0;
-    }
-    .v-note-wrapper {
-        min-height: 1312px !important;
-    }
-    .mce-edit-area {
-        min-height: 1312px !important;
-    }
-    .mce-edit-area iframe {
-      min-height: 1312px;
-    }
-    .editor-top-action{
-        display: flex;
-        flex-direction: row;
-    }
-    .editor-header{
-        display: flex;
-        flex-direction: row;
-        justify-content: flex-start;
-        width: 100%;
-        height: 40px;
-        background-color: #ffffff;
-        line-height: 40px;
-        /* margin-bottom: 5px; */
-    }
-    .editor-input-title {
-        height: 100%;
-        width: 50%;
-        margin-right: 10px;
-        border: none;
-        outline: none;
-    }
-    .avatar-uploader .el-upload {
-    border: 1px dashed #d9d9d9;
-    border-radius: 6px;
-    cursor: pointer;
-    position: relative;
-    overflow: hidden;
-  }
-  .avatar-uploader .el-upload:hover {
-    border-color: #409EFF;
-  }
-  .avatar-uploader-icon {
-    font-size: 28px;
-    color: #8c939d;
-    width: 300px;
-    height: 150px;
-    line-height: 150px;
-    text-align: center;
-  }
-  .avatar {
-    width: 300px;
-    height: 150px;
-    display: block;
-  }
+.shadow {
+  box-shadow: none !important;
+}
+#tinymce {
+  min-height: 1312px;
+}
+.ant-tabs-bar {
+  margin: 0;
+}
+.v-note-wrapper {
+  min-height: 1312px !important;
+}
+.mce-edit-area {
+  min-height: 1312px !important;
+}
+.mce-edit-area iframe {
+  min-height: 1312px;
+}
+.editor-top-action {
+  display: flex;
+  flex-direction: row;
+}
+.editor-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  width: 100%;
+  height: 40px;
+  background-color: #ffffff;
+  line-height: 40px;
+  /* margin-bottom: 5px; */
+}
+.editor-input-title {
+  height: 100%;
+  width: 50%;
+  margin-right: 10px;
+  border: none;
+  outline: none;
+}
+.avatar-uploader .el-upload {
+  border: 1px dashed #d9d9d9;
+  border-radius: 6px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+.avatar-uploader .el-upload:hover {
+  border-color: #409eff;
+}
+.avatar-uploader-icon {
+  font-size: 28px;
+  color: #8c939d;
+  width: 300px;
+  height: 150px;
+  line-height: 150px;
+  text-align: center;
+}
+.avatar {
+  width: 300px;
+  height: 150px;
+  display: block;
+}
 
-  .ant-btn {
-    margin-left: 20px;
-    line-height: 40px !important;
-    border-radius: 30px;
-    height: 40px;
-  }
-
+.ant-btn {
+  margin-left: 20px;
+  line-height: 40px !important;
+  border-radius: 30px;
+  height: 40px;
+}
 </style>
-

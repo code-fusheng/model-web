@@ -1,6 +1,6 @@
 <template>
   <div class="category-container">
-    <a-spin :spinning="loading" :style="{height: '800px'}">
+    <a-spin :spinning="loading" :style="{ height: '800px' }">
       <!-- 分类列表 -->
       <ul class="category-list">
         <li><div href="#" class="category-tag top-category-tag" @click="revocer">分类</div></li>
@@ -50,54 +50,54 @@ export default {
 </script>
 
 <style scoped>
-  .category-list {
-    /* max-height: 1333px; */
-    overflow: auto;
-    list-style: none;
-    width: 100%;
-    padding: 0;
-  }
-  .category-tag {
-    width: 100%;
-    height: 32px;
-    font-size: 14px;
-    background-color: white;
-    color: white;
-    text-align: center;
-    line-height: 32px;
-    /* margin-bottom: 2px; */
-  }
-  .top-category-tag {
-    /* position: fixed; */
-    cursor: pointer;
-    color: rgb(255, 255, 255);
-    background-color: rgb(255,46,47);
-    font-size: 16px;
-    letter-spacing: 0.2em;
-  }
-  .category-list a{
-    display: block;
-    width: 100%;
-    height: 32px;
-    font-size: 14px;
-    text-align: center;
-    line-height: 32px;
-    color: rgb(112,105,89);
-    /* margin-top: 5px; */
-  }
-  .category-list a:hover {
-    background-color:rgb(255,46,47);
-    color: #fff;
-  }
+.category-list {
+  /* max-height: 1333px; */
+  overflow: auto;
+  list-style: none;
+  width: 100%;
+  padding: 0;
+}
+.category-tag {
+  width: 100%;
+  height: 32px;
+  font-size: 14px;
+  background-color: white;
+  color: white;
+  text-align: center;
+  line-height: 32px;
+  /* margin-bottom: 2px; */
+}
+.top-category-tag {
+  /* position: fixed; */
+  cursor: pointer;
+  color: rgb(255, 255, 255);
+  background-color: rgb(255, 46, 47);
+  font-size: 16px;
+  letter-spacing: 0.2em;
+}
+.category-list a {
+  display: block;
+  width: 100%;
+  height: 32px;
+  font-size: 14px;
+  text-align: center;
+  line-height: 32px;
+  color: rgb(112, 105, 89);
+  /* margin-top: 5px; */
+}
+.category-list a:hover {
+  background-color: rgb(255, 46, 47);
+  color: #fff;
+}
 
-  /* 滚动条的宽度 */
+/* 滚动条的宽度 */
 ::-webkit-scrollbar {
-    width: 0px;
-    height: 2px;
+  width: 0px;
+  height: 2px;
 }
 /* 滚动条滑块样式 */
 ::-webkit-scrollbar-thumb {
-    border-radius: 5px;
-    background-color: rgb(119, 214, 110);
+  border-radius: 5px;
+  background-color: rgb(119, 214, 110);
 }
 </style>

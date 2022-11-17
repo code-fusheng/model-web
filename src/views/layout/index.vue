@@ -38,7 +38,7 @@ export default {
   created() {
     this.mouseScroll()
     this.tocuchMoveEvent()
-    categoryApi.getList().then((res) => {
+    categoryApi.getList().then(res => {
       this.$store.commit('global/SET_CATEGORY', res.data)
     })
   },
@@ -88,11 +88,7 @@ export default {
       // 给页面绑定滑轮滚动事件
       if (document.addEventListener) {
         // firefox
-        document.addEventListener(
-          'DOMMouseScroll',
-          this.watchScroll,
-          false
-        )
+        document.addEventListener('DOMMouseScroll', this.watchScroll, false)
       }
       // 滚动滑轮触发scrollFunc方法 // ie 谷歌
       window.onmousewheel = document.onmousewheel = this.watchScroll
@@ -144,65 +140,65 @@ export default {
 </script>
 <style scoped>
 .main {
-    background-color: #f5f5f5;
-    width: 100%;
-    /* min-width: 1200px; */
-    height: 100%;
-    margin: auto;
+  background-color: #f5f5f5;
+  width: 100%;
+  /* min-width: 1200px; */
+  height: 100%;
+  margin: auto;
 }
 .main-container {
-    /* min-width: 1200px; */
-    margin: auto;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: row;
-    /* background-image: linear-gradient(to right,rgba(12, 12, 12, 0.133) 0%, #1e4468 25%, #3366a8 50%, #20386b 75%, #051f2e 100%); */
-    /* border: 1px green solid; */
+  /* min-width: 1200px; */
+  margin: auto;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  /* background-image: linear-gradient(to right,rgba(12, 12, 12, 0.133) 0%, #1e4468 25%, #3366a8 50%, #20386b 75%, #051f2e 100%); */
+  /* border: 1px green solid; */
 }
 .center-container {
-    margin: auto;
-    width: 100%;
-    height: 100%;
-    /* min-height: 1200px; */
-    /* padding: 0 10px; */
-    /* border: solid 1px blue; */
+  margin: auto;
+  width: 100%;
+  height: 100%;
+  /* min-height: 1200px; */
+  /* padding: 0 10px; */
+  /* border: solid 1px blue; */
 }
 
 .menu-container {
-    position: sticky;
-    top: 0;
-    z-index: 999;
-    width: 100%;
-    /* min-width: 1200px; */
-    height: 50px;
+  position: sticky;
+  top: 0;
+  z-index: 999;
+  width: 100%;
+  /* min-width: 1200px; */
+  height: 50px;
 }
 
 /* 可以设置不同的进入和离开动画 */
 /* 设置持续时间和动画函数 */
 .menu-enter-active,
 .menu-leave-active {
-    transition: all 0.8s ease;
+  transition: all 0.8s ease;
 }
 .menu-enter, .menu-leave-to
 /* .menu-leave-active for below version 2.1.8 */ {
-    transform: translateY(-50px);
-    opacity: 0;
+  transform: translateY(-50px);
+  opacity: 0;
 }
 
 .buttom-container {
-    margin: auto;
-    width: 100%;
-    height: 100%;
-    /* min-width: 1200px; */
+  margin: auto;
+  width: 100%;
+  height: 100%;
+  /* min-width: 1200px; */
 }
 
 .music-player {
-    position: fixed;
-    top: 35%;
-    left: 0px;
-    max-width: 300px;
-    max-height: 250px;
-    z-index: 99999;
+  position: fixed;
+  top: 35%;
+  left: 0px;
+  max-width: 300px;
+  max-height: 250px;
+  z-index: 99999;
 }
 </style>

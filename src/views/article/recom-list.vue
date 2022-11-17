@@ -5,16 +5,16 @@
       <a-card title="最新公告" :head-style="headStyle" :body-style="adStyle">
         <a-carousel autoplay effect="fade">
           <div>
-            <img src="http://img.fusheng.xyz/clms-news-3.jpg" class="carousel-img">
+            <img src="http://img.fusheng.xyz/clms-news-3.jpg" class="carousel-img" />
           </div>
           <div>
-            <img src="http://img.fusheng.xyz/clms-news-2.jpg" class="carousel-img">
+            <img src="http://img.fusheng.xyz/clms-news-2.jpg" class="carousel-img" />
           </div>
           <div>
-            <img src="http://img.fusheng.xyz/clms-news-1.jpg" class="carousel-img">
+            <img src="http://img.fusheng.xyz/clms-news-1.jpg" class="carousel-img" />
           </div>
           <div>
-            <img src="http://img.fusheng.xyz/clms-search-back.jpg" class="carousel-img">
+            <img src="http://img.fusheng.xyz/clms-search-back.jpg" class="carousel-img" />
           </div>
         </a-carousel>
       </a-card>

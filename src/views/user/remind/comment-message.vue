@@ -10,15 +10,19 @@
         <a-list-item slot="renderItem" key="item.messageId" slot-scope="item">
           <div v-if="item.messageType === 1">
             <a-tag color="orange">文章</a-tag>
-            <a> {{ item.sendUserName }} </a><span>{{ item.createdTime }}</span> 评论了您的文章
-            <router-link :to="'articleRead/'+item.messageTargetId" @click.native="confirmMessageById(item.messageId)">
+            <a>{{ item.sendUserName }}</a>
+            <span>{{ item.createdTime }}</span>
+            评论了您的文章
+            <router-link :to="'articleRead/' + item.messageTargetId" @click.native="confirmMessageById(item.messageId)">
               <a>{{ item.messageTargetDesc }}</a>
             </router-link>
           </div>
           <div v-if="item.messageType === 2">
             <a-tag color="green">评论</a-tag>
-            <a> {{ item.sendUserName }} </a><span>{{ item.createdTime }}</span> 回复了您的评论
-            <router-link :to="'articleRead/'+item.messageTargetId" @click.native="confirmMessageById(item.messageId)">
+            <a>{{ item.sendUserName }}</a>
+            <span>{{ item.createdTime }}</span>
+            回复了您的评论
+            <router-link :to="'articleRead/' + item.messageTargetId" @click.native="confirmMessageById(item.messageId)">
               <a>{{ item.messageTargetDesc }}</a>
             </router-link>
           </div>
@@ -111,25 +115,25 @@ export default {
 </script>
 
 <style scoped>
-    .good-message-container {
-        margin-top: 24px;
-        margin-right: 24px;
-        height: 100%;
-        min-height: 830px;
-    }
-    .top-action {
-        width: 100%;
-        height: 60px;
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
-    }
-    .top-action span{
-        margin-left: 20px;
-        margin-right: 6px;
-    }
-    .message-list {
-        padding: 0 0 0 15px;
-    }
+.good-message-container {
+  margin-top: 24px;
+  margin-right: 24px;
+  height: 100%;
+  min-height: 830px;
+}
+.top-action {
+  width: 100%;
+  height: 60px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+.top-action span {
+  margin-left: 20px;
+  margin-right: 6px;
+}
+.message-list {
+  padding: 0 0 0 15px;
+}
 </style>

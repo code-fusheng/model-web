@@ -10,8 +10,10 @@
         <a-list-item slot="renderItem" key="item.messageId" slot-scope="item">
           <div v-if="item.messageType === 13">
             <a-tag color="orange">提问</a-tag>
-            <a> {{ item.sendUserName }} </a><span>{{ item.createdTime }}</span> 答复了您的提问
-            <router-link :to="'questionInfo/'+item.messageTargetId" @click.native="confirmMessageById(item.messageId)">
+            <a>{{ item.sendUserName }}</a>
+            <span>{{ item.createdTime }}</span>
+            答复了您的提问
+            <router-link :to="'questionInfo/' + item.messageTargetId" @click.native="confirmMessageById(item.messageId)">
               <a>{{ item.messageTargetDesc }}</a>
             </router-link>
           </div>
@@ -105,24 +107,24 @@ export default {
 </script>
 
 <style scoped>
-    .good-message-container {
-        margin-top: 24px;
-        margin-right: 24px;
-        min-height: 830px;
-    }
-    .top-action {
-        width: 100%;
-        height: 60px;
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
-    }
-    .top-action span{
-        margin-left: 20px;
-        margin-right: 6px;
-    }
-    .message-list {
-        padding: 0 0 0 15px;
-    }
+.good-message-container {
+  margin-top: 24px;
+  margin-right: 24px;
+  min-height: 830px;
+}
+.top-action {
+  width: 100%;
+  height: 60px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+.top-action span {
+  margin-left: 20px;
+  margin-right: 6px;
+}
+.message-list {
+  padding: 0 0 0 15px;
+}
 </style>

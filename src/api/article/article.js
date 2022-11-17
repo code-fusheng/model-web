@@ -69,5 +69,5 @@ export default {
       url: `/${group_name}/getLastAndNextArticleVo/${id}`,
       method: 'get'
     })
-  } 
+  }
 }

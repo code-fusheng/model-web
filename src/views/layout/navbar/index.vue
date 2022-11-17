@@ -3,7 +3,7 @@
     <div class="nav-logo">
       <!-- <img src="@/assets/img/code-fusheng.jpg" class="logo-img"> -->
       <router-link to="/">
-        <span class="logo-text"> Code-fusheng | 浮生</span>
+        <span class="logo-text">Code-fusheng | 浮生</span>
       </router-link>
     </div>
     <div class="nav-menu-item">
@@ -11,22 +11,26 @@
       <a-menu mode="horizontal">
         <a-menu-item key="/index">
           <router-link to="/">
-            <a-icon type="home" />首页
+            <a-icon type="home" />
+            首页
           </router-link>
         </a-menu-item>
         <a-menu-item key="/article">
           <router-link to="/article">
-            <a-icon type="book" />文章
+            <a-icon type="book" />
+            文章
           </router-link>
         </a-menu-item>
         <a-menu-item key="/tools">
           <router-link to="/tools">
-            <a-icon type="tool" />工具
+            <a-icon type="tool" />
+            工具
           </router-link>
         </a-menu-item>
         <a-menu-item key="/about">
           <router-link to="/about">
-            <a-icon type="question-circle" />关于
+            <a-icon type="question-circle" />
+            关于
           </router-link>
         </a-menu-item>
       </a-menu>
@@ -38,17 +42,17 @@
       <a-divider v-if="!isLogin" type="vertical" />
       <a v-if="!isLogin" id="loginButton" class="login-button" @click="showLoginModal()">登录</a>
       <a-divider v-if="!isLogin" type="vertical" />
-      <a v-if="!isLogin" class="login-button" @click="showRegisterModal()">注册</a>
+      <a v-if="!isLogin" class="login-button" @click="showRegisterModal">注册</a>
       <span v-else class="login-span">
         <a-badge :count="messageCount">
           <a href="/remind">
-            <a-icon type="bell" :style="{color:'#fff',fontSize:'20px'}" />
+            <a-icon type="bell" :style="{ color: '#fff', fontSize: '20px' }" />
           </a>
         </a-badge>
         <a-divider type="vertical" />
         <a-badge count="10">
           <a href="/chat">
-            <a-icon type="message" :style="{color:'#fff',fontSize:'20px'}" />
+            <a-icon type="message" :style="{ color: '#fff', fontSize: '20px' }" />
           </a>
         </a-badge>
         <a-divider type="vertical" />
@@ -59,12 +63,8 @@
       <!-- 用户头像信息 -->
       <div v-if="isLogin">
         <a-dropdown placement="bottomCenter" class="user-dropdown">
-          <a-avatar
-            shape="square"
-            :src="this.$store.getters.header"
-            style="margin-bottom:5px;color: #f56a00; backgroundColor: #fde3cf"
-          />
-          <a-menu slot="overlay" :style="{marginTop:'5px'}">
+          <a-avatar shape="square" :src="this.$store.getters.header" style="margin-bottom:5px;color: #f56a00; backgroundColor: #fde3cf" />
+          <a-menu slot="overlay" :style="{ marginTop: '5px' }">
             <a-menu-item>
               <a href="/userInfo">个人主页</a>
             </a-menu-item>
@@ -75,7 +75,7 @@
               <a @click="logout">退出登录</a>
             </a-menu-item>
             <a-menu-item>
-              <a v-if="$store.getters.userId == 1" href="http://175.24.45.179:10000/" target="_blank">后台管理</a>
+              <a v-if="$store.getters.userId == 1" href="http://42.192.222.62:10001/" target="_blank">后台管理</a>
             </a-menu-item>
           </a-menu>
         </a-dropdown>
@@ -306,31 +306,31 @@ export default {
 <style scoped>
 /* 滚动条的宽度 */
 ::-webkit-scrollbar {
-    width: 0px;
-    height: 1px;
+  width: 0px;
+  height: 1px;
 }
 /* 滚动条滑块样式 */
 ::-webkit-scrollbar-thumb {
-    border-radius: 5px;
-    background-color: rgb(31, 162, 238);
+  border-radius: 5px;
+  background-color: rgb(31, 162, 238);
 }
 
 .menu-container {
-    width: 100%;
-    overflow: scroll;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    text-align: center;
-    height: 50px;
-    padding: 0 20px;
-    line-height: 50px;
-    /* background-image: linear-gradient(to right,rgba(12, 12, 12, 0.133) 0%, #1e4468 25%, #3366a8 50%, #20386b 75%, #051f2e 100%); */
-    /* background-image: linear-gradient(to right,#623AA2 0%,#F97794 100%); */
-    /* background-image: linear-gradient(to right,#667682 0%, #79868e 25%, #9fa7a9 50%, #969a9b 75%, #8d9498 100%); */
-    /* margin-bottom: 10px; */
-    /* border: 1px red solid; */
+  width: 100%;
+  overflow: scroll;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
+  height: 50px;
+  padding: 0 20px;
+  line-height: 50px;
+  /* background-image: linear-gradient(to right,rgba(12, 12, 12, 0.133) 0%, #1e4468 25%, #3366a8 50%, #20386b 75%, #051f2e 100%); */
+  /* background-image: linear-gradient(to right,#623AA2 0%,#F97794 100%); */
+  /* background-image: linear-gradient(to right,#667682 0%, #79868e 25%, #9fa7a9 50%, #969a9b 75%, #8d9498 100%); */
+  /* margin-bottom: 10px; */
+  /* border: 1px red solid; */
 }
 
 .ant-menu {
@@ -351,61 +351,61 @@ export default {
 }
 
 .nav-logo {
-    height: 50px;
-    /* width: 414px; */
-    white-space: nowrap;
-    /* display: flex;
+  height: 50px;
+  /* width: 414px; */
+  white-space: nowrap;
+  /* display: flex;
     flex-direction: row; */
-    align-items: center;
-    text-align: center;
-    margin: 0 20px;
+  align-items: center;
+  text-align: center;
+  margin: 0 20px;
 }
 
 .logo-img {
-    width: 50px;
-    height: 50px;
-    margin-right: 10px;
+  width: 50px;
+  height: 50px;
+  margin-right: 10px;
 }
 
 .logo-text {
-    cursor: pointer;
-    line-height: 50px;
-    font-size: 20px;
-    color: white;
-    font-family: 'Courier New', Courier, monospace;
-    background-image: -webkit-linear-gradient(left,rgb(255, 81, 0),#ffc966 10%,#ffee00 20%,#00cc11 30%, #ccffe7 40%, #0026ff 50%,#efccff 60%,#CC00CC 70%,#CC00FF 80%,#66FFFF 90%,blue 100%);
-    -webkit-text-fill-color: transparent;/* 将字体设置成透明色 */
-    -webkit-background-clip: text;/* 裁剪背景图，使文字作为裁剪区域向外裁剪 */
-    -webkit-background-size: 200% 100%;
-    -webkit-animation: masked-animation 4s linear infinite;
+  cursor: pointer;
+  line-height: 50px;
+  font-size: 20px;
+  color: white;
+  font-family: 'Courier New', Courier, monospace;
+  background-image: -webkit-linear-gradient(left, rgb(255, 81, 0), #ffc966 10%, #ffee00 20%, #00cc11 30%, #ccffe7 40%, #0026ff 50%, #efccff 60%, #cc00cc 70%, #cc00ff 80%, #66ffff 90%, blue 100%);
+  -webkit-text-fill-color: transparent; /* 将字体设置成透明色 */
+  -webkit-background-clip: text; /* 裁剪背景图，使文字作为裁剪区域向外裁剪 */
+  -webkit-background-size: 200% 100%;
+  -webkit-animation: masked-animation 4s linear infinite;
+}
+@keyframes masked-animation {
+  0% {
+    background-position: 0 0;
   }
-  @keyframes masked-animation {
-    0% {
-        background-position: 0  0;
-    }
-    100% {
-        background-position: -100%  0;
-    }
+  100% {
+    background-position: -100% 0;
   }
+}
 
 .logo-text {
-    font-size: 20px;
+  font-size: 20px;
 }
 
 .nav-menu-search {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    margin-right: 10px;
-    padding-right: 20px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-right: 10px;
+  padding-right: 20px;
 }
 
 .ant-menu {
-    font-size: 16px !important;
+  font-size: 16px !important;
 }
 
 .ant-menu-horizontal {
-    border-bottom: none !important;
+  border-bottom: none !important;
 }
 
 .login-span {
@@ -420,26 +420,26 @@ export default {
 }
 
 .login {
-    color: black;
-    margin-left: 20px;
+  color: black;
+  margin-left: 20px;
 }
 
 .login:hover {
-    color: black;
+  color: black;
 }
 
 .login-header {
-    color: black;
-    margin-left: 20px;
+  color: black;
+  margin-left: 20px;
 }
 
 .login-header-img {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    border: 3px solid #e5e5e5;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 3px solid #e5e5e5;
 }
 .user-dropdown {
-    margin-left: 15px;
+  margin-left: 15px;
 }
 </style>

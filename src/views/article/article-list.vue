@@ -4,9 +4,12 @@
     <div class="scree-container">
       <!-- 分类标签 -->
       <div class="type-text">
-        <span v-if="category!=null">分类 : <a-tag color="green">
-          {{ category.categoryName }}
-        </a-tag></span>
+        <span v-if="category != null">
+          分类 :
+          <a-tag color="green">
+            {{ category.categoryName }}
+          </a-tag>
+        </span>
       </div>
       <!-- 条件列 -->
       <div class="scree-menu">
@@ -27,16 +30,16 @@
           <a-card v-for="item in page.list" :key="item.articleId" :body-style="articleBodyStyle" class="article-card">
             <div class="article-main">
               <div v-if="item.articleImage" class="article-image">
-                <img :src="item.articleImage" class="article-cover">
+                <img :src="item.articleImage" class="article-cover" />
               </div>
-              <router-link :to="'articleRead/'+item.articleId" :class="item.articleImage ? 'image-article' : 'article-container'">
+              <router-link :to="'articleRead/' + item.articleId" :class="item.articleImage ? 'image-article' : 'article-container'">
                 <!-- 文章标题 -->
                 <div class="article-title">{{ item.articleTitle }}</div>
                 <div class="article-desc">{{ item.articleDesc }}</div>
                 <div class="article-bottom">
                   <div class="author-container">
                     <div class="author-header">
-                      <img class="author-img" :src="item.header" alt="">
+                      <img class="author-img" :src="item.header" alt="" />
                     </div>
                     <div class="article-author">作者：{{ item.authorName }}</div>
                   </div>
@@ -44,10 +47,14 @@
                   <div class="article-meta">
                     <div class="created-time">{{ item.createdTime }}</div>
                     <div class="article-other">
-                      <a-icon :class=" item.readArticleFlag ? 'action-icon meta-active' : 'action-icon'" type="eye" /><span class="count-num"> {{ item.readCount }}</span>
-                      <a-icon :class=" item.commentArticleFlag ? 'action-icon meta-active' : 'action-icon'" type="message" /><span class="count-num"> {{ item.commentCount }}</span>
-                      <a-icon :class=" item.goodArticleFlag ? 'action-icon meta-active' : 'action-icon'" type="like" /><span class="count-num"> {{ item.goodCount }}</span>
-                      <a-icon :class=" item.collectionArticleFlag ? 'action-icon meta-active' : 'action-icon'" type="star" /><span class="count-num"> {{ item.collectionCount }}</span>
+                      <a-icon :class="item.readArticleFlag ? 'action-icon meta-active' : 'action-icon'" type="eye" />
+                      <span class="count-num">{{ item.readCount }}</span>
+                      <a-icon :class="item.commentArticleFlag ? 'action-icon meta-active' : 'action-icon'" type="message" />
+                      <span class="count-num">{{ item.commentCount }}</span>
+                      <a-icon :class="item.goodArticleFlag ? 'action-icon meta-active' : 'action-icon'" type="like" />
+                      <span class="count-num">{{ item.goodCount }}</span>
+                      <a-icon :class="item.collectionArticleFlag ? 'action-icon meta-active' : 'action-icon'" type="star" />
+                      <span class="count-num">{{ item.collectionCount }}</span>
                     </div>
                   </div>
                 </div>
@@ -159,148 +166,146 @@ export default {
 </script>
 
 <style scoped>
-
 /* 滚动条的宽度 */
 ::-webkit-scrollbar {
-    width: 0px;
-    height: 5px;
+  width: 0px;
+  height: 5px;
 }
 /* 滚动条滑块样式 */
 ::-webkit-scrollbar-thumb {
-    border-radius: 5px;
-    background-color: rgb(154, 158, 155);
+  border-radius: 5px;
+  background-color: rgb(154, 158, 155);
 }
 
-  .scree-container {
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    line-height: 50px;
-    background-color:white;
-    border: 1px solid #e8e8e8;
-  }
-  .span-content {
-    max-height: 1200px;
-    height: 1200px;
-    overflow: auto;
-  }
-  .type-text {
-    margin-left: 15px;
-    font-size: 16px;
-  }
-  .ant-menu-horizontal {
-    border-bottom: none !important;
-  }
-  .ant-menu {
-    background: none !important;
-  }
-  .article-list-container {
-    /* max-height: 1250px; */
-    min-height: 150px;
-    /* overflow: auto; */
-  }
-  .article-main {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-  }
-  .article-container {
-    width: 100%;
-    /* min-height: 300px; */
-  }
-  .action-icon :hover {
-    color: #349edf;
-  }
-  .article-title {
-    align-self: start;
-    font-size: 16px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    margin-bottom: 10px;
-  }
-  .article-title :hover {
-    color: red;
-  }
-  .article-desc {
-    max-width: 490px;
-    align-self: start;
-    margin-bottom: 10px;
-    font-size: 14px;
-    color: #9c9ea8;
-    line-height: 22px;
-    /* max-height: 90px; */
-    /* 超出隐藏 */
-    white-space: nowrap;
-    overflow: hidden;
-    /* 超出部分省略号 */
-    text-overflow: ellipsis;
-  }
-  .article-bottom {
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    justify-content: space-between;
-    align-items: center;
-  }
-  .article-meta {
-    font-size: 12px;
-    color: #9c9ea8;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-  }
-  .article-image {
-    width: 230px;
-    height:110px;
-    margin-right: 20px;
-  }
-  .article-cover {
-    min-width: 210px;
-    height:110px;
-    border-radius: 5px;
-  }
-  .author-container {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-  }
-  .image-article {
-    width: 100%;
-    min-height: 100px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-  }
-  .author-img {
-    width: 36px;
-    height: 36px;
-    margin-right: 15px;
-    border-radius: 50%;
-  }
-  .article-author {
-    font-size: 16px;
-  }
-  .article-other i{
-    margin-left: 10px;
-  }
-  .pagination {
-    margin-top: 25px;
-  }
-  .article-card {
-    margin-bottom: 1px;
-    border-radius: 5px;
-  }
-  .meta-active {
-    /* 标识当前是否已点赞，是否已收藏 */
-    color: red;
-  }
-  .meta-active:hover {
-    color: blue !important;
-  }
-
+.scree-container {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  line-height: 50px;
+  background-color: white;
+  border: 1px solid #e8e8e8;
+}
+.span-content {
+  max-height: 1200px;
+  height: 1200px;
+  overflow: auto;
+}
+.type-text {
+  margin-left: 15px;
+  font-size: 16px;
+}
+.ant-menu-horizontal {
+  border-bottom: none !important;
+}
+.ant-menu {
+  background: none !important;
+}
+.article-list-container {
+  /* max-height: 1250px; */
+  min-height: 150px;
+  /* overflow: auto; */
+}
+.article-main {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.article-container {
+  width: 100%;
+  /* min-height: 300px; */
+}
+.action-icon :hover {
+  color: #349edf;
+}
+.article-title {
+  align-self: start;
+  font-size: 16px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  margin-bottom: 10px;
+}
+.article-title :hover {
+  color: red;
+}
+.article-desc {
+  max-width: 490px;
+  align-self: start;
+  margin-bottom: 10px;
+  font-size: 14px;
+  color: #9c9ea8;
+  line-height: 22px;
+  /* max-height: 90px; */
+  /* 超出隐藏 */
+  white-space: nowrap;
+  overflow: hidden;
+  /* 超出部分省略号 */
+  text-overflow: ellipsis;
+}
+.article-bottom {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  align-items: center;
+}
+.article-meta {
+  font-size: 12px;
+  color: #9c9ea8;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+.article-image {
+  width: 230px;
+  height: 110px;
+  margin-right: 20px;
+}
+.article-cover {
+  min-width: 210px;
+  height: 110px;
+  border-radius: 5px;
+}
+.author-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+.image-article {
+  width: 100%;
+  min-height: 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+.author-img {
+  width: 36px;
+  height: 36px;
+  margin-right: 15px;
+  border-radius: 50%;
+}
+.article-author {
+  font-size: 16px;
+}
+.article-other i {
+  margin-left: 10px;
+}
+.pagination {
+  margin-top: 25px;
+}
+.article-card {
+  margin-bottom: 1px;
+  border-radius: 5px;
+}
+.meta-active {
+  /* 标识当前是否已点赞，是否已收藏 */
+  color: red;
+}
+.meta-active:hover {
+  color: blue !important;
+}
 </style>

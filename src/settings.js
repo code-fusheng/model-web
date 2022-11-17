@@ -1,6 +1,6 @@
 module.exports = {
 
-  title: '个人论坛 | code-fusheng',
+  title: '个人工程技术学习笔记',
 
   /**
    * @type {boolean} true | false

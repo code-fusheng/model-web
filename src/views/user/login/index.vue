@@ -1,6 +1,6 @@
 <template>
   <a-spin :spinning="spinning">
-    <a-radio-group default-value="false" :style="{marginBottom:'25px'}" @change="handleFormLayoutChange">
+    <a-radio-group default-value="false" :style="{ marginBottom: '25px' }" @change="handleFormLayoutChange">
       <a-radio-button value="false">
         密码登录
       </a-radio-button>
@@ -8,35 +8,14 @@
         短信登录
       </a-radio-button>
     </a-radio-group>
-    <a-form
-      v-if="smsLogin"
-      id="components-form-demo-normal-login"
-      :form="form"
-      class="login-form"
-      @submit="handleSubmit"
-    >
+    <a-form v-if="smsLogin" id="components-form-demo-normal-login" :form="form" class="login-form" @submit="handleSubmit">
       <a-form-item>
-        <a-input
-          v-decorator="[
-            'username',
-            { rules: [{ required: true, message: '请输入用户名/手机号!' }] },
-          ]"
-          size="large"
-          placeholder="用户名/手机号"
-        >
+        <a-input v-decorator="['username', { rules: [{ required: true, message: '请输入用户名/手机号!' }] }]" size="large" placeholder="用户名/手机号">
           <a-icon slot="prefix" type="user" style="color: rgba(0,0,0,.25)" />
         </a-input>
       </a-form-item>
       <a-form-item>
-        <a-input
-          v-decorator="[
-            'password',
-            { rules: [{ required: true, message: '请输入密码!' }] },
-          ]"
-          size="large"
-          type="password"
-          placeholder="密码"
-        >
+        <a-input v-decorator="['password', { rules: [{ required: true, message: '请输入密码!' }] }]" size="large" type="password" placeholder="密码">
           <a-icon slot="prefix" type="lock" style="color: rgba(0,0,0,.25)" />
         </a-input>
       </a-form-item>
@@ -47,7 +26,7 @@
             {
               valuePropName: 'checked',
               initialValue: true
-            },
+            }
           ]"
         >
           记住我
@@ -62,7 +41,7 @@
     </a-form>
     <sms-login v-else />
     <a-divider>快速登录</a-divider>
-    <a-icon :style="{ fontSize: '40px', marginLeft:'46%' }" type="github" />
+    <a-icon :style="{ fontSize: '40px', marginLeft: '46%' }" type="github" />
   </a-spin>
 </template>
 
@@ -90,11 +69,14 @@ export default {
       this.form.validateFields((err, values) => {
         if (!err) {
           this.spinning = true
-          this.$store.dispatch('user/login', values).then(() => {
-            this.$router.go(0)
-          }).catch(() => {
-            this.spinning = false
-          })
+          this.$store
+            .dispatch('user/login', values)
+            .then(() => {
+              this.$router.go(0)
+            })
+            .catch(() => {
+              this.spinning = false
+            })
         }
       })
     }
@@ -102,13 +84,13 @@ export default {
 }
 </script>
 <style>
-  #components-form-demo-normal-login .login-form {
-    max-width: 500px;
-  }
-  #components-form-demo-normal-login .login-form-forgot {
-    float: right;
-  }
-  #components-form-demo-normal-login .login-form-button {
-    width: 100%;
-  }
+#components-form-demo-normal-login .login-form {
+  max-width: 500px;
+}
+#components-form-demo-normal-login .login-form-forgot {
+  float: right;
+}
+#components-form-demo-normal-login .login-form-button {
+  width: 100%;
+}
 </style>

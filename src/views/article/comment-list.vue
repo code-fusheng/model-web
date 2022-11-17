@@ -4,9 +4,7 @@
       <a-textarea v-model="articleCommentContent" placeholder="请输入内容，不超过300字" :rows="3" />
       <div class="comment-button">
         <a-button type="primary" :loading="commentLoading" @click="saveArticleComment(articleCommentContent)">发表评论</a-button>
-        <div v-show="countShow" class="content-count">
-          还能输入 {{ commentContentCount }} 个字符
-        </div>
+        <div v-show="countShow" class="content-count">还能输入 {{ commentContentCount }} 个字符</div>
       </div>
     </div>
     <!-- 评论列表组件 -->
@@ -27,36 +25,30 @@
         <a-comment>
           <span slot="actions">
             <!-- 点赞图标 -->
-            <a-icon
-              type="like"
-              :class=" item.goodCommentFlag ? 'meta-active' : ''"
-              @click="saveGoodArticleComment(item)"
-            /> {{ item.goodCount }}
+            <a-icon type="like" :class="item.goodCommentFlag ? 'meta-active' : ''" @click="saveGoodArticleComment(item)" />
+            {{ item.goodCount }}
           </span>
-          <span v-if="($store.getters.userId === item.commentUserId) || ($store.getters.userId === article.authorId)" slot="actions">
+          <span v-if="$store.getters.userId === item.commentUserId || $store.getters.userId === article.authorId" slot="actions">
             <a-popconfirm title="确认删除该条评论?" ok-text="确认" cancel-text="取消" @confirm="deleteArticleComment(item)">
               <a href="#">删除</a>
             </a-popconfirm>
           </span>
           <span slot="actions" key="comment-nested-reply-to" @click="doSaveCommentComment(item)">回复</span>
-          <span slot="actions" :style="{ margin:'20px 50px'}">共{{ item.commentCount }}条回复
-            <a v-if=" (showCommentComment != item.commentId) && (item.commentCount !== 0) " @click="getCommentCommentList(item.commentId)">点击查看</a>
+          <span slot="actions" :style="{ margin: '20px 50px' }">
+            共{{ item.commentCount }}条回复
+            <a v-if="showCommentComment != item.commentId && item.commentCount !== 0" @click="getCommentCommentList(item.commentId)">点击查看</a>
             <a v-if="showCommentComment === item.commentId" @click="hiddenCommentComment(item.commentId)">收起</a>
           </span>
           <span slot="author">
-            <a-tag v-if=" article.authorName === item.username " :style="{ float:'left'}" color="orange">
+            <a-tag v-if="article.authorName === item.username" :style="{ float: 'left' }" color="orange">
               作者
             </a-tag>
-            <a-tag v-if=" $store.getters.userId === item.commentUserId " :style="{ float:'left'}" color="blue">
+            <a-tag v-if="$store.getters.userId === item.commentUserId" :style="{ float: 'left' }" color="blue">
               我的
             </a-tag>
             <a>{{ item.username }}</a>
           </span>
-          <a-avatar
-            slot="avatar"
-            :size="32"
-            :src="item.header"
-          />
+          <a-avatar slot="avatar" :size="32" :src="item.header" />
           <span slot="content">
             {{ item.commentContent }}
           </span>
@@ -67,27 +59,21 @@
           <div v-if="showCommentComment === item.commentId" class="comment-comment-list" @scroll="scrollLoadMore($event, item)">
             <a-comment v-for="item1 in commentCommentList" :key="item1.commentId">
               <span slot="actions">
-                <a-icon
-                  type="like"
-                  :class=" item1.goodCommentFlag ? 'meta meta-active' : 'meta'"
-                  @click="saveGoodCommentComment(item1, item)"
-                /> {{ item1.commentGood }}
+                <a-icon type="like" :class="item1.goodCommentFlag ? 'meta meta-active' : 'meta'" @click="saveGoodCommentComment(item1, item)" />
+                {{ item1.commentGood }}
               </span>
               <span slot="actions" @click="deleteCommentComment(item1)">删除</span>
-              <span slot="actions" @click="doSaveCommentCommentWithParent(item1,item)">回复</span>
+              <span slot="actions" @click="doSaveCommentCommentWithParent(item1, item)">回复</span>
               <span slot="author">
-                <a-tag v-if=" article.authorName === item1.username " :style="{ float:'left'}" color="orange">
+                <a-tag v-if="article.authorName === item1.username" :style="{ float: 'left' }" color="orange">
                   作者
                 </a-tag>
-                <a-tag v-if=" $store.getters.userId === item1.commentUserId " :style="{ float:'left'}" color="blue">
+                <a-tag v-if="$store.getters.userId === item1.commentUserId" :style="{ float: 'left' }" color="blue">
                   我的
                 </a-tag>
                 <a>{{ item1.username }}</a>
               </span>
-              <a-avatar
-                slot="avatar"
-                :src="item1.header"
-              />
+              <a-avatar slot="avatar" :src="item1.header" />
               <span slot="content">
                 <p>回复 @{{ item1.commentParentUserName }}</p>
                 {{ item1.commentContent }}
@@ -100,18 +86,12 @@
           <!-- 二级评论 -->
           <div v-if="commentParentUser !== '' && item.commentId === doCurrentComment" id="commentCommentContent" class="user-comment">
             <div class="comment-top">
-              <a-avatar
-                slot="avatar"
-                :size="72.4"
-                :src="$store.getters.header"
-              />
-              <a-textarea v-model="commentCommentContent" :placeholder="'回复@' + commentParentUser" :rows="3" :style="{maxWidth: '90%'}" />
+              <a-avatar slot="avatar" :size="72.4" :src="$store.getters.header" />
+              <a-textarea v-model="commentCommentContent" :placeholder="'回复@' + commentParentUser" :rows="3" :style="{ maxWidth: '90%' }" />
             </div>
             <div class="comment-button">
               <a-button type="primary" :loading="commentCommentLoading" @click="saveCommentComment(item.commentId)">发表评论</a-button>
-              <div v-show="cCountShow" class="content-count">
-                还能输入 {{ commentContentCount }} 个字符
-              </div>
+              <div v-show="cCountShow" class="content-count">还能输入 {{ commentContentCount }} 个字符</div>
             </div>
           </div>
         </a-comment>
@@ -204,7 +184,7 @@ export default {
         this.getArticleCommentList()
       }
     },
-    'articleCommentContent': function(newVal, oldVal) {
+    articleCommentContent: function(newVal, oldVal) {
       if (this.articleCommentContent.length > 300) {
         this.articleCommentContent = this.articleCommentContent.substring(0, 300)
       }
@@ -217,7 +197,7 @@ export default {
       const oldValLength = oldVal ? oldVal.length : 0
       this.commentContentCount = this.commentContentCount - (newValLength - oldValLength)
     },
-    'commentCommentContent': function(newVal, oldVal) {
+    commentCommentContent: function(newVal, oldVal) {
       if (this.commentCommentContent.length > 300) {
         this.commentCommentContent = this.commentCommentContent.substring(0, 300)
       }
@@ -250,12 +230,15 @@ export default {
     // 文章评论列表
     getArticleCommentList() {
       this.articleCommentPage.list = []
-      commentApi.getByPage(this.articleCommentPage).then(res => {
-        console.log(res)
-        this.articleCommentPage = res.data
-      }).catch((res) => {
-        this.$message.error(res.msg)
-      })
+      commentApi
+        .getByPage(this.articleCommentPage)
+        .then(res => {
+          console.log(res)
+          this.articleCommentPage = res.data
+        })
+        .catch(res => {
+          this.$message.error(res.msg)
+        })
     },
     // 评论的评论列表
     getCommentCommentList(val) {
@@ -280,14 +263,17 @@ export default {
         this.comment.commentRoot = this.$route.params.id
         this.comment.commentContent = this.articleCommentContent
         this.comment.commentParentUser = null
-        commentApi.save(this.comment).then(res => {
-          this.articleCommentContent = ''
-          this.commentLoading = false
-          this.getArticleCommentList()
-          this.$message.success(res.msg)
-        }).catch(() => {
-          this.commentLoading = false
-        })
+        commentApi
+          .save(this.comment)
+          .then(res => {
+            this.articleCommentContent = ''
+            this.commentLoading = false
+            this.getArticleCommentList()
+            this.$message.success(res.msg)
+          })
+          .catch(() => {
+            this.commentLoading = false
+          })
       }
     },
     // 评论评论
@@ -295,14 +281,17 @@ export default {
       this.comment.commentRoot = this.$route.params.id
       this.comment.commentContent = this.commentCommentContent
       this.comment.commentType = 1
-      commentApi.save(this.comment).then(res => {
-        this.commentCommentContent = ''
-        this.commentCommentLoading = false
-        this.getCommentCommentList(val)
-        this.$message.success(res.msg)
-      }).catch(() => {
-        this.commentLoading = false
-      })
+      commentApi
+        .save(this.comment)
+        .then(res => {
+          this.commentCommentContent = ''
+          this.commentCommentLoading = false
+          this.getCommentCommentList(val)
+          this.$message.success(res.msg)
+        })
+        .catch(() => {
+          this.commentLoading = false
+        })
     },
     hiddenCommentComment() {
       this.showCommentComment = 0
@@ -382,101 +371,100 @@ export default {
 </script>
 
 <style scoped>
-
-  .comment-list-container {
-    min-height: 135px;
-    height: 100%;
-  }
-  .do-comment-container {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    min-height: 200px;
-    /* border: 1px solid blueviolet; */
-    margin-top: 5px;
-  }
-  .user-comment {
-    height: 100%;
-    min-height: 135px;
-    background-color: #fff;
-  }
-  .comment-top {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    justify-content: space-between;
-  }
-  .comment-button {
-    margin: 15px;
-    margin-bottom: 15px;
-    display: flex;
-    flex-direction: row-reverse;
-    align-items: center;
-  }
-  .content-count {
-    margin-right: 15px;
-  }
-  .ant-divider-horizontal {
-    margin: 2px 0 5px 0 !important;
-  }
-  .scree-container {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    line-height: 50px;
-    background-color:white;
-    border: 1px solid #e8e8e8;
-  }
-  .article-comment-container {
-    display: flex;
-    flex-direction: column;
-    padding: 10px 10px;
-    background-color: #fff;
-  }
-  .comment-show {
-    background-color: #fff !important;
-  }
-  .comment-main {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-  }
-  .comment-container {
-    width: 530px;
-    display: flex;
-    flex-direction: column;
-    margin-left: 10px;
-  }
-  .comment-user {
-    font-weight: bold;
-  }
-  .comment-time {
-    font-size: 12px;
-    color: #9c9ea8;
-  }
-  .comment-good {
-    width: 60px;
-  }
-  .comment-comment {
-    width: 120px;
-  }
-  .author-img {
-    width: 60px;
-    height: 60px;
-    border: 5px solid #e5e5e5;
-    border-radius: 50%;
-    margin-top: 5px;
-  }
-  .comment-pagination {
-    margin-top: 5px;
-    margin-bottom: 5px;
-  }
-  .meta-active {
-    /* 标识当前是否已点赞，是否已收藏 */
-    color: red;
-  }
-  .meta:hover {
-    color: blue !important;
-  }
+.comment-list-container {
+  min-height: 135px;
+  height: 100%;
+}
+.do-comment-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-height: 200px;
+  /* border: 1px solid blueviolet; */
+  margin-top: 5px;
+}
+.user-comment {
+  height: 100%;
+  min-height: 135px;
+  background-color: #fff;
+}
+.comment-top {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  justify-content: space-between;
+}
+.comment-button {
+  margin: 15px;
+  margin-bottom: 15px;
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+}
+.content-count {
+  margin-right: 15px;
+}
+.ant-divider-horizontal {
+  margin: 2px 0 5px 0 !important;
+}
+.scree-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  line-height: 50px;
+  background-color: white;
+  border: 1px solid #e8e8e8;
+}
+.article-comment-container {
+  display: flex;
+  flex-direction: column;
+  padding: 10px 10px;
+  background-color: #fff;
+}
+.comment-show {
+  background-color: #fff !important;
+}
+.comment-main {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.comment-container {
+  width: 530px;
+  display: flex;
+  flex-direction: column;
+  margin-left: 10px;
+}
+.comment-user {
+  font-weight: bold;
+}
+.comment-time {
+  font-size: 12px;
+  color: #9c9ea8;
+}
+.comment-good {
+  width: 60px;
+}
+.comment-comment {
+  width: 120px;
+}
+.author-img {
+  width: 60px;
+  height: 60px;
+  border: 5px solid #e5e5e5;
+  border-radius: 50%;
+  margin-top: 5px;
+}
+.comment-pagination {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+.meta-active {
+  /* 标识当前是否已点赞，是否已收藏 */
+  color: red;
+}
+.meta:hover {
+  color: blue !important;
+}
 </style>
