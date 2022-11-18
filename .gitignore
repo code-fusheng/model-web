@@ -1,5 +1,6 @@
 .DS_Store
 node_modules
+model-web
 /dist
 
 # local env files

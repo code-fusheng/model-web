@@ -30,6 +30,7 @@
 * (2020/10/05 18:00 --- 2020/10/05 22:23) feature、fix : 主页动画 --- 新增导航菜单移动端上下滑动动画 touchMove, 修复了 web滚动条与移动端触摸不同步的问题 
 * (2021/02/19 03:40 --- 2021/02/19 03:50) version : 软著版本切换开发版本,部分优化
 * (2021/03/01 09:00 --- 2021/03/01 10:46) fix : 启用短信验证码登陆，修复原有Token无效问题
+* (2022/11/17 10:00 --- 2022/11/17 23:51) fix : 样式修正 --- 调整统一 Eslint 代码质量 + Perttier 代码风格
 ## 项目模块
 
-rsync -avz -e 'ssh -p 22221' --progress . root@42.192.222.62:/usr/share/nginx/model-web
+rsync -avz -e 'ssh -p 22221' --progress ./model-web root@42.192.222.62:/usr/share/nginx/model-web
