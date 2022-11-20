@@ -4,7 +4,7 @@
       <a-radio-button value="false">
         密码登录
       </a-radio-button>
-      <a-radio-button value="true">
+      <a-radio-button :disabled="true" value="true">
         短信登录
       </a-radio-button>
     </a-radio-group>
@@ -40,8 +40,8 @@
       </a-form-item>
     </a-form>
     <sms-login v-else />
-    <a-divider>快速登录</a-divider>
-    <a-icon :style="{ fontSize: '40px', marginLeft: '46%' }" type="github" />
+    <!-- <a-divider>快速登录</a-divider>
+    <a-icon :style="{ fontSize: '40px', marginLeft: '46%' }" type="github" /> -->
   </a-spin>
 </template>
 
@@ -85,7 +85,7 @@ export default {
 </script>
 <style>
 #components-form-demo-normal-login .login-form {
-  max-width: 500px;
+  max-width: 400px;
 }
 #components-form-demo-normal-login .login-form-forgot {
   float: right;

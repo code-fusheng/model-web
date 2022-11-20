@@ -8,6 +8,8 @@ import './config/ant-design'
 import './config/element'
 import './config/aplayer'
 
+import './assets/css/global.css'
+
 Vue.config.productionTip = false
 Vue.prototype.$bus = new Vue()
 

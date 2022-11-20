@@ -263,6 +263,7 @@ module.exports = {
       }
     ],
     'array-bracket-spacing': [2, 'never'],
+    // {} 大括号前空格问题
     'vue/html-self-closing': [
       'error',
       {

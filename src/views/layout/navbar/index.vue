@@ -37,7 +37,7 @@
     </div>
 
     <div class="nav-menu-search">
-      <a-input-search v-model="content" placeholder="搜索中心" @search="toSearch(content)" />
+      <a-input-search v-model="content" class="search-box" placeholder="搜索中心" @search="toSearch(content)" />
       <!-- 登录注册框 -->
       <a-divider v-if="!isLogin" type="vertical" />
       <a v-if="!isLogin" id="loginButton" class="login-button" @click="showLoginModal()">登录</a>
@@ -345,7 +345,7 @@ export default {
 
 .login-button {
   white-space: nowrap;
-  font-size: 18px;
+  font-size: 15px;
   color: white;
   font-family: '楷体';
 }
@@ -370,7 +370,7 @@ export default {
 .logo-text {
   cursor: pointer;
   line-height: 50px;
-  font-size: 20px;
+  font-size: 15px;
   color: white;
   font-family: 'Courier New', Courier, monospace;
   background-image: -webkit-linear-gradient(left, rgb(255, 81, 0), #ffc966 10%, #ffee00 20%, #00cc11 30%, #ccffe7 40%, #0026ff 50%, #efccff 60%, #cc00cc 70%, #cc00ff 80%, #66ffff 90%, blue 100%);
@@ -389,7 +389,7 @@ export default {
 }
 
 .logo-text {
-  font-size: 20px;
+  font-size: 15px;
 }
 
 .nav-menu-search {
@@ -401,7 +401,7 @@ export default {
 }
 
 .ant-menu {
-  font-size: 16px !important;
+  font-size: 15px !important;
 }
 
 .ant-menu-horizontal {

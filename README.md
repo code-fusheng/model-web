@@ -32,5 +32,3 @@
 * (2021/03/01 09:00 --- 2021/03/01 10:46) fix : 启用短信验证码登陆，修复原有Token无效问题
 * (2022/11/17 10:00 --- 2022/11/17 23:51) fix : 样式修正 --- 调整统一 Eslint 代码质量 + Perttier 代码风格
 ## 项目模块
-
-rsync -avz -e 'ssh -p 22221' --progress ./model-web root@42.192.222.62:/usr/share/nginx/model-web

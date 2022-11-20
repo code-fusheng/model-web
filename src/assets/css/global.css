@@ -1,0 +1,11 @@
+.nav-menu-search > span > input {
+    border: none;
+    background-color: transparent !important; /*透明*/
+    color: white;
+    font-size: 14px;
+ }
+
+.ant-menu-horizontal > .ant-menu-item:hover, .ant-menu-horizontal > .ant-menu-submenu:hover, .ant-menu-horizontal > .ant-menu-item-active, .ant-menu-horizontal > .ant-menu-submenu-active, .ant-menu-horizontal > .ant-menu-item-open, .ant-menu-horizontal > .ant-menu-submenu-open, .ant-menu-horizontal > .ant-menu-item-selected, .ant-menu-horizontal > .ant-menu-submenu-selected {
+    color: #1890ff;
+    border-bottom: 2px solid #0f4865;
+}

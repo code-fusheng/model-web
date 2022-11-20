@@ -43,7 +43,7 @@ export default {
     })
   },
   mounted() {
-    // this.initLive2d()
+    this.initLive2d()
   },
   methods: {
     tocuchMoveEvent() {
