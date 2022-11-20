@@ -43,7 +43,7 @@ export default {
     })
   },
   mounted() {
-    this.initLive2d()
+    // this.initLive2d()
   },
   methods: {
     tocuchMoveEvent() {
@@ -178,7 +178,7 @@ export default {
 /* 设置持续时间和动画函数 */
 .menu-enter-active,
 .menu-leave-active {
-  transition: all 0.8s ease;
+  transition: all 0.6s ease;
 }
 .menu-enter, .menu-leave-to
 /* .menu-leave-active for below version 2.1.8 */ {

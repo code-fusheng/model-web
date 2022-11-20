@@ -3,7 +3,7 @@
     <div class="nav-logo">
       <!-- <img src="@/assets/img/code-fusheng.jpg" class="logo-img"> -->
       <router-link to="/">
-        <span class="logo-text">Code-fusheng | 浮生</span>
+        <span class="logo-text">个人工程技术学习笔记 | 浮生</span>
       </router-link>
     </div>
     <div class="nav-menu-item">
@@ -12,25 +12,25 @@
         <a-menu-item key="/index">
           <router-link to="/">
             <a-icon type="home" />
-            首页
+            <span>首页</span>
           </router-link>
         </a-menu-item>
         <a-menu-item key="/article">
           <router-link to="/article">
             <a-icon type="book" />
-            文章
+            <span>文章</span>
           </router-link>
         </a-menu-item>
         <a-menu-item key="/tools">
           <router-link to="/tools">
             <a-icon type="tool" />
-            工具
+            <span>工具</span>
           </router-link>
         </a-menu-item>
         <a-menu-item key="/about">
           <router-link to="/about">
             <a-icon type="question-circle" />
-            关于
+            <span>关于</span>
           </router-link>
         </a-menu-item>
       </a-menu>
@@ -370,12 +370,12 @@ export default {
 .logo-text {
   cursor: pointer;
   line-height: 50px;
-  font-size: 15px;
+  font-size: 16px;
   color: white;
-  font-family: 'Courier New', Courier, monospace;
-  background-image: -webkit-linear-gradient(left, rgb(255, 81, 0), #ffc966 10%, #ffee00 20%, #00cc11 30%, #ccffe7 40%, #0026ff 50%, #efccff 60%, #cc00cc 70%, #cc00ff 80%, #66ffff 90%, blue 100%);
-  -webkit-text-fill-color: transparent; /* 将字体设置成透明色 */
-  -webkit-background-clip: text; /* 裁剪背景图，使文字作为裁剪区域向外裁剪 */
+  font-family: 'STKaiti';
+  background-image: -webkit-linear-gradient(left, rgb(0, 179, 255), #4b99ba 10%, #0f7a98 20%, #3a68b7 30%, #ccffe7 40%, #0026ff 50%, #4570ce 60%, #12148f 70%, #375b90 80%, #66ffff 90%, blue 100%);
+  -webkit-text-fill-color: transparent;
+  -webkit-background-clip: text;
   -webkit-background-size: 200% 100%;
   -webkit-animation: masked-animation 4s linear infinite;
 }

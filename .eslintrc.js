@@ -275,6 +275,15 @@ module.exports = {
         svg: 'always',
         math: 'always'
       }
-    ]
+    ],
+    'vetur.format.defaultFormatterOptions': {
+      'js-beautify-html': {
+        wrap_line_length: 900, // 数值越大，一行放的属性越多
+        wrap_attributes: 'auto',
+        end_with_newline: false
+      }
+    }
+    // 'vetur.format.defaultFormatter.html': 'js-beautify-html',
+    // 'vetur.format.defaultFormatter.js': 'vscode-typescript'
   }
 }

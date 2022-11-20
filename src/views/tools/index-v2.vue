@@ -17,7 +17,7 @@ export default {}
 
 <style scoped>
 .tool-container {
-  min-height: 660px;
+  min-height: 1080px;
   margin: auto;
   width: 90%;
   margin-top: 20px;

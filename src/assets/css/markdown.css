@@ -1,0 +1,41 @@
+/* 引用块 */
+.blockquote {
+  padding: 0em 1em;
+  font-size: 1.8em;
+  border-left: 0.2em solid #08d231;
+}
+
+.strong {
+  font-weight: bold;
+}
+/* 标签 span */
+.label {
+  font-size: 1.6em;
+  margin-right: 0.5em;
+}
+/* 值 span */
+.value {
+  font-size: 1.6em;
+  margin: 0 2em 0 0;
+}
+.honer {
+  color: red;
+}
+.time {
+  color: blue;
+  margin: 0 1em;
+}
+
+.normal-text {
+  font-size: 1.6em;
+}
+
+hr {
+  height: 2px;
+  padding: 0;
+  margin: 16px 0;
+  background-color: #e7e7e7;
+  border: 0 none;
+  overflow: hidden;
+  box-sizing: content-box;
+}

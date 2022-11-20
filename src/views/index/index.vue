@@ -4,7 +4,7 @@
     <div class="index-carousel-container" :style="'height:' + carouselStyle.height + 'px'">
       <div class="carousel-bg"></div>
       <div class="center-container">
-        <div class="carousel-center-title1">Hello World ! code-fusheng</div>
+        <div class="carousel-center-title1">hello world ! code-fusheng</div>
         <!-- <div class="carousel-center-title2">人生一世 何只百年 非我不知餍足</div> -->
         <spoltLight />
         <!-- 动态座右铭 -->
@@ -72,9 +72,11 @@
             <div class="dream-icon"><a-icon type="cloud" /></div>
             <div class="dream-label">浮生若梦</div>
           </div>
-          <div class="dream-content">{{ myDream }}</div>
+          <div class="dream-content">
+            <span>{{ myDream }}</span>
+          </div>
         </div>
-        <div class="my-recom-container">
+        <div v-if="recomArticle.articleId != null" class="my-recom-container">
           <div class="recom-top">
             <div class="recom-icon"><a-icon type="like" /></div>
             <div class="recom-label">推荐文章</div>
@@ -148,7 +150,7 @@
           <!-- <div v-if="noMore = true" class="load-more" :loading="loadingMore"><a-icon class="load-more-icon" type="close" />到底了</div> -->
         </div>
       </div>
-      <div class="load-more-item">
+      <div v-show="articleList.size > 0" class="load-more-item">
         <div v-if="noMore != true" :loading="loadingMore" class="load-more streamer-sun-button" @click="loadMore()">
           <a-icon class="load-more-icon" type="arrow-down" />
           加载更多
@@ -203,7 +205,7 @@ export default {
       return (() => {
         this.carouselStyle.height = document.body.clientHeight + 10
         this.carouselStyle.widht = document.body.clientWidth + 10
-        console.log('高度' + document.body.clientHeight + '宽度' + document.body.clientWidth)
+        // console.log('高度' + document.body.clientHeight + '宽度' + document.body.clientWidth)
       })()
     }
   },
@@ -328,7 +330,7 @@ export default {
 }
 
 .carousel-center-title1::after {
-  content: 'Hello World ! code-fusheng';
+  content: 'hello world ! code-fusheng';
   position: absolute;
   top: 0;
   left: 0;
