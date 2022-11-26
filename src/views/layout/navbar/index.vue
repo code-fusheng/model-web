@@ -15,22 +15,22 @@
             <span>首页</span>
           </router-link>
         </a-menu-item>
-        <a-menu-item key="/article">
+        <a-menu-item v-show="this.$store.getters.userId == 1" key="/article">
           <router-link to="/article">
             <a-icon type="book" />
-            <span>文章</span>
+            <span>专栏</span>
           </router-link>
         </a-menu-item>
         <a-menu-item key="/tools">
           <router-link to="/tools">
             <a-icon type="tool" />
-            <span>工具</span>
+            <span>百宝箱</span>
           </router-link>
         </a-menu-item>
         <a-menu-item key="/about">
           <router-link to="/about">
-            <a-icon type="question-circle" />
-            <span>关于</span>
+            <a-icon type="bulb" />
+            <span>关于我</span>
           </router-link>
         </a-menu-item>
       </a-menu>
@@ -49,12 +49,12 @@
             <a-icon type="bell" :style="{ color: '#fff', fontSize: '20px' }" />
           </a>
         </a-badge>
-        <a-divider type="vertical" />
-        <a-badge count="10">
+        <!-- <a-divider type="vertical" /> -->
+        <!-- <a-badge count="10">
           <a href="/chat">
             <a-icon type="message" :style="{ color: '#fff', fontSize: '20px' }" />
           </a>
-        </a-badge>
+        </a-badge> -->
         <a-divider type="vertical" />
       </span>
       <a-modal v-model="visible" :footer="null">

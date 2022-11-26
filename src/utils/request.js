@@ -31,7 +31,7 @@ const service = axios.create({
   timeout: 15000 // request timeout
 })
 
-const err = (error) => {
+const err = error => {
   const { response } = error
 
   if (response && response.status) {
@@ -116,7 +116,7 @@ service.interceptors.request.use(
 )
 
 // response 拦截器
-service.interceptors.response.use((response) => {
+service.interceptors.response.use(response => {
   const res = response.data
   console.log(res)
   if (res.code !== 200) {
@@ -128,4 +128,3 @@ service.interceptors.response.use((response) => {
 }, err)
 
 export default service
-

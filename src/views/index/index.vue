@@ -76,7 +76,8 @@
             <span>{{ myDream }}</span>
           </div>
         </div>
-        <div v-if="recomArticle.articleId != null" class="my-recom-container">
+        <!-- recomArticle.articleId != null -->
+        <div v-if="false" class="my-recom-container">
           <div class="recom-top">
             <div class="recom-icon"><a-icon type="like" /></div>
             <div class="recom-label">推荐文章</div>

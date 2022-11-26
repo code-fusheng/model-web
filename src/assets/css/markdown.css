@@ -1,8 +1,31 @@
+* {
+  /* font-size: 18px; */
+  padding: 0;
+  margin: 0;
+}
+
+ul,
+li {
+  margin: 0;
+  padding: 0;
+  /* list-style: none; */
+}
+
+li {
+  /* display: inline; */
+}
+
+ul {
+  padding: 0 0 0 20px;
+}
+
 /* 引用块 */
 .blockquote {
-  padding: 0em 1em;
-  font-size: 1.8em;
-  border-left: 0.2em solid #08d231;
+  font-family: 'STKaiti';
+  padding: 0px 10px;
+  margin: 10px 0;
+  font-size: 20px;
+  border-left: 4px solid #08d231;
 }
 
 .strong {
@@ -10,32 +33,57 @@
 }
 /* 标签 span */
 .label {
-  font-size: 1.6em;
-  margin-right: 0.5em;
+  font-size: 18px;
+  margin-right: 5px;
 }
 /* 值 span */
 .value {
-  font-size: 1.6em;
-  margin: 0 2em 0 0;
+  font-size: 18px;
+  margin: 0 10px 0 5px;
 }
 .honer {
   color: red;
 }
 .time {
   color: blue;
-  margin: 0 1em;
+  margin: 0 10px;
 }
 
 .normal-text {
-  font-size: 1.6em;
+  font-size: 15px;
+  font-family: 'STSong';
+  color: #282828;
 }
 
 hr {
   height: 2px;
-  padding: 0;
   margin: 16px 0;
-  background-color: #e7e7e7;
+  background-color: #656262;
   border: 0 none;
   overflow: hidden;
   box-sizing: content-box;
+}
+
+.pt5 {
+  padding-top: 5px;
+}
+.pb5 {
+  padding-bottom: 5px;
+}
+.pl20 {
+  padding-left: 20px;
+}
+.pr20 {
+  padding-right: 20px;
+}
+
+.fl {
+  float: left;
+}
+
+.mr30 {
+  margin-right: 30px !important;
+}
+.ml30 {
+  margin-left: 30px;
 }
