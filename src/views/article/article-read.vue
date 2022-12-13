@@ -65,13 +65,13 @@
               </div>
             </div>
             <div class="article-change">
-              <a href="#article-title">
+              <a href="#article-title" :disabled="lastArticle == null">
                 <div class="last-article" @click="toLastArticle()">
                   <a-icon type="arrow-left" />
                   上一篇 {{ lastArticle == null ? '已经没有啦' : lastArticle.articleTitle }}
                 </div>
               </a>
-              <a href="#article-title">
+              <a href="#article-title" :disabled="nextArticle == null">
                 <div class="next-article" @click="toNextArticle()">
                   {{ nextArticle == null ? '已经没有啦' : nextArticle.articleTitle }} 下一篇
                   <a-icon type="arrow-right" />

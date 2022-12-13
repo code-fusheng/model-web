@@ -66,7 +66,7 @@
           <a-avatar shape="square" :src="this.$store.getters.header" style="margin-bottom:5px;color: #f56a00; backgroundColor: #fde3cf" />
           <a-menu slot="overlay" :style="{ marginTop: '5px' }">
             <a-menu-item>
-              <a href="/userInfo">个人主页</a>
+              <a href="/about">个人主页</a>
             </a-menu-item>
             <a-menu-item>
               <a href="/profile">账号管理</a>
@@ -340,14 +340,12 @@ export default {
 
 .ant-menu-item a {
   color: #ffffff !important;
-  font-family: '楷体';
 }
 
 .login-button {
   white-space: nowrap;
   font-size: 15px;
   color: white;
-  font-family: '楷体';
 }
 
 .nav-logo {

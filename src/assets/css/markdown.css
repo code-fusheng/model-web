@@ -26,6 +26,8 @@ ul {
   margin: 10px 0;
   font-size: 20px;
   border-left: 4px solid #08d231;
+  display: flex;
+  justify-content: space-between;
 }
 
 .strong {
@@ -33,12 +35,12 @@ ul {
 }
 /* 标签 span */
 .label {
-  font-size: 18px;
+  font-size: 17px;
   margin-right: 5px;
 }
 /* 值 span */
 .value {
-  font-size: 18px;
+  font-size: 17px;
   margin: 0 10px 0 5px;
 }
 .honer {
@@ -51,14 +53,23 @@ ul {
 
 .normal-text {
   font-size: 15px;
-  font-family: 'STSong';
-  color: #282828;
+  /* font-family: 'STSong'; */
+  color: #111111;
 }
 
-hr {
+.one-hr {
   height: 2px;
   margin: 16px 0;
-  background-color: #656262;
+  background-color: #938e8e;
+  border: 0 none;
+  overflow: hidden;
+  box-sizing: content-box;
+}
+
+.tow-hr {
+  height: 1px;
+  margin: 5px 0;
+  background-color: #cfc9c9;
   border: 0 none;
   overflow: hidden;
   box-sizing: content-box;
@@ -86,4 +97,8 @@ hr {
 }
 .ml30 {
   margin-left: 30px;
+}
+
+.date-text {
+  color: #00f;
 }

@@ -125,13 +125,13 @@
                 }"
                 :to="'articleRead/' + item.articleId"
               >
-                <div class="article-card-title">{{ item.articleTitle }}</div>
+                <div v-show="false" class="article-card-title">{{ item.articleTitle }}</div>
               </router-link>
               <div class="article-card-info">
                 <router-link :to="'articleRead/' + item.articleId">
                   <div class="article-desc-container">
                     <div class="article-desc">
-                      {{ item.articleDesc }}
+                      {{ item.articleTitle }}
                     </div>
                   </div>
                 </router-link>
@@ -151,8 +151,8 @@
           <!-- <div v-if="noMore = true" class="load-more" :loading="loadingMore"><a-icon class="load-more-icon" type="close" />到底了</div> -->
         </div>
       </div>
-      <div v-show="articleList.size > 0" class="load-more-item">
-        <div v-if="noMore != true" :loading="loadingMore" class="load-more streamer-sun-button" @click="loadMore()">
+      <div class="load-more-item">
+        <div v-if="!noMore" :loading="loadingMore" class="load-more streamer-sun-button" @click="loadMore()">
           <a-icon class="load-more-icon" type="arrow-down" />
           加载更多
         </div>
@@ -317,7 +317,8 @@ export default {
 
 .carousel-center-title1 {
   position: relative;
-  font-family: 'STXingkai';
+  /* font-family: 'STXingkai'; */
+  font-style: italic;
   color: #333333;
   font-size: 30px;
   cursor: pointer;
@@ -642,6 +643,7 @@ export default {
 }
 
 .load-more-item {
+  width: 350px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -652,7 +654,7 @@ export default {
 
 .streamer-sun-button {
   position: relative;
-  width: 120px;
+  width: 350px;
   height: 45px;
   line-height: 45px;
   text-transform: uppercase;
@@ -772,7 +774,7 @@ export default {
   bottom: 0;
   padding: 24px;
   font-size: 15px;
-  color: #ffffff;
+  color: #f5222d;
 }
 
 .article-card-info {

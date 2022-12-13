@@ -17,7 +17,7 @@ const routes = [
       },
       {
         path: '/article',
-        name: '文章',
+        name: '专栏',
         component: () => import('@/views/article/index')
       },
       {
@@ -27,12 +27,12 @@ const routes = [
       },
       {
         path: '/tools',
-        name: '工具',
+        name: '百宝箱',
         component: () => import('@/views/tools/index-v2')
       },
       {
         path: '/about',
-        name: '关于',
+        name: '关于我',
         component: () => import('@/views/about/index')
       },
       {
@@ -54,6 +54,10 @@ const routes = [
         path: '/create',
         name: '创作中心',
         component: () => import('@/views/create/index')
+      },
+      {
+        path: '/book',
+        name: '藏书阁'
       }
     ]
   },

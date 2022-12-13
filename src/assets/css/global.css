@@ -24,3 +24,7 @@ body {
   color: #1890ff;
   border-bottom: 2px solid #0f4865;
 }
+
+.ant-timeline-item-last > .ant-timeline-item-content {
+  min-height: 20px !important;
+}

@@ -4,7 +4,8 @@
       <a-span :spinning="loading">
         <div class="about-me-page">
           <div class="blockquote">
-            <span class="strong">About Me 关于我</span>
+            <span class="strong">About Me</span>
+            <span>关于我</span>
           </div>
           <div class="user-detail">
             <div v-for="item in about.userDetails" :key="item.sort" class="user-detail-kv">
@@ -14,9 +15,10 @@
               <span v-if="item.label != '邮箱: ' && item.label != '电话: '" class="value" :style="item.style">{{ item.value }}</span>
             </div>
           </div>
-          <hr style="clear: both;" />
+          <hr class="one-hr" style="clear: both;" />
           <div class="blockquote">
-            <span class="strong">Personal Honor 个人荣誉</span>
+            <span class="strong">Personal Honor</span>
+            <span>个人荣誉</span>
           </div>
           <div class="personal-honer">
             <!-- 时间线 -->
@@ -29,38 +31,41 @@
               </a-timeline>
             </div>
           </div>
-          <hr />
+          <hr class="one-hr" />
           <div class="blockquote">
-            <span class="strong">Skill Stack 技术栈</span>
+            <span class="strong">Skill Stack</span>
+            <span>技术栈</span>
           </div>
           <div class="skill-stack">
             <div v-for="record in about.skillStacks" :key="record.sort" class="">
               <span class="normal-text">{{ record.level }}</span>
-              <span class="normal-text">{{ record.skill }}</span>
+              <span class="normal-text" style="color: #f40">{{ record.skill }}</span>
               <span class="normal-text">{{ record.desc }}</span>
             </div>
           </div>
-          <hr />
+          <hr class="one-hr" />
           <div class="blockquote">
-            <span class="strong">Edu Experience 教育经历</span>
+            <span class="strong">Edu Experience</span>
+            <span>教育经历</span>
           </div>
           <div class="edu-experience">
             <div v-for="record in about.eduExperiences" :key="record.sort" class="edu-exp-item">
-              <span class="label mr">{{ record.date }}</span>
-              <span class="label mr">{{ record.school }}</span>
-              <span class="label mr">{{ record.class }}</span>
-              <span class="label mr">{{ record.software }}</span>
+              <span class="label date-text">{{ record.date }}</span>
+              <span class="label">{{ record.school }}</span>
+              <span class="label">{{ record.class }}</span>
+              <span class="label">{{ record.software }}</span>
             </div>
           </div>
-          <hr />
+          <hr class="one-hr" />
           <div class="blockquote">
-            <span class="strong">Work Experience 工作经历</span>
+            <span class="strong">Work Experience</span>
+            <span>工作经历</span>
           </div>
           <div class="work-experience">
             <div v-for="record in about.workExperiences" :key="record.sort">
               <div class="company-header">
                 <span class="label strong">{{ record.company }}</span>
-                <span class="label">{{ record.date }}</span>
+                <span class="label date-text">{{ record.date }}</span>
                 <span class="label">{{ record.department }}</span>
                 <span class="label">{{ record.job }}</span>
               </div>
@@ -75,16 +80,17 @@
               </div>
             </div>
           </div>
-          <hr />
+          <hr class="one-hr" />
           <div class="blockquote">
-            <span class="strong">Project Experience 项目经历</span>
+            <span class="strong">Project Experience</span>
+            <span>项目经历</span>
           </div>
           <!-- 自定义折叠面板 -->
           <div class="project-experiences">
             <div v-for="record in about.projectExperiences" :key="record.sort" class="project-experiences-item">
               <div class="project-header">
                 <span class="label strong">{{ record.name }}</span>
-                <span class="label strong">{{ record.date }}</span>
+                <span class="label strong date-text">{{ record.date }}</span>
                 <span class="label strong">{{ record.duty }}</span>
               </div>
               <div class="project-center">
@@ -98,14 +104,23 @@
               </div>
               <div class="project-buttom ">
                 <div v-for="(item, index) in record.refLinks" :key="index">
-                  <span class="label">{{ item.label }}</span>
-                  <a :href="item.link" class="value">
-                    <span>{{ item.link }}</span>
-                  </a>
+                  <div class="link-kv">
+                    <span class="normal-text">{{ item.label }}</span>
+                    <a :href="item.link" class="value">
+                      <span>{{ item.link }}</span>
+                    </a>
+                  </div>
                 </div>
               </div>
+              <hr v-if="record.sort != about.projectExperiences.length" class="tow-hr" />
             </div>
           </div>
+          <hr class="one-hr" />
+          <div class="blockquote">
+            <span class="strong">Personal Advantage</span>
+            <span>个人优势</span>
+          </div>
+          <div class="normal-text" v-html="about.personalAdvantage"></div>
         </div>
       </a-span>
     </div>
@@ -471,7 +486,7 @@ export default {
   margin: auto;
   width: 100%;
   color: rgb(2, 2, 2);
-  background-color: rgb(196, 196, 201);
+  /* background-color: rgb(196, 196, 201); */
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -496,6 +511,7 @@ export default {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+  justify-content: space-between;
 }
 
 .user-detail-kv {
@@ -524,6 +540,7 @@ export default {
   margin: 10px 20px 10px 0;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
 }
 .edu-exp-item {
   display: flex;
@@ -557,5 +574,12 @@ export default {
   flex-direction: row;
   justify-content: space-between;
   flex-wrap: wrap;
+}
+
+.link-kv {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
 }
 </style>
